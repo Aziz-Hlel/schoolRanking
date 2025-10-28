@@ -1,0 +1,87 @@
+
+services:
+
+
+  admin:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: docker/dev/Dockerfile.admin.dev
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ${PROJECT_ROOT}/src:/app/src
+      - ${PROJECT_ROOT}/public:/app/public
+      - ${PROJECT_ROOT}/package.json:/app/package.json
+      - ${PROJECT_ROOT}/vite.config.ts:/app/vite.config.ts
+      # Prevent node_modules from being overwritten
+      - /app/node_modules
+    environment:
+      VITE_API_URL : ${VITE_API_URL}
+      VITE_NODE_ENV : ${VITE_NODE_ENV}
+      CHOKIDAR_USEPOLLING : true
+      WATCHPACK_POLLING : true
+
+    env_file:
+      - ${PROJECT_ROOT}/config/.env.dev
+      - ${PROJECT_ROOT}/.env.local
+      - ${PROJECT_ROOT}/.env
+
+    depends_on:
+      - backend
+
+
+  backend:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: docker/dev/Dockerfile.api.dev
+    restart: unless-stopped
+    environment:
+      PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      DATASOURCE_USERNAME: ${POSTGRES_USER}
+      DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SERVER_PORT: ${SERVER_PORT}
+
+    env_file:
+      - ${PROJECT_ROOT}/config/.env.dev
+      - ${PROJECT_ROOT}/.env.local
+      - ${PROJECT_ROOT}/.env
+
+    ports:
+      - "8080:8080"
+      - "5005:5005"  # Debug port
+    volumes:
+      # Volume mount for hot reload - critical for development
+      - ${PROJECT_ROOT}/src:/app/src
+      - ${PROJECT_ROOT}/pom.xml:/app/pom.xml
+      - ${PROJECT_ROOT}/target:/app/target
+      # Maven cache to avoid re-downloading dependencies
+      - maven-cache-dev:/root/.m2
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+
+
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped  # More professional than "always"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    env_file:
+      - ${PROJECT_ROOT}/config/.env.dev
+      - ${PROJECT_ROOT}/.env.local
+      - ${PROJECT_ROOT}/.env
+
+    volumes:
+      - postgres-data-dev:/var/lib/postgresql/data
+
+
+volumes:
+  postgres-data-dev:
+    # driver: local
+  maven-cache-dev:
+    # driver: local
