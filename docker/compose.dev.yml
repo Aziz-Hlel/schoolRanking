@@ -10,10 +10,10 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ${PROJECT_ROOT}/apps/admin/src:/app/src
-      - ${PROJECT_ROOT}/apps/admin/public:/app/public
-      - ${PROJECT_ROOT}/apps/admin/package.json:/app/package.json
-      - ${PROJECT_ROOT}/apps/admin/vite.config.ts:/app/vite.config.ts
+      - ${PROJECT_ROOT}/apps/admin/src:/app/apps/admin/src
+      - ${PROJECT_ROOT}/apps/admin/public:/app/apps/admin/public
+      - ${PROJECT_ROOT}/apps/admin/package.json:/app/apps/admin/package.json
+      - ${PROJECT_ROOT}/apps/admin/vite.config.ts:/app/apps/admin/vite.config.ts
       # Prevent node_modules from being overwritten
       # - /app/node_modules
     environment:
@@ -53,9 +53,9 @@ services:
       - "5005:5005"  # Debug port
     volumes:
       # Volume mount for hot reload - critical for development
-      - ${PROJECT_ROOT}/apps/api/src:/app/src
-      - ${PROJECT_ROOT}/apps/api/pom.xml:/app/pom.xml
-      - ${PROJECT_ROOT}/apps/api/target:/app/target
+      - ${PROJECT_ROOT}/apps/api/src:/app/apps/api/src
+      - ${PROJECT_ROOT}/apps/api/pom.xml:/app/apps/api/pom.xml
+      - ${PROJECT_ROOT}/apps/api/target:/app/apps/api/target
       # Maven cache to avoid re-downloading dependencies
       - maven-cache-dev:/root/.m2
     # depends_on:

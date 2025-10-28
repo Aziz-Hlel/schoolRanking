@@ -11,12 +11,14 @@ ROOT := $(shell git rev-parse --show-toplevel)
 
 DOCKER_ROOT := $(ROOT)/docker
 
+
 # ENVs
 ENV_LOCAL := $(ROOT)/.env.local
 ENV_ROOT := $(ROOT)/.env
 ENV_DEV := $(ROOT)/config/.env.dev
 ENV_STAGE := $(ROOT)/config/.env.stage
 ENV_PROD := $(ROOT)/config/.env
+
 
 
 .ONESHELL:
