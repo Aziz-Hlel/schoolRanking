@@ -1,10 +1,7 @@
-.env
-backups
-
-
 # ===============================
 # 🧠 Root-level ignores
 # ===============================
+backups/** 
 .env
 .env.*
 !.env.example
@@ -32,44 +29,24 @@ Thumbs.db
 # ===============================
 # ⚙️ Backend (Spring Boot)
 # ===============================
-backend/target/
-backend/build/
-backend/out/
-backend/.gradle/
-backend/.mvn/
-backend/mvnw
-backend/mvnw.cmd
+**/target/
+**/build/
+**/out/
+**/.gradle/
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
 
 # Spring Boot log and runtime files
-backend/*.log
-backend/*.pid
+apps/api/*.log
+apps/api/*.pid
 
 # IntelliJ / Eclipse project files
-backend/.classpath
-backend/.project
-backend/.settings/
-backend/.idea/
+apps/api/.classpath
+apps/api/.project
+apps/api/.settings/
+apps/api/.idea/
 
-# ===============================
-# 🎨 Frontend (Vite + TypeScript)
-# ===============================
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
-frontend/.eslintcache
-frontend/.parcel-cache
-frontend/.turbo/
-frontend/.pnpm-store/
-frontend/.cache/
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/pnpm-debug.log*
-frontend/package-lock.json
-frontend/yarn.lock
-frontend/pnpm-lock.yaml
-
-# Optional: if you want to track lockfiles, remove the lines above 👆
 
 # ===============================
 # 🧱 Global build and env artifacts
@@ -81,3 +58,9 @@ frontend/pnpm-lock.yaml
 **/.env
 **/.env.*
 !**/.env.example
+
+
+**/.vite
+**/.eslintcache
+**/.cache
+**/pnpm-lock.yaml
