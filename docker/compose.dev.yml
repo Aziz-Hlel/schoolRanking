@@ -10,12 +10,12 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ${PROJECT_ROOT}/src:/app/src
-      - ${PROJECT_ROOT}/public:/app/public
-      - ${PROJECT_ROOT}/package.json:/app/package.json
-      - ${PROJECT_ROOT}/vite.config.ts:/app/vite.config.ts
+      - ${PROJECT_ROOT}/apps/admin/src:/app/src
+      - ${PROJECT_ROOT}/apps/admin/public:/app/public
+      - ${PROJECT_ROOT}/apps/admin/package.json:/app/package.json
+      - ${PROJECT_ROOT}/apps/admin/vite.config.ts:/app/vite.config.ts
       # Prevent node_modules from being overwritten
-      - /app/node_modules
+      # - /app/node_modules
     environment:
       VITE_API_URL : ${VITE_API_URL}
       VITE_NODE_ENV : ${VITE_NODE_ENV}
@@ -28,10 +28,10 @@ services:
       - ${PROJECT_ROOT}/.env
 
     depends_on:
-      - backend
+      - api
 
 
-  backend:
+  api:
     build:
       context: ${PROJECT_ROOT}
       dockerfile: docker/dev/Dockerfile.api.dev
@@ -53,9 +53,9 @@ services:
       - "5005:5005"  # Debug port
     volumes:
       # Volume mount for hot reload - critical for development
-      - ${PROJECT_ROOT}/src:/app/src
-      - ${PROJECT_ROOT}/pom.xml:/app/pom.xml
-      - ${PROJECT_ROOT}/target:/app/target
+      - ${PROJECT_ROOT}/apps/api/src:/app/src
+      - ${PROJECT_ROOT}/apps/api/pom.xml:/app/pom.xml
+      - ${PROJECT_ROOT}/apps/api/target:/app/target
       # Maven cache to avoid re-downloading dependencies
       - maven-cache-dev:/root/.m2
     # depends_on:
