@@ -1,12 +1,83 @@
 .env
 backups
 
-.env.local
+
+# ===============================
+# 🧠 Root-level ignores
+# ===============================
 .env
+.env.*
+!.env.example
+!.env.dev
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+*.log
 
+# Ignore temporary OS and editor files
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
 
+# Ignore Docker and build caches
+**/.docker/
+**/.cache/
+**/__pycache__/
+**/.env.local
 
-**/target
-**/node_modules
-**/dist
-backup/**
+# ===============================
+# ⚙️ Backend (Spring Boot)
+# ===============================
+backend/target/
+backend/build/
+backend/out/
+backend/.gradle/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# Spring Boot log and runtime files
+backend/*.log
+backend/*.pid
+
+# IntelliJ / Eclipse project files
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.idea/
+
+# ===============================
+# 🎨 Frontend (Vite + TypeScript)
+# ===============================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.eslintcache
+frontend/.parcel-cache
+frontend/.turbo/
+frontend/.pnpm-store/
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/pnpm-lock.yaml
+
+# Optional: if you want to track lockfiles, remove the lines above 👆
+
+# ===============================
+# 🧱 Global build and env artifacts
+# ===============================
+# Ignore all compiled or temp output from any subproject
+**/build/
+**/dist/
+**/node_modules/
+**/.env
+**/.env.*
+!**/.env.example
