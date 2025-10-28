@@ -8,7 +8,7 @@ services:
       dockerfile: docker/dev/Dockerfile.admin.dev
     restart: unless-stopped
     ports:
-      - "5173:5173"
+      - '${ADMIN_PORT}:${ADMIN_PORT}'
     volumes:
       - ${PROJECT_ROOT}/apps/admin/src:/app/apps/admin/src
       - ${PROJECT_ROOT}/apps/admin/public:/app/apps/admin/public
@@ -17,8 +17,9 @@ services:
       # Prevent node_modules from being overwritten
       # - /app/node_modules
     environment:
-      VITE_API_URL : ${VITE_API_URL}
-      VITE_NODE_ENV : ${VITE_NODE_ENV}
+      VITE_API_URL : ${API_URL}
+      VITE_NODE_ENV : ${NODE_ENV}
+      VITE_ADMIN_PORT : ${ADMIN_PORT}
       CHOKIDAR_USEPOLLING : true
       WATCHPACK_POLLING : true
 
