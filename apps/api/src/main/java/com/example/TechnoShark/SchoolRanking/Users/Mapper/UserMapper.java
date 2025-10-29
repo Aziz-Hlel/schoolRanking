@@ -3,13 +3,14 @@ package com.example.TechnoShark.SchoolRanking.Users.Mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 import com.example.TechnoShark.SchoolRanking.Users.DTO.UpdateUserRequest;
 import com.example.TechnoShark.SchoolRanking.Users.DTO.UserPageResponse;
 import com.example.TechnoShark.SchoolRanking.Users.DTO.UserResponse;
 import com.example.TechnoShark.SchoolRanking.Users.Model.User;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface UserMapper {
 
     UserResponse toDto(User Entity);

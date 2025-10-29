@@ -8,11 +8,14 @@ import com.example.TechnoShark.SchoolRanking.Enums.SchoolTypeEnums;
 import lombok.Builder;
 import lombok.Data;
 
+
 @Data
 @Builder
 public class SchoolResponse {
     private UUID id;
     private String name;
+    private String description;
+    private Integer totalStudents;
     private String city;
     private String address;
     private String phoneNumber;

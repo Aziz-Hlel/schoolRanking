@@ -26,7 +26,15 @@ public class SchoolRequest {
     private String city;
 
     @NotBlank
+    private String description;
+
+    @NotBlank
     private String address;
+
+    @NotNull
+    @Min(value = 1, message = "Total students must be at least 1")
+    @Max(value = 10000, message = "Total students cannot be more than 10000")
+    private Integer totalStudents;
 
     @NotBlank
     private String phoneNumber;

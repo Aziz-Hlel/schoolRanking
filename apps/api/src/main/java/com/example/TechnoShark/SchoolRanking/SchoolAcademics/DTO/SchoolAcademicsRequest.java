@@ -27,4 +27,8 @@ public class SchoolAcademicsRequest {
     @NotNull
     private Set<CurriculumEnums> curriculums;
 
+    private boolean hasGiftedPrograms;
+
+    private boolean hasSpecialNeedsSupport;
+
 }

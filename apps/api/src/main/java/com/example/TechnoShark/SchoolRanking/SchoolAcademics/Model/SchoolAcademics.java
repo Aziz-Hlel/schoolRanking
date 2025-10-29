@@ -65,4 +65,10 @@ public class SchoolAcademics {
     @CollectionTable(name = "school_curriculums", joinColumns = @JoinColumn(name = "school_id"))
     @Column(name = "curriculum")
     private Set<CurriculumEnums> curriculums;
+
+    @Column(name = "has_gifted_programs", nullable = false)
+    private boolean hasGiftedPrograms;
+
+    @Column(name = "has_special_needs_support", nullable = false)
+    private boolean hasSpecialNeedsSupport;
 }

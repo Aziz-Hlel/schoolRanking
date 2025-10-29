@@ -1,8 +1,4 @@
-import { usePageContext } from '@/contexts/PageContext';
-import { useEffect, type FC } from 'react'
-import { SchoolView } from './SchoolView';
-import { ROLES } from '@/enums/roles';
-import { PAGES } from '@/data/pages';
+import { useEffect,  } from 'react'
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import { Outlet, useParams } from 'react-router-dom';
 import LoadingSpinner from '@/LoadingSpinner';
@@ -29,11 +25,10 @@ const SchoolViewManagemet = () => {
             fetchDetailedSchool(schoolIdParam);
         }
 
-    }, [schoolIdParam])
+    }, [schoolIdParam,fetchDetailedSchool])
 
 
 
-    console.log('ousil houni nyk w scholId : ', schoolIdParam, '\n w school = ', school);
     if (!school || schoolIdParam !== school.schoolGeneral.id) return <LoadingSpinner />;
 
 

@@ -36,7 +36,7 @@ services:
     build:
       context: ${PROJECT_ROOT}
       dockerfile: docker/dev/Dockerfile.api.dev
-    restart: unless-stopped
+    # restart: unless-stopped
     environment:
       PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
@@ -65,13 +65,14 @@ services:
 
 
   db:
-    image: postgres:15-alpine
+    image: postgres:15
     restart: unless-stopped  # More professional than "always"
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
+    ports:
+      - "5432:5432"
     env_file:
       - ${PROJECT_ROOT}/config/.env.dev
       - ${PROJECT_ROOT}/.env.local

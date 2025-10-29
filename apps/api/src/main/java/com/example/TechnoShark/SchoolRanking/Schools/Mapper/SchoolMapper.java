@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.MySchoolsPreview;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolDetailedResponse;
@@ -17,7 +18,7 @@ import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 import com.example.TechnoShark.SchoolRanking.Users.Model.User;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface SchoolMapper {
 
     default User map(String userId) {

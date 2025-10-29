@@ -1,0 +1,4 @@
+
+
+ALTER TABLE schools 
+ADD COLUMN total_students INTEGER NOT NULL DEFAULT 0;

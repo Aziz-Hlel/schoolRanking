@@ -26,10 +26,19 @@ const GeneralCardContent = ({ section }: { section?: SchoolGeneral }) => {
                     <p className="text-sm text-muted-foreground">Curriculum</p>
                     <p className="font-medium">IB</p>
                 </div>
+                <div>
+                    <p className="text-sm text-muted-foreground">Students Count</p>
+                    <p className="font-medium">{section.totalStudents}</p>
+                </div>
             </div>
             <div>
                 <p className="text-sm text-muted-foreground">Description</p>
-                <p className="font-medium">A leading international school committed to excellence in education</p>
+                <p className="font-medium w-full  truncate"   style={{
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 2,
+  }}
+>{section.description}</p>
             </div>
             <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-muted-foreground" />
