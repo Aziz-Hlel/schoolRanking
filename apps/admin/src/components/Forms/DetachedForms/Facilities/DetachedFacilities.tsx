@@ -12,6 +12,7 @@ import { schoolFacilitiesSchema } from '@/types/School2.type';
 import type { FC } from 'react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RatingLevelEnums } from '@/enums/RatingLevelEnums';
+import { Label } from '@/components/ui/label';
 
 
 
@@ -39,48 +40,11 @@ const DetachedFacilities: FC<DetachedFormProps> = ({ form }) => {
                         </p>
                     </div> */}
 
-            <FormField
-                control={form.control}
-                name="aiIntegration"
-                render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                        <FormControl>
-                            <Checkbox
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-
-                            />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                            <FormLabel>Ai Integration</FormLabel>
-                            <FormDescription>Check if your school currently uses artificial intelligence (AI) in any of its operations or systems.</FormDescription>
-                            <FormMessage />
-                        </div>
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name="safetyCompliance"
-                render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                        <FormControl>
-                            <Checkbox
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
 
 
-                            />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                            <FormLabel>Safety Compliance</FormLabel>
-                            <FormDescription>Confirm that your school is in compliance with all relevant safety regulations and standards.</FormDescription>
-                            <FormMessage />
-                        </div>
-                    </FormItem>
-                )}
-            />
+
+
+
 
             <FormField
                 control={form.control}
@@ -225,6 +189,159 @@ const DetachedFacilities: FC<DetachedFormProps> = ({ form }) => {
                     </FormItem>
                 )}
             />
+
+
+                    <FormField
+                        control={form.control}
+                        name="aiIntegration"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+                                    <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        className='cursor-pointer'
+                                        />
+                                <div className="space-y-1 leading-none">
+                            <div className=' cursor-pointer'>Ai Integration</div>
+                            <FormDescription>
+                                Check if your school currently uses artificial intelligence (AI) in any of its operations or systems.
+                                </FormDescription>
+                                    <FormMessage />
+                                </div>
+                                        </Label>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+            
+
+                    <FormField
+                        control={form.control}
+                        name="safetyCompliance"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+                                    <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        className='cursor-pointer'
+                                        />
+                                <div className="space-y-1 leading-none">
+                                    <div className=' cursor-pointer'>Safety Compliance</div>
+                                    <FormDescription>
+                                        Confirm that your school is in compliance with all relevant safety regulations and standards.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </div>
+                                    </Label>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+
+
+                    <FormField
+                        control={form.control}
+                        name="hasNurse"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+                                    <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        className='cursor-pointer'
+                                        />
+                                <div className="space-y-1 leading-none">
+                                    <div className=' cursor-pointer'>School Nurse Availability</div>
+                                    <FormDescription>
+                                        Confirm that your school has a qualified nurse available for student health needs and medical emergencies.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </div>
+                                    </Label>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="hasPsychologist"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+                                    <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        className='cursor-pointer'
+                                        />
+                                <div className="space-y-1 leading-none">
+                                    <div className=' cursor-pointer'>Student Psychological Support</div>
+                                    <FormDescription>
+                                        Confirm that your school provides access to psychological services and mental health support for students.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </div>
+                                    </Label>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="hasFoodService"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+                                    <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        className='cursor-pointer'
+                                        />
+                                <div className="space-y-1 leading-none">
+                                    <div className=' cursor-pointer'>School Food Service</div>
+                                    <FormDescription>
+                                        Confirm that your school provides meal services or food programs for students during school hours.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </div>
+                                    </Label>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="hasNutritionist"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+                                    <Checkbox
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                        className='cursor-pointer'
+                                        />
+                                <div className="space-y-1 leading-none">
+                                    <div className=' cursor-pointer'>Nutritional Guidance</div>
+                                    <FormDescription>
+                                        Confirm that your school has a nutritionist available for dietary planning and nutritional education.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </div>
+                                    </Label>
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
 
             <FormField
                 control={form.control}

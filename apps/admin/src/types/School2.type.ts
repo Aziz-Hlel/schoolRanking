@@ -60,7 +60,11 @@ export const schoolFacilitiesSchema = z.object({
     .min(1, 'At least one university destination is required'),
   csrActivities: z.string()
     .min(10, 'CSR activities description must be at least 10 characters'),
-  safetyCompliance: z.boolean({ required_error: 'Safety compliance is required' }),
+  hasNurse: z.boolean({ required_error: 'Nurse is required' }).default(false),
+  hasPsychologist: z.boolean({ required_error: 'Psychologist is required' }).default(false),
+  hasFoodService: z.boolean({ required_error: 'Food service is required' }).default(false),
+  hasNutritionist: z.boolean({ required_error: 'Nutritionist is required' }).default(false),
+  safetyCompliance: z.boolean({ required_error: 'Safety compliance is required' }).default(false),
   aiIntegration: z.boolean({ required_error: 'AI integration is required' }),
   technologyReadiness: z.enum(Object.keys(RatingLevelEnums) as [string, ...string[]]),
   industryPartnerships: z.array(z.string().min(2, 'Partnership name must be at least 2 characters'))
