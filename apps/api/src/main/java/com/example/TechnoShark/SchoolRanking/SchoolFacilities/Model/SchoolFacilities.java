@@ -81,4 +81,16 @@ public class SchoolFacilities {
     private RatingLevelEnums technologyReadiness;
 
     private String awardsAndRecognitions;
+
+    @Column(nullable = false, name = "has_nurse")
+    private boolean hasNurse;
+
+    @Column(nullable = false, name = "has_psychologist")
+    private boolean hasPsychologist;
+
+    @Column(nullable = false, name = "has_food_service")
+    private boolean hasFoodService;
+
+    @Column(nullable = false, name = "has_nutritionist")  
+    private boolean hasNutritionist;
 }

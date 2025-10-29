@@ -42,6 +42,9 @@ public class School {
     @Column(nullable = false)
     private String name;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CountryEnums country;

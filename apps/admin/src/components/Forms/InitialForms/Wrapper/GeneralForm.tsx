@@ -1,11 +1,8 @@
 import { Form } from '@/components/ui/form';
-import { useAuth } from '@/contexts/AuthContext';
 import apiGateway from '@/service/Api/apiGateway';
 import { apiService } from '@/service/Api/apiService';
 import { schoolGeneralSchema } from '@/types/School2.type';
-import safeAsyncMutate from '@/utils/safeAsyncMutate';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import type z from 'zod';

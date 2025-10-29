@@ -5,15 +5,15 @@ import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.DTO.SchoolMediaResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.DTO.SchoolMediaRequest;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.Model.SchoolMedia;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface SchoolMediaMapper {
-
 
     @Mapping(target = "school", source = "school")
     @Mapping(target = "id", ignore = true) // auto-generated

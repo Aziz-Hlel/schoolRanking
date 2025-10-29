@@ -13,6 +13,7 @@ import lombok.Data;
 public class SchoolResponse {
     private UUID id;
     private String name;
+    private String description;
     private String city;
     private String address;
     private String phoneNumber;

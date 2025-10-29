@@ -5,13 +5,14 @@ import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.DTO.SchoolFacilitiesRequest;
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.DTO.SchoolFacilitiesResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.Model.SchoolFacilities;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface SchoolFacilitiesMapper {
 
     @Mapping(target = "school", source = "school")

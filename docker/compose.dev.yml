@@ -2,6 +2,40 @@
 services:
 
 
+
+  api:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: docker/dev/Dockerfile.api.dev
+    environment:
+      PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      DATASOURCE_USERNAME: ${POSTGRES_USER}
+      DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SERVER_PORT: ${SERVER_PORT}
+
+    env_file:
+      - ${PROJECT_ROOT}/config/.env.dev
+      - ${PROJECT_ROOT}/.env.local
+      - ${PROJECT_ROOT}/.env
+
+    ports:
+      - "8080:8080"
+      - "5005:5005"  # Debug port
+    volumes:
+      # Volume mount for hot reload - critical for development
+      - ${PROJECT_ROOT}/apps/api/src:/app/apps/api/src
+      - ${PROJECT_ROOT}/apps/api/pom.xml:/app/apps/api/pom.xml
+      - ${PROJECT_ROOT}/apps/api/target:/app/apps/api/target
+      - ${PROJECT_ROOT}/apps/api/mvnw:/app/apps/api/mvnw
+      # Maven cache to avoid re-downloading dependencies
+      - maven-cache-dev:/root/.m2
+    # command: sleep infinity
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+
+
   admin:
     build:
       context: ${PROJECT_ROOT}
@@ -32,36 +66,7 @@ services:
       - api
 
 
-  api:
-    build:
-      context: ${PROJECT_ROOT}
-      dockerfile: docker/dev/Dockerfile.api.dev
-    restart: unless-stopped
-    environment:
-      PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-      DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      DATASOURCE_USERNAME: ${POSTGRES_USER}
-      DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      SERVER_PORT: ${SERVER_PORT}
 
-    env_file:
-      - ${PROJECT_ROOT}/config/.env.dev
-      - ${PROJECT_ROOT}/.env.local
-      - ${PROJECT_ROOT}/.env
-
-    ports:
-      - "8080:8080"
-      - "5005:5005"  # Debug port
-    volumes:
-      # Volume mount for hot reload - critical for development
-      - ${PROJECT_ROOT}/apps/api/src:/app/apps/api/src
-      - ${PROJECT_ROOT}/apps/api/pom.xml:/app/apps/api/pom.xml
-      - ${PROJECT_ROOT}/apps/api/target:/app/apps/api/target
-      # Maven cache to avoid re-downloading dependencies
-      - maven-cache-dev:/root/.m2
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
 
 
   db:
@@ -72,6 +77,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
+    ports:
+      - "5432:5432"
     env_file:
       - ${PROJECT_ROOT}/config/.env.dev
       - ${PROJECT_ROOT}/.env.local
@@ -79,6 +86,26 @@ services:
 
     volumes:
       - postgres-data-dev:/var/lib/postgresql/data
+
+  db-backup:
+    image: postgres:alpine
+    
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      DB_CONTAINER_NAME: db
+    
+    volumes:
+      - ${PROJECT_ROOT}/scripts/backup.sh:/backup.sh
+      - ${PROJECT_ROOT}/scripts/restore.sh:/restore.sh
+      - ${PROJECT_ROOT}/backup:/backup
+    
+    entrypoint: /bin/bash
+    command: -c "while true; chmod +x /backup.sh;chmod +x /restore.sh; do /backup.sh; sleep 86400; done"
+
+    
+    restart: unless-stopped
 
 
 volumes:

@@ -19,5 +19,10 @@ public record SchoolFacilitiesResponse(
         boolean safetyCompliance,
         boolean aiIntegration,
         RatingLevelEnums technologyReadiness,
-        String awardsAndRecognitions) {
+        String awardsAndRecognitions,
+        boolean hasNurse,
+        boolean hasPsychologist,
+        boolean hasFoodService,
+        boolean hasNutritionist
+) {
 }

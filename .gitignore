@@ -1,7 +1,7 @@
 # ===============================
 # 🧠 Root-level ignores
 # ===============================
-backups/** 
+backup/** 
 .env
 .env.*
 !.env.example
@@ -9,7 +9,6 @@ backups/**
 .DS_Store
 Thumbs.db
 .idea/
-.vscode/
 *.iml
 *.log
 

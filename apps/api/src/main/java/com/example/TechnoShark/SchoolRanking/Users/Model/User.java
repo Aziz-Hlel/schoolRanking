@@ -60,6 +60,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RoleEnums role;
 
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore // Prevent serialization issues
     @Builder.Default

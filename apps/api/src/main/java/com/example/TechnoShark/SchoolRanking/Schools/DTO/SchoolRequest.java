@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -24,6 +25,10 @@ public class SchoolRequest {
 
     @NotBlank
     private String city;
+
+    @NotBlank
+    @Size(max = 255, message = "Description must be less than 255 characters")
+    private String description;
 
     @NotBlank
     private String address;
@@ -40,9 +45,11 @@ public class SchoolRequest {
     @Max(value = 2025, message = "Year cannot be in the future")
     private Integer yearEstablished;
 
-    @URL(protocol = "https", regexp = "^(https?://).*$", message = "Must be a valid URL starting with http:// or https://") // ! not mrigla
+    @URL(protocol = "https", regexp = "^(https?://).*$", message = "Must be a valid URL starting with http:// or https://") // !
+                                                                                                                            // not
+                                                                                                                            // mrigla
     @Nullable // You don’t need to explicitly say @Null because both @Pattern and @URL allow
-          // null by default
+    // null by default
     private String website;
 
     @NotNull

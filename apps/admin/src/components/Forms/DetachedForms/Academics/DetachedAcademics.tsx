@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { schoolAcademicsSchema } from '@/types/School2.type';
 import type { FC } from 'react';
 import type z from 'zod';
+import { Label } from '@/components/ui/label';
 
 
 
@@ -222,6 +223,59 @@ const DetachedAcademics: FC<DetachedFormProps> = ({ form }) => {
                     </FormItem>
                 )}
             />
+
+
+
+        <FormField
+            control={form.control}
+            name="hasGiftedPrograms"
+            render={({ field }) => (
+                <FormItem >
+                    <FormControl>
+                        <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+
+                        <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            
+                            />
+                    <div className="space-y-1 leading-none">
+                        <FormLabel>Gifted & Talented Programs</FormLabel>
+                        <FormDescription>
+                            Check if your school offers specialized programs, advanced curriculum, or dedicated staff for gifted and talented students
+                        </FormDescription>
+                        <FormMessage />
+                    </div>
+                            </Label>
+                    </FormControl>
+                </FormItem>
+            )}
+        />
+
+        <FormField
+            control={form.control}
+            name="hasSpecialNeedsSupport"
+            render={({ field }) => (
+                <FormItem>
+                    <FormControl>
+                        <Label className='p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950'>
+                        <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            />
+                    <div className="space-y-1 leading-none">
+                        <FormLabel>Special Needs Support</FormLabel>
+                        <FormDescription>
+                            Check if your school provides specialized programs, trained staff, or individualized support for students with special educational needs
+                        </FormDescription>
+                        <FormMessage />
+                    </div>
+                            </Label>
+                    </FormControl>
+                </FormItem>
+            )}
+        />
+
         </div>
 
 

@@ -46,4 +46,18 @@ public class SchoolFacilitiesRequest {
 
     private String awardsAndRecognitions;
 
+    @NotNull
+    private Boolean hasNurse;
+
+    @NotNull // ? even though you can use boolean , you should always use the wrapper Boolean
+             // in order to assure validation the variable not null, otherwise it ll default
+             // to false if it s empty with type boolean
+    private Boolean hasPsychologist;
+
+    @NotNull
+    private Boolean hasFoodService;
+
+    @NotNull
+    private Boolean hasNutritionist;
+
 }

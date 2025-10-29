@@ -14,6 +14,7 @@ import { RatingLevelEnums } from "@/enums/RatingLevelEnums";
 
 export const schoolGeneralSchema = z.object({
   name: z.string().min(2, 'School name must be at least 2 characters'),
+  description: z.string().min(10, 'Description must be at least 10 characters'),
   country: z.enum(Object.values(CountryEnums).map(country => country.value) as [string, ...string[]]),
   city: z.string().min(2, 'City must be at least 2 characters'),
   address: z.string().min(5, 'Address must be at least 5 characters'),
@@ -41,6 +42,8 @@ export const schoolAcademicsSchema = z.object({
     .min(1, 'At least one level is required'),
   curriculums: z.array(z.enum(Object.keys(CurriculumEnums) as [string, ...string[]]))
     .min(1, 'At least one curriculum is required'),
+  hasGiftedPrograms: z.boolean({ required_error: 'Gifted programs is required' }).default(false),
+  hasSpecialNeedsSupport: z.boolean({ required_error: 'Special needs support is required' }).default(false),
 });
 
 

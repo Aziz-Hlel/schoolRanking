@@ -10,6 +10,7 @@ import { schoolGeneralSchema } from '@/types/School2.type';
 import type { FC } from 'react';
 import { CountryDropdown } from '@/components/ui/country-dropdown';
 import { countries } from "country-data-list";
+import { Textarea } from '@/components/ui/textarea';
 
 
 interface DetachedFormProps {
@@ -25,7 +26,7 @@ const DetachedGeneral: FC<DetachedFormProps> = ({ form, }) => {
 
 
     const countryOptions = countries.all.filter((country) => {
-        return CountryEnums.hasOwnProperty(country.alpha2)
+        return Object.prototype.hasOwnProperty.call(CountryEnums, country.alpha2)
     })
     return (
 
@@ -114,6 +115,25 @@ const DetachedGeneral: FC<DetachedFormProps> = ({ form, }) => {
                         <FormMessage />
                     </FormItem>
                 )}
+            />
+
+            {/* Description */}
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className='md:col-span-2'>
+                  <FormLabel className="text-gray-700 ">Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Event's description"
+                      className="mt-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             <FormField

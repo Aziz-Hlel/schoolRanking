@@ -1,0 +1,7 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "material-icon-theme.folders.associations": {
+        "makefiles": "rules"
+    },
+    "java.configuration.updateBuildConfiguration": "interactive",
+}

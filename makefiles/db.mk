@@ -9,8 +9,24 @@ YELLOW := \033[1;33m]
 RED := \033[0;31m]
 NC := \033[0m] # No Color
 
-# Help target
-help: ## Show this help message
+
+
+ROOT := $(shell git rev-parse --show-toplevel)
+
+DOCKER_ROOT := $(ROOT)/docker
+
+
+# ENVs
+ENV_LOCAL := $(ROOT)/.env.local
+ENV_ROOT := $(ROOT)/.env
+ENV_DEV := $(ROOT)/config/.env.dev
+ENV_STAGE := $(ROOT)/config/.env.stage
+ENV_PROD := $(ROOT)/config/.env
+
+
+
+
+help:
 	@echo
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -18,13 +34,18 @@ help: ## Show this help message
 	@echo "📁 Modular Commands:"
 	@echo "  Git:        make git-help"
 	@echo "  Docker:     make docker-help"  
-#
-#
-db-backup: ## Backup database
+
+db-backup: 
 	@echo "$(GREEN)💾 Creating database backup...$(NC)"
 	bash ./scripts/backup.sh
 #
 #
-db-restore: ## Restore database
+
+
+.ONESHELL:
+db-restore:
 	@echo "$(GREEN)💾 Restoring database...$(NC)"
-	bash ./scripts/restore.sh
+	@cd $(ROOT) 
+	@touch $(ENV_LOCAL) $(ENV_ROOT)
+	@set -a && . $(ENV_DEV) && . $(ENV_LOCAL) && . $(ENV_ROOT) && set +a;
+	@bash ./scripts/restore.sh

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.TechnoShark.SchoolRanking.Auth.Util.UserContext;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.MySchoolsPreview;
-import com.example.TechnoShark.SchoolRanking.UserSchool.Service.SchoolAuthorizationService;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.UserSchoolService;
 import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
 
@@ -38,7 +37,6 @@ public class UserSchoolController {
                 .data(userSchools)
                 .timestamp(null)
                 .build();
-
 
         return ResponseEntity.ok(apiResponse);
 

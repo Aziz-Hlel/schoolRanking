@@ -3,42 +3,26 @@
 # Stop script if any command fails
 set -e
 
-# Resolve directory of the script, no matter where it's called from
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Assume .env is in the parent of the script directory
-ENV_PATH="$SCRIPT_DIR/../.env"
-
-# If .env exists, load it
-if [ -f "$ENV_PATH" ]; then
-  echo "📦 Loading environment from $ENV_PATH"
-  set -a
-  source "$ENV_PATH"
-  set +a
-else
-  echo "❌ .env file not found at $ENV_PATH"
-  exit 1
-fi
 
 # Parse values from .env 
-POSTGRES_CONTAINER_NAME="schoolranking-db"
-BACKEND_CONTAINER_NAME="schoolranking-backend"
-POSTGRES_USER="${PROD__POSTGRES_USER}"
-POSTGRES_DB="${PROD__POSTGRES_DB}"
-POSTGRES_PORT="${PROD__POSTGRES_PORT}"
-BACKUP_DIR="./backups"
+POSTGRES_CONTAINER_NAME="db"
+BACKEND_CONTAINER_NAME="api"
+POSTGRES_USER="${POSTGRES_USER}"
+POSTGRES_DB="${POSTGRES_DB}"
+# POSTGRES_PORT="${POSTGRES_PORT}"
+BACKUP_DIR="./backup"
 
 # Validate required environment variables
-if [ -z "$POSTGRES_USER" ] || [ -z "$POSTGRES_DB" ] || [ -z "$POSTGRES_PORT" ]; then
-    echo "❌ Missing required environment variables: PROD__POSTGRES_USER, PROD__POSTGRES_DB, or PROD__POSTGRES_PORT"
+if [ -z "$POSTGRES_USER" ] || [ -z "$POSTGRES_DB" ] || [ -z "$POSTGRES_PASSWORD" ]; then
+    echo "❌ Missing required environment variables: POSTGRES_USER, POSTGRES_DB or POSTGRES_PASSWORD"
     exit 1
 fi
-
+echo " [INFO] POSTGRES_USER: $POSTGRES_USER"
 # Check if postgres container is running
-if ! docker ps --format '{{.Names}}' | grep -q "$POSTGRES_CONTAINER_NAME"; then
-    echo "❌ PostgreSQL container $POSTGRES_CONTAINER_NAME is not running"
-    exit 1
-fi
+# if ! docker ps --format '{{.Names}}' | grep -q "$POSTGRES_CONTAINER_NAME"; then
+#     echo "❌ PostgreSQL container $POSTGRES_CONTAINER_NAME is not running"
+#     exit 1
+# fi
 
 # Check if backend container exists (could be running or stopped)
 BACKEND_EXISTS=$(docker ps -a --format '{{.Names}}' | grep -c "$BACKEND_CONTAINER_NAME" || echo "0")
@@ -80,84 +64,45 @@ if [ "$confirm" != "yes" ]; then
     exit 0
 fi
 
-# Step 1: Stop backend container if it exists and is running
-if [ "$BACKEND_EXISTS" -gt 0 ]; then
-    if docker ps --format '{{.Names}}' | grep -q "$BACKEND_CONTAINER_NAME"; then
-        echo "🛑 Stopping backend container..."
-        docker stop "$BACKEND_CONTAINER_NAME"
-        BACKEND_WAS_RUNNING=true
-    else
-        echo "📋 Backend container is already stopped"
-        BACKEND_WAS_RUNNING=false
-    fi
-else
-    echo "📋 Backend container not found, skipping stop"
-    BACKEND_WAS_RUNNING=false
-fi
+# # Step 1: Stop backend container if it exists and is running
+# if [ "$BACKEND_EXISTS" -gt 0 ]; then
+#     if docker ps --format '{{.Names}}' | grep -q "$BACKEND_CONTAINER_NAME"; then
+#         echo "🛑 Stopping backend container..."
+#         docker stop "$BACKEND_CONTAINER_NAME"
+#         BACKEND_WAS_RUNNING=true
+#     else
+#         echo "📋 Backend container is already stopped"
+#         BACKEND_WAS_RUNNING=false
+#     fi
+# else
+#     echo "📋 Backend container not found, skipping stop"
+#     BACKEND_WAS_RUNNING=false
+# fi
 
-echo "🔄 Restoring database..."
+# echo "🔄 Restoring database..."
 
 # Step 2: Terminate active connections
-echo "Disconnecting active users..."
-docker exec -e PGPASSWORD="$PROD__POSTGRES_PASSWORD" -i "$POSTGRES_CONTAINER_NAME" psql \
-  -h localhost \
-  -p "$POSTGRES_PORT" \
-  -U "$POSTGRES_USER" \
-  -d postgres \
-  -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$POSTGRES_DB' AND pid <> pg_backend_pid();" > /dev/null 2>&1 || true
 
-# Step 3: Drop and recreate database
-echo "Recreating database..."
-docker exec -e PGPASSWORD="$PROD__POSTGRES_PASSWORD" -i "$POSTGRES_CONTAINER_NAME" psql \
-  -h localhost \
-  -p "$POSTGRES_PORT" \
-  -U "$POSTGRES_USER" \
-  -d postgres \
-  -c "DROP DATABASE IF EXISTS $POSTGRES_DB;"
+export PGPASSWORD="$DB_PASS"
 
-docker exec -e PGPASSWORD="$PROD__POSTGRES_PASSWORD" -i "$POSTGRES_CONTAINER_NAME" psql \
-  -h localhost \
-  -p "$POSTGRES_PORT" \
-  -U "$POSTGRES_USER" \
-  -d postgres \
-  -c "CREATE DATABASE $POSTGRES_DB;"
+# --- Terminate active connections ---
+echo "[INFO] Terminating active connections on $POSTGRES_DB..."
+psql -h "$POSTGRES_CONTAINER_NAME" -U "$POSTGRES_USER" -d postgres -c \
+"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$POSTGRES_DB';"
 
-# Step 4: Restore the backup
-echo "Restoring backup data..."
-gunzip -c "$BACKUP_DIR/$BACKUP_FILE" | docker exec -e PGPASSWORD="$PROD__POSTGRES_PASSWORD" -i "$POSTGRES_CONTAINER_NAME" psql \
-  -h localhost \
-  -p "$POSTGRES_PORT" \
-  -U "$POSTGRES_USER" \
-  -d "$POSTGRES_DB"
+# --- Drop and recreate database ---
+echo "[INFO] Dropping and recreating database: $POSTGRES_DB..."
+psql -h "$POSTGRES_CONTAINER_NAME" -U "$POSTGRES_USER" -d postgres -v ON_ERROR_STOP=1 <<SQL
+DROP DATABASE IF EXISTS "$POSTGRES_DB";
+CREATE DATABASE "$POSTGRES_DB";
+SQL
 
+# --- Restore database from latest backup ---
+echo "[INFO] Restoring database from backup..."
+gunzip -c "$BACKUP_DIR/$BACKUP_FILE" | psql -h "$POSTGRES_CONTAINER_NAME" -U "$POSTGRES_USER" -d "$POSTGRES_DB" --single-transaction
 
-# Check if restore was successful
-if [ $? -eq 0 ]; then
-    echo "✅ Database restored successfully!"
-else
-    echo "❌ Database restore failed"
-    exit 1
-fi
+echo "[SUCCESS] Database restore completed successfully!"
 
-# Step 5: Restart backend container if it was running
-if [ "$BACKEND_EXISTS" -gt 0 ]; then
-    if [ "$BACKEND_WAS_RUNNING" = true ]; then
-        echo "🔄 Starting backend container..."
-        docker start "$BACKEND_CONTAINER_NAME"
-        
-        # Wait a moment for the container to start
-        sleep 2
-        
-        # Check if backend started successfully
-        if docker ps --format '{{.Names}}' | grep -q "$BACKEND_CONTAINER_NAME"; then
-            echo "✅ Backend container started successfully!"
-        else
-            echo "⚠️  Backend container failed to start. Check logs with: docker logs $BACKEND_CONTAINER_NAME"
-        fi
-    else
-        echo "📋 Backend container was not running before, leaving it stopped"
-    fi
-fi
 
 GREEN='\033[0;32m'
 NC='\033[0m' 

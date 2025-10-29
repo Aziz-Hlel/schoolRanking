@@ -18,7 +18,6 @@ public class SchoolAcademicsRequest {
     @NotNull
     private Set<AccreditationEnums> internationalAccreditations;
 
-    
     private String accreditationDocsLinks;
 
     @NotNull
@@ -26,5 +25,9 @@ public class SchoolAcademicsRequest {
 
     @NotNull
     private Set<CurriculumEnums> curriculums;
+
+    private boolean hasGiftedPrograms;
+
+    private boolean hasSpecialNeedsSupport;
 
 }
