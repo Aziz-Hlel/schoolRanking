@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.LanguageEnums;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 
@@ -53,11 +52,10 @@ public class SchoolStaff {
     @Column(nullable = true)
     private String professionalDevelopment;
 
-    @ElementCollection(targetClass = CountryEnums.class)
-    @Enumerated(EnumType.STRING)
+    @ElementCollection
     @CollectionTable(name = "school_staff_nationalities", joinColumns = @JoinColumn(name = "school_staff_id"))
     @Column(name = "country")
-    private Set<CountryEnums> teacherNationalities;
+    private Set<String> teacherNationalities;
 
     @ElementCollection(targetClass = LanguageEnums.class)
     @Enumerated(EnumType.STRING)

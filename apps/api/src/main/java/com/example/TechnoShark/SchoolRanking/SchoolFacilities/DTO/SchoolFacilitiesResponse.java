@@ -23,6 +23,8 @@ public record SchoolFacilitiesResponse(
         boolean hasNurse,
         boolean hasPsychologist,
         boolean hasFoodService,
-        boolean hasNutritionist
+        boolean hasNutritionist,
+        boolean hasTransportationServices,
+        String transportationPolicies
 ) {
 }

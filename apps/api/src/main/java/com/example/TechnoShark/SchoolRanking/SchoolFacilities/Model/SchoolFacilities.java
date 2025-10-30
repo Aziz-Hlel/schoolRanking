@@ -93,4 +93,12 @@ public class SchoolFacilities {
 
     @Column(nullable = false, name = "has_nutritionist")  
     private boolean hasNutritionist;
+
+
+    @Column(nullable = false, name = "has_transportation_services")
+    private boolean hasTransportationServices;
+
+    @Column(nullable = true,name = "transportation_policies")
+    private String transportationPolicies;
+
 }

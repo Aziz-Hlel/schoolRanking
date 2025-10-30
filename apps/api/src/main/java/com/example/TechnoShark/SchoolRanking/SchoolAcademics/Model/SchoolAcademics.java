@@ -52,7 +52,7 @@ public class SchoolAcademics {
     @Column(nullable = true)
     private String accreditationDocsLinks;
 
-    // this is chat recommendation for the best approach for the case of multiple
+    // ? this is chat recommendation for the best approach for the case of multiple
     // values that are fixed and relativly small
     @ElementCollection(targetClass = LevelEnums.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -73,5 +73,13 @@ public class SchoolAcademics {
 
     @Column(name = "has_special_needs_support", nullable = false)
     private boolean hasSpecialNeedsSupport;
+
+
+
+    @ElementCollection
+    @CollectionTable(name = "extra_languages_taught", joinColumns = @JoinColumn(name = "school_academics_id"))
+    @Column(name = "language")
+    private Set<String> extraLanguagesTaught;
+
 
 }

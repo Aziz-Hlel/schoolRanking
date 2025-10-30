@@ -9,7 +9,7 @@ import com.example.TechnoShark.SchoolRanking.Enums.SustainabilityEnums;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
@@ -59,5 +59,11 @@ public class SchoolFacilitiesRequest {
 
     @NotNull
     private Boolean hasNutritionist;
+
+    @NotNull
+    private Boolean hasTransportationServices;
+
+    @Size(max = 1000, message = "Description must be less than 1000 characters")
+    private String transportationPolicies;
 
 }

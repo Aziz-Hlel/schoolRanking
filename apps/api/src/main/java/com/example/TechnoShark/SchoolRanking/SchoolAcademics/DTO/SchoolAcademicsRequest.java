@@ -7,6 +7,7 @@ import com.example.TechnoShark.SchoolRanking.Enums.CurriculumEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.LevelEnums;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -29,5 +30,8 @@ public class SchoolAcademicsRequest {
     private boolean hasGiftedPrograms;
 
     private boolean hasSpecialNeedsSupport;
+
+    @Size(min = 1)
+    private Set<@NotNull String> extraLanguagesTaught;
 
 }

@@ -1,7 +1,9 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic",
-    "material-icon-theme.folders.associations": {
-        "makefiles": "rules"
-    },
-    "java.configuration.updateBuildConfiguration": "interactive",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "material-icon-theme.folders.associations": {
+    "makefiles": "rules"
+  },
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

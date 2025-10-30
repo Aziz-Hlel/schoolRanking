@@ -1,0 +1,4 @@
+{
+  "recommendations": ["esbenp.prettier-vscode", "aaron-bond.better-comments"],
+  "unwantedRecommendations": []
+}

@@ -1,0 +1,4 @@
+
+
+ALTER TABLE school_staff_nationalities
+DROP CONSTRAINT IF EXISTS school_staff_nationalities_country_check;

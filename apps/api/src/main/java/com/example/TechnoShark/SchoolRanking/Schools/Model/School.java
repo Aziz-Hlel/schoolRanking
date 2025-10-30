@@ -72,6 +72,10 @@ public class School {
     @Column
     private String website;
 
+
+
+
+    // //
     @Column(nullable = false)
     private Boolean formsCompleted = false;
 

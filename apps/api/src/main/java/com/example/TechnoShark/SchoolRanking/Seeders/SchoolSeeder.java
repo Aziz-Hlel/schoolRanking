@@ -154,7 +154,7 @@ public class SchoolSeeder {
         staff.setProfessionalDevelopment("school" + i + " professional development");
         staff.setStaffSizeEstimate(getRandomNumber(5, 50));
         staff.setTeacherLanguages(getRandomEnumSet(LanguageEnums.class));
-        staff.setTeacherNationalities(getRandomEnumSet(CountryEnums.class));
+        staff.setTeacherNationalities(getRandomEnumSet(CountryEnums.class).stream().map(Enum::name).collect(java.util.stream.Collectors.toSet()));
         staff.setTeacherQualifications("school" + i + " teacher qualifications");
         staff.setLastInspectionDate(getRandomLocalDate(LocalDate.of(2000, 1, 1), LocalDate.of(2025, 1, 1)));
 
