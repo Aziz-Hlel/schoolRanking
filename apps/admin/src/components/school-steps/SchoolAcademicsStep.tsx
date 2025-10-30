@@ -1,44 +1,52 @@
-
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
-import type { UseFormReturn } from 'react-hook-form';
-import type { SchoolAcademicsData } from '@/types/school';
+import React from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import type { UseFormReturn } from "react-hook-form";
+import type { SchoolAcademicsData } from "@/types/school";
 
 const accreditations = [
-  { value: 'IB', label: 'International Baccalaureate (IB)' },
-  { value: 'CIS', label: 'Council of International Schools (CIS)' },
-  { value: 'NEASC', label: 'New England Association of Schools and Colleges (NEASC)' },
-  { value: 'WASC', label: 'Western Association of Schools and Colleges (WASC)' },
-  { value: 'MSA', label: 'Middle States Association (MSA)' },
-  { value: 'SACS', label: 'Southern Association of Colleges and Schools (SACS)' },
-  { value: 'ACSI', label: 'Association of Christian Schools International (ACSI)' },
-  { value: 'BSO', label: 'British Schools Overseas (BSO)' },
+  { value: "IB", label: "International Baccalaureate (IB)" },
+  { value: "CIS", label: "Council of International Schools (CIS)" },
+  { value: "NEASC", label: "New England Association of Schools and Colleges (NEASC)" },
+  { value: "WASC", label: "Western Association of Schools and Colleges (WASC)" },
+  { value: "MSA", label: "Middle States Association (MSA)" },
+  { value: "SACS", label: "Southern Association of Colleges and Schools (SACS)" },
+  { value: "ACSI", label: "Association of Christian Schools International (ACSI)" },
+  { value: "BSO", label: "British Schools Overseas (BSO)" },
 ];
 
 const levels = [
-  { value: 'preschool', label: 'Preschool (Ages 3-5)' },
-  { value: 'elementary', label: 'Elementary (Ages 6-11)' },
-  { value: 'middle', label: 'Middle School (Ages 12-14)' },
-  { value: 'high', label: 'High School (Ages 15-18)' },
-  { value: 'university', label: 'University/College' },
+  { value: "preschool", label: "Preschool (Ages 3-5)" },
+  { value: "elementary", label: "Elementary (Ages 6-11)" },
+  { value: "middle", label: "Middle School (Ages 12-14)" },
+  { value: "high", label: "High School (Ages 15-18)" },
+  { value: "university", label: "University/College" },
 ];
 
 const curriculums = [
-  { value: 'IB', label: 'International Baccalaureate (IB)' },
-  { value: 'AP', label: 'Advanced Placement (AP)' },
-  { value: 'A-Level', label: 'A-Level' },
-  { value: 'national', label: 'National Curriculum' },
-  { value: 'montessori', label: 'Montessori' },
-  { value: 'waldorf', label: 'Waldorf/Steiner' },
-  { value: 'cambridge', label: 'Cambridge International' },
+  { value: "IB", label: "International Baccalaureate (IB)" },
+  { value: "AP", label: "Advanced Placement (AP)" },
+  { value: "A-Level", label: "A-Level" },
+  { value: "national", label: "National Curriculum" },
+  { value: "montessori", label: "Montessori" },
+  { value: "waldorf", label: "Waldorf/Steiner" },
+  { value: "cambridge", label: "Cambridge International" },
 ];
 
-
-
-export const SchoolAcademicsStep: React.FC<{ form: UseFormReturn<SchoolAcademicsData>, onSubmit: () => void }> = ({ form }) => {
+export const SchoolAcademicsStep: React.FC<{
+  form: UseFormReturn<SchoolAcademicsData>;
+  onSubmit: () => void;
+}> = ({ form }) => {
   return (
     <Form {...form}>
       <div className="space-y-6">
@@ -53,7 +61,7 @@ export const SchoolAcademicsStep: React.FC<{ form: UseFormReturn<SchoolAcademics
                   type="number"
                   placeholder="Enter number of languages"
                   {...field}
-                  onChange={e => field.onChange(parseInt(e.target.value) || undefined)}
+                  onChange={(e) => field.onChange(parseInt(e.target.value) || undefined)}
                 />
               </FormControl>
               <FormDescription>
@@ -94,18 +102,14 @@ export const SchoolAcademicsStep: React.FC<{ form: UseFormReturn<SchoolAcademics
                                 return checked
                                   ? field.onChange([...field.value, item.value])
                                   : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.value
-                                    )
-                                  )
+                                      field.value?.filter((value) => value !== item.value),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {item.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{item.label}</FormLabel>
                         </FormItem>
-                      )
+                      );
                     }}
                   />
                 ))}
@@ -142,9 +146,7 @@ export const SchoolAcademicsStep: React.FC<{ form: UseFormReturn<SchoolAcademics
             <FormItem>
               <div className="mb-4">
                 <FormLabel className="text-base">Educational Levels Offered</FormLabel>
-                <FormDescription>
-                  Select all educational levels your school offers.
-                </FormDescription>
+                <FormDescription>Select all educational levels your school offers.</FormDescription>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {levels.map((item) => (
@@ -165,18 +167,14 @@ export const SchoolAcademicsStep: React.FC<{ form: UseFormReturn<SchoolAcademics
                                 return checked
                                   ? field.onChange([...field.value, item.value])
                                   : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.value
-                                    )
-                                  )
+                                      field.value?.filter((value) => value !== item.value),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {item.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{item.label}</FormLabel>
                         </FormItem>
-                      )
+                      );
                     }}
                   />
                 ))}
@@ -193,9 +191,7 @@ export const SchoolAcademicsStep: React.FC<{ form: UseFormReturn<SchoolAcademics
             <FormItem>
               <div className="mb-4">
                 <FormLabel className="text-base">Curriculums Offered</FormLabel>
-                <FormDescription>
-                  Select all curriculum types your school offers.
-                </FormDescription>
+                <FormDescription>Select all curriculum types your school offers.</FormDescription>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {curriculums.map((item) => (
@@ -216,18 +212,14 @@ export const SchoolAcademicsStep: React.FC<{ form: UseFormReturn<SchoolAcademics
                                 return checked
                                   ? field.onChange([...field.value, item.value])
                                   : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.value
-                                    )
-                                  )
+                                      field.value?.filter((value) => value !== item.value),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {item.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{item.label}</FormLabel>
                         </FormItem>
-                      )
+                      );
                     }}
                   />
                 ))}

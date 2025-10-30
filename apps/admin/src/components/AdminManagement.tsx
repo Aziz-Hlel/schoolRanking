@@ -1,19 +1,15 @@
-
-import React, { useState } from 'react';
-import { AddAdminDialog } from './AddAdminDialog';
-import { EditAdminDialog } from './EditAdminDialog';
-import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
-import { AdminDataTable } from './AdminDataTable';
-import useApiQuery from '@/hooks/useApiQuery';
-import apiGateway from '@/service/Api/apiGateway';
-import type { Admin, AdminPage } from '@/types/Admin';
-import { PAGES } from '@/data/pages';
-import { useChangePage } from '@/hooks/useChangePage';
-
-
+import React, { useState } from "react";
+import { AddAdminDialog } from "./AddAdminDialog";
+import { EditAdminDialog } from "./EditAdminDialog";
+import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
+import { AdminDataTable } from "./AdminDataTable";
+import useApiQuery from "@/hooks/useApiQuery";
+import apiGateway from "@/service/Api/apiGateway";
+import type { Admin, AdminPage } from "@/types/Admin";
+import { PAGES } from "@/data/pages";
+import { useChangePage } from "@/hooks/useChangePage";
 
 export const AdminManagement: React.FC = () => {
-
   useChangePage(PAGES.admins);
 
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
@@ -21,12 +17,11 @@ export const AdminManagement: React.FC = () => {
   const { data } = useApiQuery<AdminPage>({
     url: apiGateway.user.getPageUser,
     queryParams: { page: 1, size: 20 },
-    queryKey: ['admins'],
+    queryKey: ["admins"],
     options: { fetchOnMount: true, config: { params: { page: 1, size: 20 } } },
   });
 
-  const admins = data?.data.content
-
+  const admins = data?.data.content;
 
   const handleUpdateAdmin = (adminData: any) => {
     // if (editingAdmin) {
@@ -46,26 +41,19 @@ export const AdminManagement: React.FC = () => {
     // }
   };
 
-  if (!admins) return <>loading ...</>
+  if (!admins) return <>loading ...</>;
 
   return (
     <div className="space-y-4 lg:space-y-6">
-
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-
         <div>
           <h2 className="text-xl lg:text-2xl font-bold">Admins table</h2>
         </div>
 
         <AddAdminDialog />
-
       </div>
 
-      <AdminDataTable
-        data={admins}
-        onEdit={setEditingAdmin}
-        onDelete={setDeletingAdmin}
-      />
+      <AdminDataTable data={admins} onEdit={setEditingAdmin} onDelete={setDeletingAdmin} />
 
       {editingAdmin && (
         <EditAdminDialog
@@ -83,7 +71,6 @@ export const AdminManagement: React.FC = () => {
         title="Delete Administrator"
         description={`Are you sure you want to delete ${deletingAdmin?.username}? This action cannot be undone.`}
       />
-
     </div>
   );
 };

@@ -1,18 +1,13 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useAuth } from "@/contexts/AuthContext"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAuth } from "@/contexts/AuthContext";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-
-
+export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,18 +31,17 @@ export function LoginForm({
 
     setIsSubmitting(true);
     const response = await login({ email, password });
-    console.log(response)
+    console.log(response);
 
-    if (response.success)
-      navigate("/dashboard");
+    if (response.success) navigate("/dashboard");
 
-    if (!response.success && response.status === 401) setErrors({ email: "Invalid email or password" });
-    !response.success && console.log(response)
+    if (!response.success && response.status === 401)
+      setErrors({ email: "Invalid email or password" });
+    !response.success && console.log(response);
 
     // if (!response.success && response.status !== 401) alert("uncaught error");
 
     setIsSubmitting(false);
-
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -71,21 +65,22 @@ export function LoginForm({
                   required
                 />
                 {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
-
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
+                  <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
                     {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
 
                     {/* Forgot your password? */}
                   </a>
                 </div>
-                <Input id="password" type="password" required onChange={(e) => setPassword(e.target.value)} />
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
               <Button type="submit" className="w-full disabled:bg-blue-400" disabled={isSubmitting}>
                 {isSubmitting ? "Logging in..." : "Login"}
@@ -142,9 +137,9 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#">Terms of Service</a> and{" "}
+        <a href="#">Privacy Policy</a>.
       </div>
     </div>
-  )
+  );
 }

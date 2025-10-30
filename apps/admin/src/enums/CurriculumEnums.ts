@@ -1,45 +1,42 @@
 const UK = {
-  value: 'UK' as const,
-  label: 'British Curriculum'
+  value: "UK" as const,
+  label: "British Curriculum",
 };
 
 const US = {
-  value: 'US' as const,
-  label: 'American Curriculum'
+  value: "US" as const,
+  label: "American Curriculum",
 };
 
 const IB = {
-  value: 'IB' as const,
-  label: 'International Baccalaureate Curriculum'
-};  
+  value: "IB" as const,
+  label: "International Baccalaureate Curriculum",
+};
 
 const CBSE = {
-  value: 'CBSE' as const,
-  label: 'Central Board of Secondary Education'
+  value: "CBSE" as const,
+  label: "Central Board of Secondary Education",
 };
 
 const IGCSE = {
-  value: 'IGCSE' as const,
-  label: 'International General Certificate of Secondary Education'
+  value: "IGCSE" as const,
+  label: "International General Certificate of Secondary Education",
 };
 
 const AL = {
-  value: 'AL' as const,
-  label: 'Advanced Level'
+  value: "AL" as const,
+  label: "Advanced Level",
 };
 
 const FR = {
-  value: 'FR' as const,
-  label: 'French Curriculum'
+  value: "FR" as const,
+  label: "French Curriculum",
 };
 
 const DE = {
-  value: 'DE' as const,
-  label: 'German Curriculum'
+  value: "DE" as const,
+  label: "German Curriculum",
 };
-
-
-
 
 export const CurriculumEnums = {
   UK,
@@ -49,8 +46,7 @@ export const CurriculumEnums = {
   IGCSE,
   AL,
   FR,
-  DE
+  DE,
 } as const;
 
-
-export type CurriculumEnum = typeof CurriculumEnums[keyof typeof CurriculumEnums]['value'];
+export type CurriculumEnum = (typeof CurriculumEnums)[keyof typeof CurriculumEnums]["value"];

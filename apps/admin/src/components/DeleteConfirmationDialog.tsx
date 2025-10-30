@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,10 +8,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { apiService } from '@/service/Api/apiService';
-import apiGateway from '@/service/Api/apiGateway';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+} from "@/components/ui/alert-dialog";
+import { apiService } from "@/service/Api/apiService";
+import apiGateway from "@/service/Api/apiGateway";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface DeleteConfirmationDialogProps {
   open: boolean;
@@ -22,9 +21,13 @@ interface DeleteConfirmationDialogProps {
   description: string;
 }
 
-export const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({ open, onOpenChange, onConfirm, title, description, }) => {
-
-
+export const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({
+  open,
+  onOpenChange,
+  onConfirm,
+  title,
+  description,
+}) => {
   // const mutationFn = () => apiService.deleteThrowable(apiGateway.user.delete(""));
   //   const queryClient = useQueryClient();
 
@@ -35,9 +38,7 @@ export const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> =
   // })
   // const deleteUser = async () => {
 
-
   // }
-
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -48,7 +49,10 @@ export const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> =
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm} className="bg-destructive text-destructive-foreground hover:bg-destructive/90 text-white">
+          <AlertDialogAction
+            onClick={onConfirm}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 text-white"
+          >
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>

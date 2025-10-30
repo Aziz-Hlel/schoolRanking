@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -7,19 +6,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Edit, Trash2, MoreHorizontal, Search } from 'lucide-react';
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Edit, Trash2, MoreHorizontal, Search } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import type { Admin } from '@/types/Admin';
-
+} from "@/components/ui/dropdown-menu";
+import type { Admin } from "@/types/Admin";
 
 interface AdminDataTableProps {
   data: Admin[];
@@ -27,25 +25,22 @@ interface AdminDataTableProps {
   onDelete: (admin: Admin) => void;
 }
 
-export const AdminDataTable: React.FC<AdminDataTableProps> = ({
-  data,
-  onEdit,
-  onDelete,
-}) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState<keyof Admin>('username');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+export const AdminDataTable: React.FC<AdminDataTableProps> = ({ data, onEdit, onDelete }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState<keyof Admin>("username");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-  const filteredData = data.filter(admin =>
-    admin.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    admin.email.toLowerCase().includes(searchTerm.toLowerCase()) 
+  const filteredData = data.filter(
+    (admin) =>
+      admin.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      admin.email.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const sortedData = [...filteredData].sort((a, b) => {
     const aValue = a[sortBy];
     const bValue = b[sortBy];
 
-    if (sortOrder === 'asc') {
+    if (sortOrder === "asc") {
       return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
     } else {
       return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
@@ -54,10 +49,10 @@ export const AdminDataTable: React.FC<AdminDataTableProps> = ({
 
   const handleSort = (column: keyof Admin) => {
     if (sortBy === column) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
       setSortBy(column);
-      setSortOrder('asc');
+      setSortOrder("asc");
     }
   };
 
@@ -79,20 +74,20 @@ export const AdminDataTable: React.FC<AdminDataTableProps> = ({
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow >
+              <TableRow>
                 <TableHead
                   className="min-w-[150px] cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('username')}
+                  onClick={() => handleSort("username")}
                 >
-                 Full Name {sortBy === 'username' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  Full Name {sortBy === "username" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
                 <TableHead
                   className="min-w-[200px] cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('email')}
+                  onClick={() => handleSort("email")}
                 >
-                  Email {sortBy === 'email' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  Email {sortBy === "email" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
-                <TableHead className="hidden lg:table-cell">Created</TableHead>
+                <TableHead className="hidden lg:table-cell cursor-pointer">Created</TableHead>
                 <TableHead className="w-[70px]">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -105,7 +100,7 @@ export const AdminDataTable: React.FC<AdminDataTableProps> = ({
                 </TableRow>
               ) : (
                 sortedData.map((admin) => (
-                  <TableRow key={admin.id} className=' hover:cursor-default'>
+                  <TableRow key={admin.id} className=" hover:cursor-default">
                     <TableCell className="font-medium">{admin.username}</TableCell>
                     <TableCell className="text-sm">{admin.email}</TableCell>
                     <TableCell className="hidden lg:table-cell text-sm">

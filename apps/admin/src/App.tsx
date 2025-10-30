@@ -31,13 +31,9 @@ import Login2 from "./pages/Login2";
 import SchoolFormsCompleted from "./Guard/SchoolFormsCompleted";
 import SchoolNotFound from "./pages/Notfounds/SchoolNotFound";
 
-
 const queryClient = new QueryClient();
 
-
 function App() {
-
-
   return (
     <>
       <Router>
@@ -45,17 +41,14 @@ function App() {
           <QueryClientProvider client={queryClient}>
             <PageProvider>
               <DetailedSchoolProvider>
-
                 <Sonner />
 
                 <Routes>
-
                   <Route path="/" element={<Navigate to="/dashboard" replace />} />
                   <Route path="/login" element={<Login2 />} />
                   {/* <Route path="/signup" element={<SignUp />} /> */}
 
                   <Route element={<AuthenticatedRoutes />}>
-
                     <Route path="forms" element={<Outlet />}>
                       <Route path="general" element={<GeneralForm />} />
                       <Route path="academics" element={<AcademicsForm />} />
@@ -65,53 +58,44 @@ function App() {
                     </Route>
 
                     {/* <Route path="/" element={<Dashboard />} /> */}
-                    <Route path="dashboard" element={<Dashboard />} >
-
+                    <Route path="dashboard" element={<Dashboard />}>
                       {/* Redirect when path is exactly /dashboard */}
                       <Route index element={<DashboardRedirect />} />
 
-                      <Route element={<AuthorizedRoutes roles={[ROLES.SUPER_ADMIN]} />} >
-
+                      <Route element={<AuthorizedRoutes roles={[ROLES.SUPER_ADMIN]} />}>
                         <Route path="admins" element={<AdminManagement />} />
 
-                        <Route path="schools" element={<Outlet />} >
+                        <Route path="schools" element={<Outlet />}>
                           <Route index element={<SchoolsManagement />} />
-                          <Route path=":schoolId" element={<SchoolViewManagemet />} >
+                          <Route path=":schoolId" element={<SchoolViewManagemet />}>
                             <Route index element={<SchoolView />} />
 
                             <Route element={<DetailedSchoolExists />}>
-                              <Route path="edit" element={<Outlet />} >
+                              <Route path="edit" element={<Outlet />}>
                                 <Route path="general" element={<GeneralUpdateForm />} />
                                 <Route path="academics" element={<AcademicsUpdateForm />} />
                                 <Route path="facilities" element={<FacilitiesUpdatedForm />} />
                                 <Route path="staff" element={<StaffUpdatedForm />} />
                                 <Route path="media" element={<MediaUpdatedForm />} />
                               </Route>
-
                             </Route>
                           </Route>
                         </Route>
-
                       </Route>
 
-
-                      <Route element={<AuthorizedRoutes roles={[ROLES.ADMIN]} />} >
-                        <Route path="my-school/:schoolId" element={<SchoolViewManagemet />} >
-
-                          <Route element={<SchoolFormsCompleted />} >
+                      <Route element={<AuthorizedRoutes roles={[ROLES.ADMIN]} />}>
+                        <Route path="my-school/:schoolId" element={<SchoolViewManagemet />}>
+                          <Route element={<SchoolFormsCompleted />}>
                             <Route index element={<SchoolView />} />
 
-                            <Route path="edit" element={<Outlet />} >
+                            <Route path="edit" element={<Outlet />}>
                               <Route path="general" element={<GeneralUpdateForm />} />
                               <Route path="academics" element={<AcademicsUpdateForm />} />
                               <Route path="facilities" element={<FacilitiesUpdatedForm />} />
                               <Route path="staff" element={<StaffUpdatedForm />} />
                               <Route path="media" element={<MediaUpdatedForm />} />
                             </Route>
-
                           </Route>
-
-
                         </Route>
 
                         <Route path="add-school" element={<Outlet />}>
@@ -123,11 +107,9 @@ function App() {
                             <Route path=":schoolId/form/media" element={<MediaForm />} />
                           </Route>
                         </Route>
-
                       </Route>
 
-
-                      <Route path="profile" element={<ProfileInformation />} >
+                      <Route path="profile" element={<ProfileInformation />}>
                         <Route path="change-password" element={<ChangePassword />} />
                       </Route>
 
@@ -135,20 +117,15 @@ function App() {
                     </Route>
                   </Route>
 
-
-
                   <Route path="*" element={<NotFound />} />
-
-
                 </Routes>
-
               </DetailedSchoolProvider>
-            </PageProvider >
-          </QueryClientProvider >
-        </AuthProvider >
-      </Router >
+            </PageProvider>
+          </QueryClientProvider>
+        </AuthProvider>
+      </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

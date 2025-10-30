@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -7,15 +6,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Edit, Trash2, Search } from 'lucide-react';
-import type { SchoolPage } from '@/types/SchoolPage';
-import { Eye } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Edit, Trash2, Search } from "lucide-react";
+import type { SchoolPage } from "@/types/SchoolPage";
+import { Eye } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface School {
   id: string;
@@ -25,7 +24,7 @@ interface School {
   email: string;
   principalName: string;
   studentCount: number;
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
   createdAt: string;
 }
 
@@ -35,22 +34,19 @@ interface SchoolDataTableProps {
   onDelete: (schoolId: string) => void;
 }
 
-export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({
-  data,
-  onEdit,
-  onDelete,
-}) => {
-  const [searchTerm, setSearchTerm] = useState('');
+export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({ data, onEdit, onDelete }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   // Define the keys you want to sort by, matching SchoolPage properties
-  type SortableColumn = 'name' | 'adminUsername' | 'email' | 'studentCount';
+  type SortableColumn = "name" | "adminUsername" | "email" | "studentCount";
 
-  const [sortBy, setSortBy] = useState<SortableColumn>('name');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortBy, setSortBy] = useState<SortableColumn>("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-  const filteredData = data.filter(school =>
-    school.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    school.adminUsername.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    school.address.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data.filter(
+    (school) =>
+      school.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      school.adminUsername.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      school.address.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const sortedData = [...filteredData].sort((a, b) => {
@@ -59,14 +55,14 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({
 
     if (aValue === undefined || bValue === undefined) return 0;
 
-    if (typeof aValue === 'string' && typeof bValue === 'string') {
-      if (sortOrder === 'asc') {
+    if (typeof aValue === "string" && typeof bValue === "string") {
+      if (sortOrder === "asc") {
         return aValue.localeCompare(bValue);
       } else {
         return bValue.localeCompare(aValue);
       }
     } else {
-      if (sortOrder === 'asc') {
+      if (sortOrder === "asc") {
         return (aValue as number) - (bValue as number);
       } else {
         return (bValue as number) - (aValue as number);
@@ -76,10 +72,10 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({
 
   const handleSort = (column: SortableColumn) => {
     if (sortBy === column) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
       setSortBy(column);
-      setSortOrder('asc');
+      setSortOrder("asc");
     }
   };
 
@@ -102,26 +98,25 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({
           <Table>
             <TableHeader>
               <TableRow>
-
                 <TableHead
                   className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('name')}
+                  onClick={() => handleSort("name")}
                 >
-                  School {sortBy === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  School {sortBy === "name" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
 
                 <TableHead
                   className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('adminUsername')}
+                  onClick={() => handleSort("adminUsername")}
                 >
-                  Admin {sortBy === 'adminUsername' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  Admin {sortBy === "adminUsername" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
 
                 <TableHead
                   className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('studentCount')}
+                  onClick={() => handleSort("studentCount")}
                 >
-                  Email {sortBy === 'studentCount' && (sortOrder === 'asc' ? '↑' : '↓')}
+                  Email {sortBy === "studentCount" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
 
                 <TableHead>Phone</TableHead>
@@ -129,11 +124,9 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({
                 <TableHead>Status</TableHead>
 
                 <TableHead className="text-right">Actions</TableHead>
-
               </TableRow>
-            </TableHeader >
+            </TableHeader>
             <TableBody>
-
               {sortedData.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
@@ -153,18 +146,17 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({
                     <TableCell>{school.email}</TableCell>
                     <TableCell>{school.phoneNumber}</TableCell>
                     <TableCell>
-                      <Badge variant={'default'} className={!school.isComplete && "text-white bg-amber-400 "}>
-                        {school.isComplete ? 'Complete' : 'Incomplete'}
+                      <Badge
+                        variant={"default"}
+                        className={!school.isComplete && "text-white bg-amber-400 "}
+                      >
+                        {school.isComplete ? "Complete" : "Incomplete"}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end space-x-2">
                         <Link to={`./${school.id}`}>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className=' cursor-pointer'
-                          >
+                          <Button variant="outline" size="sm" className=" cursor-pointer">
                             <Eye className="w-4 h-4" />
                           </Button>
                         </Link>
@@ -181,9 +173,9 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({
                 ))
               )}
             </TableBody>
-          </Table >
-        </div >
-      </div >
-    </div >
+          </Table>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,14 +1,11 @@
-
-import type { Page } from '@/types/page';
-import React from 'react';
+import type { Page } from "@/types/page";
+import React from "react";
 
 interface HeaderProps {
   currentPage: Page;
 }
 
-export const Header: React.FC<HeaderProps> = ({  currentPage }) => {
-
-
+export const Header: React.FC<HeaderProps> = ({ currentPage }) => {
   return (
     <header className="h-28 bg-white border-b border-border flex items-center justify-between px-6 ">
       {/* <div className="flex justify-between items-center"> */}

@@ -1,9 +1,8 @@
-
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { School, Users, Building, BookOpen, Award } from 'lucide-react';
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { School, Users, Building, BookOpen, Award } from "lucide-react";
 
 interface SchoolInfo {
   schoolName: string;
@@ -18,31 +17,32 @@ interface SchoolInfo {
 }
 
 const mockSchoolData: SchoolInfo = {
-  schoolName: 'Lincoln Elementary School',
-  address: '123 Main St, Springfield, IL 62701',
-  phone: '(555) 123-4567',
-  email: 'info@lincoln.edu',
-  website: 'https://lincoln.edu',
-  principalName: 'Dr. Mary Wilson',
-  establishedYear: '1985',
-  studentCount: '450',
-  description: 'Lincoln Elementary is dedicated to providing quality education in a nurturing environment.',
+  schoolName: "Lincoln Elementary School",
+  address: "123 Main St, Springfield, IL 62701",
+  phone: "(555) 123-4567",
+  email: "info@lincoln.edu",
+  website: "https://lincoln.edu",
+  principalName: "Dr. Mary Wilson",
+  establishedYear: "1985",
+  studentCount: "450",
+  description:
+    "Lincoln Elementary is dedicated to providing quality education in a nurturing environment.",
 };
 
 export const SchoolProfile: React.FC = () => {
-  const [selectedSection, setSelectedSection] = useState<string>('general');
+  const [selectedSection, setSelectedSection] = useState<string>("general");
 
   const sections = [
-    { id: 'general', title: 'School Information', icon: School },
-    { id: 'academic', title: 'Academic Programs', icon: BookOpen },
-    { id: 'facilities', title: 'Facilities & Resources', icon: Building },
-    { id: 'staff', title: 'Staff & Leadership', icon: Users },
-    { id: 'achievements', title: 'Awards & Recognition', icon: Award },
+    { id: "general", title: "School Information", icon: School },
+    { id: "academic", title: "Academic Programs", icon: BookOpen },
+    { id: "facilities", title: "Facilities & Resources", icon: Building },
+    { id: "staff", title: "Staff & Leadership", icon: Users },
+    { id: "achievements", title: "Awards & Recognition", icon: Award },
   ];
 
   const renderSectionContent = () => {
     switch (selectedSection) {
-      case 'general':
+      case "general":
         return (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -72,7 +72,7 @@ export const SchoolProfile: React.FC = () => {
             </div>
           </div>
         );
-      case 'academic':
+      case "academic":
         return (
           <div className="space-y-4">
             <div>
@@ -86,15 +86,20 @@ export const SchoolProfile: React.FC = () => {
             </div>
             <div>
               <h4 className="font-semibold text-sm text-muted-foreground mb-2">Curriculum</h4>
-              <p className="text-sm">Common Core State Standards aligned curriculum with emphasis on critical thinking and creativity.</p>
+              <p className="text-sm">
+                Common Core State Standards aligned curriculum with emphasis on critical thinking
+                and creativity.
+              </p>
             </div>
           </div>
         );
-      case 'facilities':
+      case "facilities":
         return (
           <div className="space-y-4">
             <div>
-              <h4 className="font-semibold text-sm text-muted-foreground mb-2">Available Facilities</h4>
+              <h4 className="font-semibold text-sm text-muted-foreground mb-2">
+                Available Facilities
+              </h4>
               <div className="flex flex-wrap gap-2">
                 <Badge variant="outline">Library</Badge>
                 <Badge variant="outline">Computer Lab</Badge>
@@ -106,11 +111,13 @@ export const SchoolProfile: React.FC = () => {
             </div>
             <div>
               <h4 className="font-semibold text-sm text-muted-foreground mb-2">Technology</h4>
-              <p className="text-sm">Modern computer lab with 30 workstations, interactive whiteboards in all classrooms.</p>
+              <p className="text-sm">
+                Modern computer lab with 30 workstations, interactive whiteboards in all classrooms.
+              </p>
             </div>
           </div>
         );
-      case 'staff':
+      case "staff":
         return (
           <div className="space-y-4">
             <div>
@@ -120,11 +127,13 @@ export const SchoolProfile: React.FC = () => {
             </div>
             <div>
               <h4 className="font-semibold text-sm text-muted-foreground mb-2">Staff Overview</h4>
-              <p className="text-sm">25 certified teachers, 5 support staff, student-teacher ratio 18:1</p>
+              <p className="text-sm">
+                25 certified teachers, 5 support staff, student-teacher ratio 18:1
+              </p>
             </div>
           </div>
         );
-      case 'achievements':
+      case "achievements":
         return (
           <div className="space-y-4">
             <div>
@@ -166,8 +175,8 @@ export const SchoolProfile: React.FC = () => {
               key={section.id}
               className={`cursor-pointer transition-colors ${
                 selectedSection === section.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-muted'
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-muted"
               }`}
               onClick={() => setSelectedSection(section.id)}
             >
@@ -186,13 +195,13 @@ export const SchoolProfile: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            {React.createElement(sections.find(s => s.id === selectedSection)?.icon || School, { className: "w-5 h-5" })}
-            {sections.find(s => s.id === selectedSection)?.title}
+            {React.createElement(sections.find((s) => s.id === selectedSection)?.icon || School, {
+              className: "w-5 h-5",
+            })}
+            {sections.find((s) => s.id === selectedSection)?.title}
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          {renderSectionContent()}
-        </CardContent>
+        <CardContent>{renderSectionContent()}</CardContent>
       </Card>
     </div>
   );

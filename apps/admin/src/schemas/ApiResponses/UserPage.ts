@@ -1,10 +1,8 @@
 import { ROLES } from "@/enums/roles";
 import z from "zod";
 
-
-
-export const userPageSchema = z.object({
-
+export const userPageSchema = z
+  .object({
     id: z.number(),
     firstName: z.string(),
     lastName: z.string(),
@@ -13,9 +11,7 @@ export const userPageSchema = z.object({
     role: z.enum([...Object.values(ROLES)] as [ROLES, ...ROLES[]]),
     createdAt: z.string(),
     updatedAt: z.string(),
-}).array()
+  })
+  .array();
 
-export type UserPage = z.infer<typeof userPageSchema>
-
-
-
+export type UserPage = z.infer<typeof userPageSchema>;

@@ -1,9 +1,17 @@
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
-import type { SchoolStaffData } from '@/types/school';
-import type { UseFormReturn } from 'react-hook-form';
+import React from "react";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import type { SchoolStaffData } from "@/types/school";
+import type { UseFormReturn } from "react-hook-form";
 
 interface SchoolStaffStepProps {
   form: UseFormReturn<SchoolStaffData>;
@@ -11,32 +19,32 @@ interface SchoolStaffStepProps {
 
 export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
   const countryOptions = [
-    { id: 'US', label: 'United States' },
-    { id: 'CA', label: 'Canada' },
-    { id: 'UK', label: 'United Kingdom' },
-    { id: 'AU', label: 'Australia' },
-    { id: 'DE', label: 'Germany' },
-    { id: 'FR', label: 'France' },
-    { id: 'ES', label: 'Spain' },
-    { id: 'IT', label: 'Italy' },
-    { id: 'JP', label: 'Japan' },
-    { id: 'CN', label: 'China' },
-    { id: 'IN', label: 'India' },
-    { id: 'ZA', label: 'South Africa' },
+    { id: "US", label: "United States" },
+    { id: "CA", label: "Canada" },
+    { id: "UK", label: "United Kingdom" },
+    { id: "AU", label: "Australia" },
+    { id: "DE", label: "Germany" },
+    { id: "FR", label: "France" },
+    { id: "ES", label: "Spain" },
+    { id: "IT", label: "Italy" },
+    { id: "JP", label: "Japan" },
+    { id: "CN", label: "China" },
+    { id: "IN", label: "India" },
+    { id: "ZA", label: "South Africa" },
   ];
 
   const languageOptions = [
-    { id: 'english', label: 'English' },
-    { id: 'arabic', label: 'Arabic' },
-    { id: 'french', label: 'French' },
-    { id: 'spanish', label: 'Spanish' },
-    { id: 'german', label: 'German' },
-    { id: 'italian', label: 'Italian' },
-    { id: 'mandarin', label: 'Mandarin' },
-    { id: 'japanese', label: 'Japanese' },
-    { id: 'hindi', label: 'Hindi' },
-    { id: 'portuguese', label: 'Portuguese' },
-    { id: 'korean', label: 'Korean' },
+    { id: "english", label: "English" },
+    { id: "arabic", label: "Arabic" },
+    { id: "french", label: "French" },
+    { id: "spanish", label: "Spanish" },
+    { id: "german", label: "German" },
+    { id: "italian", label: "Italian" },
+    { id: "mandarin", label: "Mandarin" },
+    { id: "japanese", label: "Japanese" },
+    { id: "hindi", label: "Hindi" },
+    { id: "portuguese", label: "Portuguese" },
+    { id: "korean", label: "Korean" },
   ];
 
   return (
@@ -105,9 +113,14 @@ export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Teacher Qualifications *</FormLabel>
-              <FormDescription>Describe the typical qualifications of your teachers</FormDescription>
+              <FormDescription>
+                Describe the typical qualifications of your teachers
+              </FormDescription>
               <FormControl>
-                <Input placeholder="Bachelor's degree, Master's degree, Teaching certification..." {...field} />
+                <Input
+                  placeholder="Bachelor's degree, Master's degree, Teaching certification..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -120,7 +133,9 @@ export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
           render={() => (
             <FormItem>
               <FormLabel>Teacher Nationalities *</FormLabel>
-              <FormDescription>Select the nationalities represented in your teaching staff</FormDescription>
+              <FormDescription>
+                Select the nationalities represented in your teaching staff
+              </FormDescription>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-48 overflow-y-auto">
                 {countryOptions.map((country) => (
                   <FormField
@@ -141,16 +156,12 @@ export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
                                 return checked
                                   ? field.onChange([...currentValue, country.id])
                                   : field.onChange(
-                                    currentValue?.filter(
-                                      (value) => value !== country.id
-                                    )
-                                  );
+                                      currentValue?.filter((value) => value !== country.id),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {country.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{country.label}</FormLabel>
                         </FormItem>
                       );
                     }}
@@ -189,16 +200,12 @@ export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
                                 return checked
                                   ? field.onChange([...currentValue, language.id])
                                   : field.onChange(
-                                    currentValue?.filter(
-                                      (value) => value !== language.id
-                                    )
-                                  );
+                                      currentValue?.filter((value) => value !== language.id),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {language.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{language.label}</FormLabel>
                         </FormItem>
                       );
                     }}
@@ -216,7 +223,9 @@ export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Professional Development *</FormLabel>
-              <FormDescription>Describe professional development opportunities for staff</FormDescription>
+              <FormDescription>
+                Describe professional development opportunities for staff
+              </FormDescription>
               <FormControl>
                 <Input placeholder="Training programs, workshops, conferences..." {...field} />
               </FormControl>
@@ -231,7 +240,9 @@ export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Last Inspection Date</FormLabel>
-              <FormDescription>Date of the last official school inspection (YYYY-MM-DD)</FormDescription>
+              <FormDescription>
+                Date of the last official school inspection (YYYY-MM-DD)
+              </FormDescription>
               <FormControl>
                 <Input type="date" {...field} />
               </FormControl>

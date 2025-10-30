@@ -1,9 +1,16 @@
-
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
-import type { UseFormReturn } from 'react-hook-form';
-import type { SchoolMediaData } from '@/types/school';
+import React from "react";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import type { UseFormReturn } from "react-hook-form";
+import type { SchoolMediaData } from "@/types/school";
 
 interface SchoolMediaStepProps {
   form: UseFormReturn<SchoolMediaData>;
@@ -26,7 +33,9 @@ export const SchoolMediaStep: React.FC<SchoolMediaStepProps> = ({ form }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>BQA Report Link</FormLabel>
-              <FormDescription>Link to your school's BQA (Bahrain Quality Assurance) report</FormDescription>
+              <FormDescription>
+                Link to your school's BQA (Bahrain Quality Assurance) report
+              </FormDescription>
               <FormControl>
                 <Input placeholder="https://example.com/bqa-report" {...field} />
               </FormControl>
@@ -41,7 +50,9 @@ export const SchoolMediaStep: React.FC<SchoolMediaStepProps> = ({ form }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>School Brochure Link</FormLabel>
-              <FormDescription>Link to your school's digital brochure or prospectus</FormDescription>
+              <FormDescription>
+                Link to your school's digital brochure or prospectus
+              </FormDescription>
               <FormControl>
                 <Input placeholder="https://example.com/brochure" {...field} />
               </FormControl>
@@ -56,7 +67,9 @@ export const SchoolMediaStep: React.FC<SchoolMediaStepProps> = ({ form }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Photo Gallery Link</FormLabel>
-              <FormDescription>Link to your school's photo gallery or virtual campus tour</FormDescription>
+              <FormDescription>
+                Link to your school's photo gallery or virtual campus tour
+              </FormDescription>
               <FormControl>
                 <Input placeholder="https://example.com/gallery" {...field} />
               </FormControl>
@@ -71,7 +84,9 @@ export const SchoolMediaStep: React.FC<SchoolMediaStepProps> = ({ form }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Video Tour Link</FormLabel>
-              <FormDescription>Link to your school's video tour or promotional video</FormDescription>
+              <FormDescription>
+                Link to your school's video tour or promotional video
+              </FormDescription>
               <FormControl>
                 <Input placeholder="https://example.com/video-tour" {...field} />
               </FormControl>

@@ -1,9 +1,17 @@
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
-import type { SchoolFacilitiesData } from '@/types/school';
-import type { UseFormReturn } from 'react-hook-form';
+import React from "react";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import type { SchoolFacilitiesData } from "@/types/school";
+import type { UseFormReturn } from "react-hook-form";
 
 interface SchoolFacilitiesStepProps {
   form: UseFormReturn<SchoolFacilitiesData>;
@@ -11,33 +19,33 @@ interface SchoolFacilitiesStepProps {
 
 export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form }) => {
   const facilityOptions = [
-    { id: 'library', label: 'Library' },
-    { id: 'laboratory', label: 'Laboratory' },
-    { id: 'gymnasium', label: 'Gymnasium' },
-    { id: 'cafeteria', label: 'Cafeteria' },
-    { id: 'auditorium', label: 'Auditorium' },
-    { id: 'playground', label: 'Playground' },
-    { id: 'swimming-pool', label: 'Swimming Pool' },
-    { id: 'art-studio', label: 'Art Studio' },
-    { id: 'music-room', label: 'Music Room' },
-    { id: 'computer-lab', label: 'Computer Lab' },
-    { id: 'sports-field', label: 'Sports Field' },
+    { id: "library", label: "Library" },
+    { id: "laboratory", label: "Laboratory" },
+    { id: "gymnasium", label: "Gymnasium" },
+    { id: "cafeteria", label: "Cafeteria" },
+    { id: "auditorium", label: "Auditorium" },
+    { id: "playground", label: "Playground" },
+    { id: "swimming-pool", label: "Swimming Pool" },
+    { id: "art-studio", label: "Art Studio" },
+    { id: "music-room", label: "Music Room" },
+    { id: "computer-lab", label: "Computer Lab" },
+    { id: "sports-field", label: "Sports Field" },
   ];
 
   const accessibilityOptions = [
-    { id: 'wheelchair-access', label: 'Wheelchair Access' },
-    { id: 'elevator', label: 'Elevator' },
-    { id: 'braille-signage', label: 'Braille Signage' },
-    { id: 'hearing-loop', label: 'Hearing Loop' },
-    { id: 'accessible-restrooms', label: 'Accessible Restrooms' },
+    { id: "wheelchair-access", label: "Wheelchair Access" },
+    { id: "elevator", label: "Elevator" },
+    { id: "braille-signage", label: "Braille Signage" },
+    { id: "hearing-loop", label: "Hearing Loop" },
+    { id: "accessible-restrooms", label: "Accessible Restrooms" },
   ];
 
   const sustainabilityOptions = [
-    { id: 'solar-panels', label: 'Solar Panels' },
-    { id: 'recycling-program', label: 'Recycling Program' },
-    { id: 'water-conservation', label: 'Water Conservation' },
-    { id: 'energy-efficient-lighting', label: 'Energy Efficient Lighting' },
-    { id: 'green-building-certification', label: 'Green Building Certification' },
+    { id: "solar-panels", label: "Solar Panels" },
+    { id: "recycling-program", label: "Recycling Program" },
+    { id: "water-conservation", label: "Water Conservation" },
+    { id: "energy-efficient-lighting", label: "Energy Efficient Lighting" },
+    { id: "green-building-certification", label: "Green Building Certification" },
   ];
 
   return (
@@ -77,16 +85,12 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
                                 return checked
                                   ? field.onChange([...currentValue, facility.id])
                                   : field.onChange(
-                                    currentValue?.filter(
-                                      (value) => value !== facility.id
-                                    )
-                                  );
+                                      currentValue?.filter((value) => value !== facility.id),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {facility.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{facility.label}</FormLabel>
                         </FormItem>
                       );
                     }}
@@ -125,16 +129,12 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
                                 return checked
                                   ? field.onChange([...currentValue, feature.id])
                                   : field.onChange(
-                                    currentValue?.filter(
-                                      (value) => value !== feature.id
-                                    )
-                                  );
+                                      currentValue?.filter((value) => value !== feature.id),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {feature.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{feature.label}</FormLabel>
                         </FormItem>
                       );
                     }}
@@ -173,16 +173,12 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
                                 return checked
                                   ? field.onChange([...currentValue, practice.id])
                                   : field.onChange(
-                                    currentValue?.filter(
-                                      (value) => value !== practice.id
-                                    )
-                                  );
+                                      currentValue?.filter((value) => value !== practice.id),
+                                    );
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="text-sm font-normal">
-                            {practice.label}
-                          </FormLabel>
+                          <FormLabel className="text-sm font-normal">{practice.label}</FormLabel>
                         </FormItem>
                       );
                     }}
@@ -200,13 +196,18 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
           render={({ field }) => (
             <FormItem>
               <FormLabel>University Destinations *</FormLabel>
-              <FormDescription>Enter universities where your graduates typically go (comma-separated)</FormDescription>
+              <FormDescription>
+                Enter universities where your graduates typically go (comma-separated)
+              </FormDescription>
               <FormControl>
                 <Input
                   placeholder="Harvard University, Oxford University, MIT..."
-                  value={field.value?.join(', ') || ''}
+                  value={field.value?.join(", ") || ""}
                   onChange={(e) => {
-                    const universities = e.target.value.split(',').map(s => s.trim()).filter(s => s);
+                    const universities = e.target.value
+                      .split(",")
+                      .map((s) => s.trim())
+                      .filter((s) => s);
                     field.onChange(universities);
                   }}
                 />
@@ -222,9 +223,14 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
           render={({ field }) => (
             <FormItem>
               <FormLabel>CSR Activities *</FormLabel>
-              <FormDescription>Describe your Corporate Social Responsibility activities</FormDescription>
+              <FormDescription>
+                Describe your Corporate Social Responsibility activities
+              </FormDescription>
               <FormControl>
-                <Input placeholder="Community service, environmental projects, charity work..." {...field} />
+                <Input
+                  placeholder="Community service, environmental projects, charity work..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -241,9 +247,12 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
               <FormControl>
                 <Input
                   placeholder="Tech companies, local businesses, NGOs..."
-                  value={field.value?.join(', ') || ''}
+                  value={field.value?.join(", ") || ""}
                   onChange={(e) => {
-                    const partnerships = e.target.value.split(',').map(s => s.trim()).filter(s => s);
+                    const partnerships = e.target.value
+                      .split(",")
+                      .map((s) => s.trim())
+                      .filter((s) => s);
                     field.onChange(partnerships);
                   }}
                 />
@@ -261,7 +270,10 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
               <FormLabel>Awards and Recognitions</FormLabel>
               <FormDescription>List any awards or recognitions received</FormDescription>
               <FormControl>
-                <Input placeholder="Academic excellence awards, sports championships..." {...field} />
+                <Input
+                  placeholder="Academic excellence awards, sports championships..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

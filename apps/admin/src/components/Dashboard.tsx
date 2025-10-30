@@ -1,50 +1,45 @@
-
-import { useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { Sidebar } from './Sidebar/Sidebar';
-import { Header } from './Headers/Header';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ROLES } from '@/enums/roles';
-import type { Page } from '@/types/page';
-import { ordredPages, PAGES } from '@/data/pages';
-import { Outlet, } from 'react-router-dom';
-import { usePageContext } from '@/contexts/PageContext';
-import HeaderWrapper from './Headers/HeaderWrapper';
-
-
-
+import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Sidebar } from "./Sidebar/Sidebar";
+import { Header } from "./Headers/Header";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ROLES } from "@/enums/roles";
+import type { Page } from "@/types/page";
+import { ordredPages, PAGES } from "@/data/pages";
+import { Outlet } from "react-router-dom";
+import { usePageContext } from "@/contexts/PageContext";
+import HeaderWrapper from "./Headers/HeaderWrapper";
 
 export const Dashboard = () => {
-
   const { user } = useAuth();
-
-  if (!user) return <>User is either null or undefined</>;
-
 
   const { currentPage } = usePageContext();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-
-
+  if (!user) return <>User is either null or undefined</>;
 
   return (
-    <div className="h-screen bg-gray-50 flex">
+    <div className="bg-gray-50 flex h-screen fixed inset-0 overflow-hidden">
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
       )}
 
       {/* Sidebar */}
-      <div className={`
+      <div
+        className={`
         fixed lg:static inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+      `}
+      >
         <Sidebar
           currentPage={currentPage}
           onPageChange={(page: Page) => {
-
             setSidebarOpen(false);
           }}
           ordredPages={ordredPages}
@@ -52,7 +47,7 @@ export const Dashboard = () => {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-y-hidden">
         {/* Mobile header with menu button */}
         <div className="lg:hidden flex items-center justify-between p-4 bg-white border-b border-border">
           <Button
@@ -74,7 +69,7 @@ export const Dashboard = () => {
         </div>
 
         {/* Page content */}
-        <main className="flex-1 p-4 lg:p-6 overflow-y-auto">
+        <main className="flex-1 p-4 lg:p-6 overflow-y-auto h-full ">
           <Outlet />
         </main>
       </div>

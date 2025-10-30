@@ -1,19 +1,14 @@
+import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
+import LoadingSpinner from "@/LoadingSpinner";
 
-
-
-import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider'
-import LoadingSpinner from '@/LoadingSpinner';
-
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
 const DetailedSchoolExists = () => {
+  const { detailedSchool } = useDetailedSchool();
 
-    const { detailedSchool } = useDetailedSchool();
+  if (!detailedSchool) return <LoadingSpinner />;
 
-    if (!detailedSchool) return <LoadingSpinner />;
+  return <Outlet />;
+};
 
-    return <Outlet />
-
-}
-
-export default DetailedSchoolExists
+export default DetailedSchoolExists;
