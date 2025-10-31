@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.TechnoShark.SchoolRanking.Config.AppConstants;
 import com.example.TechnoShark.SchoolRanking.Enums.AccessibilityEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.AccreditationEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
@@ -158,7 +159,7 @@ public class SchoolSeeder {
         staff.setTeacherQualifications("school" + i + " teacher qualifications");
         staff.setLastInspectionDate(getRandomLocalDate(LocalDate.of(2000, 1, 1), LocalDate.of(2025, 1, 1)));
 
-        staff.setSchool(school);
+    staff.setSchool(school);
         school.setSchoolStaff(staff);
 
         return staff;
@@ -228,7 +229,7 @@ public class SchoolSeeder {
             School school = createGeneralSchool(i);
 
             school.setFormsCompleted(true);
-            school.setLastFormStep(5);
+            school.setLastFormStep(AppConstants.FormsTotalSteps);
 
             // --- 3. Create Academics BEFORE saving school ---
             SchoolAcademics academicsEntity = createAcademics(i, school);
@@ -273,7 +274,7 @@ public class SchoolSeeder {
             School school = createGeneralSchool(i);
 
             school.setFormsCompleted(true);
-            school.setLastFormStep(5);
+            school.setLastFormStep(AppConstants.FormsTotalSteps);
 
             // --- 3. Create Academics BEFORE saving school ---
             SchoolAcademics academicsEntity = createAcademics(i, school);

@@ -6,9 +6,7 @@ import type z from "zod";
 import { useForm } from "react-hook-form";
 import apiGateway from "@/service/Api/apiGateway";
 import { apiService } from "@/service/Api/apiService";
-import safeAsyncMutate from "@/utils/safeAsyncMutate";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import NavigationButtons from "../NavigationButton/NavigationButtons";
 import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
@@ -41,7 +39,7 @@ const MediaUpdatedForm = () => {
   const onSubmit = async (data: SchoolMedia) => {
     const response = await safeAsyncMutate(data);
 
-    if (!response.success) {
+    if (response.success === false) {
       console.error("Failed to submit general form", response.error);
       return;
     }

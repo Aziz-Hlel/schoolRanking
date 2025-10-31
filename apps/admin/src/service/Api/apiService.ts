@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import axios from "axios";
 import ENV from "../../utils/env.variables";
@@ -173,7 +174,7 @@ class ApiService {
     }
   }
 
-  async post<T>(url: string, data: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async post<T>(url: string, data: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.post<ApiResponse<T>>(url, data, config);
 
@@ -203,7 +204,7 @@ class ApiService {
 
   async postThrowable<T>(
     url: string,
-    data: any,
+    data: unknown,
     config?: AxiosRequestConfig,
   ): Promise<ApiResponse<T>> {
     try {
@@ -232,7 +233,7 @@ class ApiService {
     }
   }
 
-  async put<T>(url: string, data: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async put<T>(url: string, data: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.put<ApiResponse<T>>(url, data, config);
       if (response.data.success === false) {
@@ -260,7 +261,7 @@ class ApiService {
 
   async putThrowable<T>(
     url: string,
-    data: any,
+    data: unknown,
     config?: AxiosRequestConfig,
   ): Promise<ApiResponse<T>> {
     try {

@@ -53,7 +53,7 @@ const FacilitiesForm = () => {
 
     const response = await safeAsyncMutate(payload);
 
-    if (!response.success) {
+    if (response.success === false) {
       console.error("Failed to submit general form", response.error);
       return;
     }

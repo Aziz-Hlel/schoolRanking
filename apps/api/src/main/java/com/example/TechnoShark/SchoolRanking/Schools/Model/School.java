@@ -11,6 +11,7 @@ import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.SchoolTypeEnums;
 import com.example.TechnoShark.SchoolRanking.SchoolAcademics.Model.SchoolAcademics;
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.Model.SchoolFacilities;
+import com.example.TechnoShark.SchoolRanking.SchoolFees.Model.SchoolFees;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.Model.SchoolMedia;
 import com.example.TechnoShark.SchoolRanking.SchoolStaff.Model.SchoolStaff;
 
@@ -99,6 +100,9 @@ public class School {
 
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     private SchoolAcademics schoolAcademics;
+
+    @OneToOne(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private SchoolFees schoolFees;
 
     // Add audit fields - industry standard
     @CreationTimestamp

@@ -7,5 +7,6 @@ public class CurrentProgressForm {
     public static final int SCHOOL_FACILITIES = 2;
     public static final int SCHOOL_STAFF = 3;
     public static final int SCHOOL_MEDIA = 4;
+    public static final int SCHOOL_FEES = 5;
 
 }

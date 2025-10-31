@@ -16,7 +16,7 @@ import { FacilityEnums } from "@/enums/FacilityEnums";
 import { AccessibilityEnums } from "@/enums/AccessibilityEnums";
 import { SustainabilityEnums } from "@/enums/SustainabilityEnums";
 import { schoolFacilitiesSchema } from "@/types/School2.type";
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
 import {
   Select,
   SelectContent,

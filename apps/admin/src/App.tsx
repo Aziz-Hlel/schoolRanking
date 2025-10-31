@@ -30,6 +30,7 @@ import SchoolViewManagemet from "./components/MySchool/SchoolViewManagemet";
 import Login2 from "./pages/Login2";
 import SchoolFormsCompleted from "./Guard/SchoolFormsCompleted";
 import SchoolNotFound from "./pages/Notfounds/SchoolNotFound";
+import FeesUpdateForm from "./components/Forms/UpdateForm/Wrapper/FeesUpdateForm";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +78,7 @@ function App() {
                                 <Route path="facilities" element={<FacilitiesUpdatedForm />} />
                                 <Route path="staff" element={<StaffUpdatedForm />} />
                                 <Route path="media" element={<MediaUpdatedForm />} />
+                                <Route path="fees" element={<FeesUpdateForm />} />
                               </Route>
                             </Route>
                           </Route>

@@ -6,12 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import type z from "zod";
-import DetachedGeneral from "../../DetachedForms/GeneralForm/DetachedGeneral";
 import AbstractWrapper from "./AbstractWrapper";
 import NavigationButtons from "../NavigationButton/NavigationButtons";
 import { useChangePageById, useOrdredPages } from "@/store/usePageStore";
 import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
 import useApiMutation from "@/hooks/useApiMutation";
+import DetachedGeneral from "../../DetachedForms/General/DetachedGeneral";
 
 type SchoolGeneral = z.infer<typeof schoolGeneralSchema>;
 
@@ -33,7 +33,7 @@ const GeneralForm = () => {
     console.log("ordredPages b4 : ", ordredPages);
     const response = await safeAsyncMutate(data);
 
-    if (!response.success) {
+    if (response.success === false) {
       console.error("Failed to submit general form", response.error);
       return;
     }

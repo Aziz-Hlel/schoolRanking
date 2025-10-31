@@ -1,6 +1,14 @@
-import { type ReactNode } from "react";
+import { type ForwardRefExoticComponent, type ReactNode, type RefAttributes } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Globe, Users, GraduationCap, Building } from "lucide-react";
+import {
+  Globe,
+  Users,
+  GraduationCap,
+  Building,
+  CircleDollarSign,
+  type LucideProps,
+  School,
+} from "lucide-react";
 import GeneralCardContent from "./GeneralCardContent";
 import AcademicCardContent from "./AcademicCardContent";
 import FacilitiesCardContent from "./FacilitiesCardContent";
@@ -12,9 +20,8 @@ import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
 interface sectionsProps {
   id: string;
   title: string;
-  icon: any;
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
   color: string;
-  data: any;
   component: ReactNode;
   editPath: string;
 }
@@ -24,68 +31,13 @@ export const SchoolView = () => {
 
   if (!detailedSchool) return <div className="p-4">Loading school data...</div>;
 
-  // Mock school data - in a real app, this would come from an API
-  const schoolData = {
-    general: {
-      name: "Sunrise International School",
-      description: "A leading international school committed to excellence in education",
-      website: "https://sunriseschool.edu",
-      address: "123 Education Street, Manama, Bahrain",
-      phone: "+973 1234 5678",
-      email: "info@sunriseschool.edu",
-      established: "1995",
-      schoolType: "International",
-      curriculum: "IB",
-      educationLevel: "Primary, Secondary",
-      studentCapacity: 1200,
-      currentEnrollment: 980,
-      applicationDeadline: "2024-03-31",
-      tuitionRange: "$8,000 - $12,000",
-      languageOfInstruction: "English",
-    },
-    academic: {
-      gradeRange: "KG1 - Grade 12",
-      subjects: [
-        "Mathematics",
-        "Science",
-        "English",
-        "Arabic",
-        "Social Studies",
-        "Arts",
-        "Physical Education",
-      ],
-      programs: ["IB Primary Years Programme", "IB Middle Years Programme", "IB Diploma Programme"],
-      achievements: [
-        "Outstanding Academic Performance Award 2023",
-        "Best International School 2022",
-      ],
-    },
-    facilities: {
-      facilities: ["Library", "Science Labs", "Sports Complex", "Auditorium", "Swimming Pool"],
-      resources: ["Smart Classrooms", "Computer Lab", "Art Studio", "Music Room"],
-      sustainability: ["Solar Panels", "Recycling Program", "Green Building Certification"],
-    },
-    staff: {
-      totalStaff: 85,
-      teacherQualifications: "Bachelor's and Master's degrees with teaching certifications",
-      nationalities: ["British", "American", "Canadian", "Australian", "Local"],
-      languages: ["English", "Arabic", "French", "Spanish"],
-    },
-    media: {
-      brochureLink: "https://sunriseschool.edu/brochure",
-      galleryLink: "https://sunriseschool.edu/gallery",
-      videoTourLink: "https://sunriseschool.edu/tour",
-    },
-  };
-  console.log(detailedSchool.schoolGeneral);
   const sections: sectionsProps[] = [
     {
       id: "general",
       title: "School Information",
-      icon: Building,
+      icon: School,
       color: "bg-blue-100 text-blue-800",
       editPath: "edit/general",
-      data: schoolData.general,
       component: <GeneralCardContent section={detailedSchool.schoolGeneral} />,
     },
     {
@@ -94,7 +46,6 @@ export const SchoolView = () => {
       icon: GraduationCap,
       color: "bg-green-100 text-green-800",
       editPath: "edit/academics",
-      data: schoolData.academic,
       component: <AcademicCardContent section={detailedSchool.schoolAcademics} />,
     },
     {
@@ -103,7 +54,6 @@ export const SchoolView = () => {
       icon: Building,
       color: "bg-purple-100 text-purple-800",
       editPath: "edit/facilities",
-      data: schoolData.facilities,
       component: <FacilitiesCardContent section={detailedSchool.schoolFacilities} />,
     },
     {
@@ -112,7 +62,6 @@ export const SchoolView = () => {
       icon: Users,
       color: "bg-orange-100 text-orange-800",
       editPath: "edit/staff",
-      data: schoolData.staff,
       component: <StaffCardContent section={detailedSchool.schoolStaff} />,
     },
     {
@@ -121,7 +70,14 @@ export const SchoolView = () => {
       icon: Globe,
       color: "bg-pink-100 text-pink-800",
       editPath: "edit/media",
-      data: schoolData.media,
+      component: <MediaCardContent section={detailedSchool.schoolMedia} />,
+    },
+    {
+      id: "fees",
+      title: "Fees & Payments",
+      icon: CircleDollarSign,
+      color: "bg-yellow-100 text-yellow-800",
+      editPath: "edit/fees",
       component: <MediaCardContent section={detailedSchool.schoolMedia} />,
     },
   ];
@@ -150,7 +106,7 @@ export const SchoolView = () => {
           <SectionHeader
             color={sections[0].color}
             title={sections[0].title}
-            icon={Icon}
+            icon={sections[0].icon}
             editPath={sections[0].editPath}
             editable={detailedSchool.schoolGeneral ? true : false}
           />
@@ -163,7 +119,7 @@ export const SchoolView = () => {
           <SectionHeader
             color={sections[1].color}
             title={sections[1].title}
-            icon={Icon}
+            icon={sections[1].icon}
             editPath={sections[1].editPath}
             editable={detailedSchool.schoolAcademics ? true : false}
           />
@@ -176,7 +132,7 @@ export const SchoolView = () => {
           <SectionHeader
             color={sections[2].color}
             title={sections[2].title}
-            icon={Icon}
+            icon={sections[2].icon}
             editPath={sections[2].editPath}
             editable={detailedSchool.schoolFacilities ? true : false}
           />
@@ -189,7 +145,7 @@ export const SchoolView = () => {
           <SectionHeader
             color={sections[3].color}
             title={sections[3].title}
-            icon={Icon}
+            icon={sections[3].icon}
             editPath={sections[3].editPath}
             editable={detailedSchool.schoolStaff ? true : false}
           />
@@ -205,6 +161,19 @@ export const SchoolView = () => {
             icon={Icon}
             editPath={sections[4].editPath}
             editable={detailedSchool.schoolMedia ? true : false}
+          />
+          <CardContent className="pt-0">
+            <MediaCardContent section={detailedSchool.schoolMedia} />
+          </CardContent>
+        </Card>
+
+        <Card key={sections[5].id + "xx"} className="h-fit">
+          <SectionHeader
+            color={sections[5].color}
+            title={sections[5].title}
+            icon={sections[5].icon}
+            editPath={sections[5].editPath}
+            editable={detailedSchool.schoolFees ? true : false}
           />
           <CardContent className="pt-0">
             <MediaCardContent section={detailedSchool.schoolMedia} />

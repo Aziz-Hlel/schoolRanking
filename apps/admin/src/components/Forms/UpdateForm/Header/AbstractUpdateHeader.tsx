@@ -11,6 +11,7 @@ const AbstractUpdateHeader: FC<{ currentStep: number }> = ({ currentStep }) => {
     },
     { title: "Staff & Leadership", description: "Team qualifications and structure" },
     { title: "Media & Documentation", description: "Links to reports and media content" },
+    { title: "School Fees", description: "Fees and payment details" },
   ];
 
   return (

@@ -6,6 +6,7 @@ import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.SchoolTypeEnums;
 import com.example.TechnoShark.SchoolRanking.SchoolAcademics.DTO.SchoolAcademicsResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.DTO.SchoolFacilitiesResponse;
+import com.example.TechnoShark.SchoolRanking.SchoolFees.DTO.SchoolFeesResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.DTO.SchoolMediaResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolStaff.DTO.SchoolStaffResponse;
 
@@ -23,6 +24,7 @@ public record SchoolDetailedResponse(
         SchoolStaffResponse schoolStaff,
         SchoolFacilitiesResponse schoolFacilities,
         SchoolMediaResponse schoolMedia,
-        SchoolAcademicsResponse schoolAcademics) {
+        SchoolAcademicsResponse schoolAcademics,
+        SchoolFeesResponse schoolFees) {
 
 }

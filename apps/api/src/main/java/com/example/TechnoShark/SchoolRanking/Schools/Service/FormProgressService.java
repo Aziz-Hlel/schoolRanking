@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.TechnoShark.SchoolRanking.Config.AppConstants;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 import com.example.TechnoShark.SchoolRanking.Schools.Repo.SchoolRepo;
 
@@ -25,7 +26,7 @@ public class FormProgressService {
      * @throws IllegalArgumentException if school not found or invalid step
      */
     public void updateFormProgress(UUID schoolId, Integer completedStep) {
-        if (completedStep < 1 || completedStep > 5)
+        if (completedStep < 1 || completedStep > AppConstants.FormsTotalSteps)
             throw new IllegalArgumentException("Form step must be between 1 and 5");
 
         School school = schoolRepository.findById(schoolId)
@@ -36,7 +37,7 @@ public class FormProgressService {
             school.setLastFormStep(completedStep);
 
             // Mark forms as completed if all 5 steps are done
-            if (completedStep == 5) {
+            if (completedStep == AppConstants.FormsTotalSteps) {
                 school.setFormsCompleted(true);
             }
 
@@ -54,7 +55,7 @@ public class FormProgressService {
                 .orElseThrow(() -> new IllegalArgumentException("School not found with id: " + schoolId));
 
         school.setFormsCompleted(true);
-        school.setLastFormStep(5);
+        school.setLastFormStep(AppConstants.FormsTotalSteps);
         schoolRepository.save(school);
     }
 
@@ -78,7 +79,7 @@ public class FormProgressService {
         if (formsCompleted) {
             return null; // All forms completed
         }
-        return Math.min(lastStep + 1, 5);
+        return Math.min(lastStep + 1, AppConstants.FormsTotalSteps);
     }
 
     // DTO for returning form progress information

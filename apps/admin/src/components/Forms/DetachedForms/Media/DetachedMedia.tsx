@@ -13,7 +13,7 @@ import { schoolMediaSchema } from "@/types/School2.type";
 
 type SchoolMedia = z.infer<typeof schoolMediaSchema>;
 
-const DetachedGeneral = ({ form }: { form: UseFormReturn<SchoolMedia> }) => {
+const DetachedMedia = ({ form }: { form: UseFormReturn<SchoolMedia> }) => {
   return (
     <div className="space-y-6">
       <div className="text-center mb-6">
@@ -90,4 +90,4 @@ const DetachedGeneral = ({ form }: { form: UseFormReturn<SchoolMedia> }) => {
   );
 };
 
-export default DetachedGeneral;
+export default DetachedMedia;

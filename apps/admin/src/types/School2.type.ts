@@ -132,6 +132,19 @@ export const schoolMediaSchema = z.object({
   videoTourLink: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
 });
 
+export const schoolFeesSchema = z.object({
+  feeItems:z.array(z.object({
+    title:z.string(),
+    price:z.number().positive("Price must be a positive number"),
+    description:z.string().min(10, "Description must be at least 10 characters"),
+    currency:z.string().min(3, "Currency must be at least 3 characters"),
+    sortOrder:z.number().int("Sort order must be a number").min(0, "Sort order must be at least 0"),
+    isAdditionalFee:z.boolean({required_error:"Additional fee is required"}).default(false)
+  })).default([])
+
+
+})
+
 type Id = {
   id: string;
 };
@@ -156,10 +169,15 @@ type SchoolMediaNoID = z.infer<typeof schoolMediaSchema>;
 
 export type SchoolMedia = SchoolMediaNoID & Id;
 
+export type SchoolFeesNoID = z.infer<typeof schoolFeesSchema>;
+
+export type SchoolFees = SchoolFeesNoID & Id;
+
 export type SchoolDetailed = {
   schoolGeneral?: SchoolGeneral;
   schoolStaff?: SchoolStaff;
   schoolFacilities?: SchoolFacilities;
   schoolMedia?: SchoolMedia;
   schoolAcademics?: SchoolAcademics;
+  schoolFees?: SchoolFees;
 };
