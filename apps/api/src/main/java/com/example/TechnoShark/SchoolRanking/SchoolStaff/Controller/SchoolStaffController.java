@@ -20,6 +20,8 @@ import com.example.TechnoShark.SchoolRanking.SchoolStaff.DTO.SchoolStaffRequestD
 import com.example.TechnoShark.SchoolRanking.SchoolStaff.DTO.SchoolStaffResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolStaff.Service.SchoolStaffService;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.SchoolAuthorizationService;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -34,7 +36,7 @@ public class SchoolStaffController {
 
     @PostMapping({ "", "/" })
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<SchoolStaffResponse> create(
+    public ResponseEntity<ApiResponse<SchoolStaffResponse>> create(
             @PathVariable UUID schoolId,
             @RequestBody @Valid SchoolStaffRequestDTO school_StaffRequestDTO) {
 
@@ -45,12 +47,14 @@ public class SchoolStaffController {
 
         SchoolStaffResponse response = school_StaffService.create(school_StaffRequestDTO, schoolId);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ApiResult.of(response)
+                .withMessage("School staff created successfully")
+                .withStatus(HttpStatus.CREATED).toResponse();
     }
 
     @PutMapping("/{schoolFacilitiesId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<SchoolStaffResponse> update(
+    public ResponseEntity<ApiResponse<SchoolStaffResponse>> update(
             @PathVariable UUID schoolId,
             @PathVariable UUID schoolFacilitiesId,
             @RequestBody @Valid SchoolStaffRequestDTO school_StaffRequestDTO) {
@@ -62,14 +66,19 @@ public class SchoolStaffController {
 
         SchoolStaffResponse response = school_StaffService.update(school_StaffRequestDTO, schoolFacilitiesId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ApiResult.of(response)
+                .withMessage("School staff updated successfully")
+                .withStatus(HttpStatus.OK).toResponse();
 
     }
 
     @GetMapping("/{school_StaffId}")
-    public ResponseEntity<SchoolStaffResponse> get(@PathVariable UUID school_StaffId) {
+    public ResponseEntity<ApiResponse<SchoolStaffResponse>> get(@PathVariable UUID school_StaffId) {
         SchoolStaffResponse schooldId = school_StaffService.get(school_StaffId);
-        return ResponseEntity.status(HttpStatus.OK).body(schooldId);
+        return ApiResult.of(schooldId)
+                .withMessage("School staff found successfully")
+                .withStatus(HttpStatus.OK)
+                .toResponse();
     }
 
 }

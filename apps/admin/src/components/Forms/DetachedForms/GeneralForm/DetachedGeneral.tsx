@@ -1,4 +1,4 @@
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { type UseFormReturn } from "react-hook-form";
 import z from "zod";
@@ -14,9 +14,10 @@ import { CountryEnums } from "@/enums/CountryEnums";
 import { SchoolTypeEnums } from "@/enums/SchoolTypeEnums";
 import { schoolGeneralSchema } from "@/types/School2.type";
 import type { FC } from "react";
-import { CountryDropdown } from "@/components/ui/country-dropdown";
+import { CountryDropdown, type Country } from "@/components/ui/country-dropdown";
 import { countries } from "country-data-list";
 import { Textarea } from "@/components/ui/textarea";
+import { MultiSelect } from "@/components/ui/multi-select";
 
 interface DetachedFormProps {
   form: UseFormReturn<SchoolGeneral>;
@@ -27,6 +28,13 @@ type SchoolGeneral = z.infer<typeof schoolGeneralSchema>;
 const DetachedGeneral: FC<DetachedFormProps> = ({ form }) => {
   const countryOptions = countries.all.filter((country) => {
     return Object.prototype.hasOwnProperty.call(CountryEnums, country.alpha2);
+  });
+
+  const countries2 = countries.all.map((country: Country) => {
+    return {
+      label: country.name,
+      value: country.alpha2,
+    };
   });
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -193,6 +201,35 @@ const DetachedGeneral: FC<DetachedFormProps> = ({ form }) => {
             </FormControl>
             <FormMessage />
           </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="campusCountries"
+        render={() => (
+          // Corrected FormField implementation
+          <FormField
+            control={form.control}
+            name="campusCountries"
+            render={({ field }) => (
+              <FormItem className=" col-span-2">
+                <FormLabel>Countries with Campuses *</FormLabel>
+                <FormDescription>
+                  Include all locations outside your main country if your institution is international
+                </FormDescription>
+                <MultiSelect
+                  options={Object.values(countries2).map((country) => country)}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  placeholder="Select options"
+                  variant="inverted"
+                  maxCount={20}
+                />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         )}
       />
     </div>

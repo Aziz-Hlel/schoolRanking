@@ -1,6 +1,5 @@
 package com.example.TechnoShark.SchoolRanking.Users.Controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +28,7 @@ import com.example.TechnoShark.SchoolRanking.Users.DTO.UserResponse;
 import com.example.TechnoShark.SchoolRanking.Users.DTO.getUsersPageRequest;
 import com.example.TechnoShark.SchoolRanking.Users.Service.UserService;
 import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -51,15 +51,9 @@ public class UserController {
         // exists");
         UserResponse response = userService.createUser(userRequest);
 
-        ApiResponse<UserResponse> apiResponse = ApiResponse.<UserResponse>builder()
-                .message("User created successfully")
-                .success(true)
-                .data(response)
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.CREATED)
-                .build();
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+        return ApiResult.of(response)
+                .withMessage("User created successfully")
+                .withStatus(HttpStatus.CREATED).toResponse();
     }
 
     @PutMapping("/{userId}")
@@ -68,22 +62,18 @@ public class UserController {
 
         UserResponse response = userService.updateUser(userId, userRequest);
 
-        // throw new ResourceNotFoundException(null);
-        ApiResponse<UserResponse> apiResponse = ApiResponse.<UserResponse>builder()
-                .message("User updated successfully")
-                .success(true)
-                .data(response)
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.OK)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
+        return ApiResult.of(response)
+                .withMessage("User updated successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping("/{id}")
-    UserResponse getUser(@PathVariable UUID id) {
+    ResponseEntity<ApiResponse<UserResponse>> getUser(@PathVariable UUID id) {
         UserResponse userOpt = userService.getUser(id);
-        return userOpt;
+
+        return ApiResult.of(userOpt)
+                .withMessage("User retrieved successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping({ "", "/" })
@@ -96,15 +86,9 @@ public class UserController {
 
         Page<UserPageResponse> users = userService.getAllUsers(pageable);
 
-        ApiResponse<Page<UserPageResponse>> apiResponse = ApiResponse.<Page<UserPageResponse>>builder()
-                .message("Users retrieved successfully")
-                .success(true)
-                .data(users)
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.OK)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
+        return ApiResult.of(users)
+                .withMessage("Users retrieved successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     public static List<Sort.Order> parseSort(List<String> sortParams) {
@@ -128,16 +112,9 @@ public class UserController {
 
         JwtUserResponse user = UserContext.getCurrentUser();
 
-        ApiResponse<JwtUserResponse> apiResponse = ApiResponse.<JwtUserResponse>builder()
-                .message("User retrieved successfully")
-                .success(true)
-                .data(user)
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.OK)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
-
+        return ApiResult.of(user)
+                .withMessage("User retrieved successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
 }

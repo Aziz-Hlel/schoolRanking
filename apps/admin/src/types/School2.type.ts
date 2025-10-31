@@ -29,6 +29,8 @@ export const schoolGeneralSchema = z.object({
     .max(2025, "Year cannot be in the future"),
   website: z.string().url("Please enter a valid website URL").optional(),
   type: z.enum(Object.values(SchoolTypeEnums).map((type) => type.value) as [string, ...string[]]),
+  campusCountries: z.array(z.string()).optional().transform((val) => (val?.length !== 0 ? val : undefined)),
+
 });
 
 export const schoolAcademicsSchema = z.object({
@@ -47,7 +49,7 @@ export const schoolAcademicsSchema = z.object({
   curriculums: z
     .array(z.enum(Object.keys(CurriculumEnums) as [string, ...string[]]))
     .min(1, "At least one curriculum is required"),
-  extraLanguagesTaught: z.array(z.string()).optional(),
+  extraLanguagesTaught: z.array(z.string()).optional().transform((val) => (val?.length !== 0 ? val : undefined)),
   hasGiftedPrograms: z.boolean({ required_error: "Gifted programs is required" }).default(false),
   hasSpecialNeedsSupport: z
     .boolean({ required_error: "Special needs support is required" })

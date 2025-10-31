@@ -28,6 +28,7 @@ import com.example.TechnoShark.SchoolRanking.Auth.Service.JwtService;
 import com.example.TechnoShark.SchoolRanking.Config.JwtProperties;
 import com.example.TechnoShark.SchoolRanking.ErrorHandler.Exceptions.InvalidTokenException;
 import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -74,14 +75,7 @@ public class AuthController {
 
             log.info("User {} logged in successfully", loginRequest.getEmail());
 
-            ApiResponse<AuthResponse> apiResponse = ApiResponse.<AuthResponse>builder()
-                    .message("User logged in successfully")
-                    .success(true)
-                    .data(response)
-                    .status(HttpStatus.OK)
-                    .build();
-
-            return ResponseEntity.ok(apiResponse);
+            return ApiResult.of(response).withMessage("Successfully logged in").withStatus(HttpStatus.OK).toResponse();
 
         } catch (BadCredentialsException e) {
             log.warn("Failed login attempt for email: {}", loginRequest.getEmail());
@@ -123,14 +117,7 @@ public class AuthController {
 
             log.info("Token refreshed successfully for user: {}", username);
 
-            ApiResponse<TokenRefreshResponse> apiResponse = ApiResponse.<TokenRefreshResponse>builder()
-                    .message("Token refreshed successfully")
-                    .success(true)
-                    .data(response)
-                    .status(HttpStatus.OK)
-                    .build();
-
-            return ResponseEntity.ok(apiResponse);
+            return ApiResult.of(response).withMessage("Token refreshed successfully").toResponse();
 
         } catch (ExpiredJwtException e) {
             log.warn("Refresh token expired: {}", e.getMessage());
@@ -159,14 +146,7 @@ public class AuthController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Successfully logged out");
 
-        ApiResponse<Map<String, String>> apiResponse = ApiResponse.<Map<String, String>>builder()
-                .message("Successfully logged out")
-                .success(true)
-                .data(response)
-                .status(HttpStatus.OK)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
+        return ApiResult.of(response).withMessage("Successfully logged out").toResponse();
     }
 
     // require authentcation on a method

@@ -3,6 +3,7 @@ package com.example.TechnoShark.SchoolRanking.UserSchool.Controller;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import com.example.TechnoShark.SchoolRanking.Auth.Util.UserContext;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.MySchoolsPreview;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.UserSchoolService;
 import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,14 +33,10 @@ public class UserSchoolController {
 
         List<MySchoolsPreview> userSchools = userSchoolService.getUserSchools(userId);
 
-        ApiResponse<List<MySchoolsPreview>> apiResponse = ApiResponse.<List<MySchoolsPreview>>builder()
-                .message("User schools retrieved successfully")
-                .success(true)
-                .data(userSchools)
-                .timestamp(null)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
+        return ApiResult.of(userSchools)
+                .withMessage("User Schools retrieved successfully")
+                .withStatus(HttpStatus.OK)
+                .toResponse();
 
     }
 }

@@ -1,6 +1,5 @@
 package com.example.TechnoShark.SchoolRanking.Schools.Controller;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -30,6 +29,7 @@ import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.Service.SchoolService;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.SchoolAuthorizationService;
 import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -52,19 +52,14 @@ public class SchoolController {
 
         UUID schooldId = schoolService.create(schoolRequest, userId);
 
-        ApiResponse<UUID> apiResponse = ApiResponse.<UUID>builder()
-                .message("School created successfully")
-                .success(true)
-                .data(schooldId)
-                .timestamp(null)
-                .build();
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+        return ApiResult.of(schooldId)
+                .withMessage("School created successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @PutMapping({ "/{schoolGeneralId}" })
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<SchoolResponse> updateSchool(@PathVariable UUID schoolGeneralId,
+    public ResponseEntity<ApiResponse<SchoolResponse>> updateSchool(@PathVariable UUID schoolGeneralId,
             @Valid @RequestBody SchoolRequest schoolRequest) {
 
         UUID userId = UserContext.getCurrentUserId();
@@ -75,16 +70,20 @@ public class SchoolController {
 
         SchoolResponse school = schoolService.update(schoolRequest, schoolGeneralId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(school);
+        return ApiResult.of(school)
+                .withMessage("School updated successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping({ "/{schoolId}" })
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<SchoolResponse> getSchool(@PathVariable UUID schoolId) {
+    public ResponseEntity<ApiResponse<SchoolResponse>> getSchool(@PathVariable UUID schoolId) {
 
         SchoolResponse school = schoolService.get(schoolId);
-        return ResponseEntity.status(HttpStatus.OK).body(school);
 
+        return ApiResult.of(school)
+                .withMessage("School retrieved successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping({ "", "/" })
@@ -96,15 +95,9 @@ public class SchoolController {
 
         Page<SchoolPageResponse> schools = schoolService.getPage(pageable);
 
-        ApiResponse<Page<SchoolPageResponse>> apiResponse = ApiResponse.<Page<SchoolPageResponse>>builder()
-                .message("Schools retrieved successfully")
-                .success(true)
-                .data(schools)
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.OK)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
+        return ApiResult.of(schools)
+                .withMessage("Schools retrieved successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping("/infos/{schoolId}")
@@ -112,15 +105,9 @@ public class SchoolController {
     public ResponseEntity<ApiResponse<SchoolDetailedResponse2>> getDetailedSchool(@PathVariable UUID schoolId) {
         SchoolDetailedResponse2 school = schoolService.getDetailed(schoolId);
 
-        ApiResponse<SchoolDetailedResponse2> apiResponse = ApiResponse.<SchoolDetailedResponse2>builder()
-                .message("School retrieved successfully")
-                .success(true)
-                .data(school)
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.OK)
-                .build();
-
-        return ResponseEntity.ok(apiResponse);
+        return ApiResult.of(school)
+                .withMessage("School retrieved successfully")
+                .withStatus(HttpStatus.OK).toResponse();
 
     }
 
@@ -136,15 +123,10 @@ public class SchoolController {
 
         SchoolProgressResponse schoolProgressResponse = schoolService.getFormProgress(schoolId);
 
-        ApiResponse<SchoolProgressResponse> apiResponse = ApiResponse.<SchoolProgressResponse>builder()
-                .message("School form progress retrieved successfully")
-                .success(true)
-                .data(schoolProgressResponse)
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.OK)
-                .build();
+        return ApiResult.of(schoolProgressResponse)
+                .withMessage("School form progress retrieved successfully")
+                .withStatus(HttpStatus.OK).toResponse();
 
-        return ResponseEntity.ok(apiResponse);
     }
 
 }

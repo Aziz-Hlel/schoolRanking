@@ -1,5 +1,7 @@
 package com.example.TechnoShark.SchoolRanking.Schools.DTO;
 
+import java.util.Set;
+
 import org.hibernate.validator.constraints.URL;
 
 import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
@@ -54,5 +56,8 @@ public class SchoolRequest {
 
     @NotNull
     private SchoolTypeEnums type;
+
+    @Size(min = 1, message = "At least one campus country must be provided or set to null")
+    private Set<@NotBlank String> campusCountries;
 
 }

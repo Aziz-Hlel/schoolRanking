@@ -20,6 +20,8 @@ import com.example.TechnoShark.SchoolRanking.SchoolFacilities.DTO.SchoolFaciliti
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.DTO.SchoolFacilitiesResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.Service.SchoolFacilitiesService;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.SchoolAuthorizationService;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -34,7 +36,7 @@ public class SchoolFacilitiesController {
 
     @PostMapping({ "", "/" })
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<UUID> post(
+    public ResponseEntity<ApiResponse<UUID>> post(
             @PathVariable UUID schoolId,
             @Valid @RequestBody SchoolFacilitiesRequest schoolFacilitiesRequest) {
 
@@ -45,13 +47,15 @@ public class SchoolFacilitiesController {
 
         UUID schoolFacilitiesId = schoolFacilitiesService.createSchoolFacilities(schoolFacilitiesRequest, schoolId);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(schoolFacilitiesId);
+        return ApiResult.of(schoolFacilitiesId)
+                .withMessage("School Facilities created successfully")
+                .withStatus(HttpStatus.CREATED).toResponse();
 
     }
 
     @PutMapping("/{schoolFacilitiesId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<SchoolFacilitiesResponse> put(
+    public ResponseEntity<ApiResponse<SchoolFacilitiesResponse>> put(
             @PathVariable UUID schoolId,
             @PathVariable UUID schoolFacilitiesId,
             @Valid @RequestBody SchoolFacilitiesRequest schoolFacilitiesRequest) {
@@ -64,15 +68,19 @@ public class SchoolFacilitiesController {
         SchoolFacilitiesResponse updatedEntity = schoolFacilitiesService.updateSchoolFacilities(schoolFacilitiesRequest,
                 schoolFacilitiesId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(updatedEntity);
+        return ApiResult.of(updatedEntity)
+                .withMessage("School Facilities updated successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping("/{schoolFacilitiesId}")
-    public ResponseEntity<SchoolFacilitiesResponse> get(@PathVariable UUID schoolFacilitiesId) {
+    public ResponseEntity<ApiResponse<SchoolFacilitiesResponse>> get(@PathVariable UUID schoolFacilitiesId) {
 
         SchoolFacilitiesResponse entity = schoolFacilitiesService.getSchoolFacilities(schoolFacilitiesId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(entity);
+        return ApiResult.of(entity)
+                .withMessage("School Facilities found successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
 }

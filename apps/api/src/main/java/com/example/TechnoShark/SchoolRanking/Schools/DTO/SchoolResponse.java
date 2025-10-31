@@ -1,5 +1,6 @@
 package com.example.TechnoShark.SchoolRanking.Schools.DTO;
 
+import java.util.Set;
 import java.util.UUID;
 
 import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
@@ -22,5 +23,5 @@ public class SchoolResponse {
     private SchoolTypeEnums type;
     private String website;
     private CountryEnums country;
-
+    private Set<String> campusCountries;
 }

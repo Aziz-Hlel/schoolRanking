@@ -37,8 +37,8 @@ function App() {
   return (
     <>
       <Router>
-        <AuthProvider>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
             <PageProvider>
               <DetailedSchoolProvider>
                 <Sonner />
@@ -121,8 +121,8 @@ function App() {
                 </Routes>
               </DetailedSchoolProvider>
             </PageProvider>
-          </QueryClientProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </QueryClientProvider>
       </Router>
     </>
   );

@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Sidebar } from "./Sidebar/Sidebar";
-import { Header } from "./Headers/Header";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ROLES } from "@/enums/roles";
 import type { Page } from "@/types/page";
-import { ordredPages, PAGES } from "@/data/pages";
+import { ordredPages } from "@/data/pages";
 import { Outlet } from "react-router-dom";
 import { usePageContext } from "@/contexts/PageContext";
 import HeaderWrapper from "./Headers/HeaderWrapper";

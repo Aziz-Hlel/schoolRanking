@@ -7,7 +7,14 @@ app: # like .env retreived in AppProperties
     access-token-expiration: 900000      # 15 minutes
     refresh-token-expiration: 604800000  # 7 days
 
+
 spring:
   jpa: 
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 1
+    locations: classpath:db/migration

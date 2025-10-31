@@ -21,6 +21,7 @@ import com.example.TechnoShark.SchoolRanking.SchoolMedia.DTO.SchoolMediaRequest;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.Service.SchoolMediaService;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.SchoolAuthorizationService;
 import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -46,18 +47,14 @@ public class SchoolMediaContoller {
 
         UUID schoolMediaId = school_MediaService.create(school_MediaRequest, schoolId);
 
-        ApiResponse<UUID> apiResponse = ApiResponse.<UUID>builder()
-                .message("School media created successfully")
-                .success(true)
-                .data(schoolMediaId)
-                .build();
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+        return ApiResult.of(schoolMediaId)
+                .withMessage("School media created successfully")
+                .withStatus(HttpStatus.CREATED).toResponse();
     }
 
     @PutMapping("/{schoolMediaId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<String> update(
+    public ResponseEntity<ApiResponse<String>> update(
             @PathVariable UUID schoolId,
             @PathVariable UUID schoolMediaId,
             @RequestBody @Valid SchoolMediaRequest school_MediaRequest) {
@@ -68,13 +65,18 @@ public class SchoolMediaContoller {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to update this school");
 
         String schooldId = school_MediaService.update(school_MediaRequest, schoolMediaId);
-        return ResponseEntity.status(HttpStatus.OK).body(schooldId);
+        return ApiResult.of(schooldId)
+                .withMessage("School media updated successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping("/{schoolMediaId}")
-    public ResponseEntity<SchoolMediaResponse> get(@PathVariable UUID schoolMediaId) {
+    public ResponseEntity<ApiResponse<SchoolMediaResponse>> get(@PathVariable UUID schoolMediaId) {
         SchoolMediaResponse schooldId = school_MediaService.get(schoolMediaId);
-        return ResponseEntity.status(HttpStatus.OK).body(schooldId);
+
+        return ApiResult.of(schooldId)
+                .withMessage("School media found successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
-    // String schoolMdediaId = appProperties.getSchoolId();
+
 }

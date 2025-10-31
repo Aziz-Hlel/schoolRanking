@@ -2,14 +2,8 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import axios from "axios";
 import ENV from "../../utils/env.variables";
 import { jwtTokenManager } from "../token/JwtTokenManager.class";
+import type { ApiResponse } from "./ApiResponse";
 // import { AlertInfo } from "@/hooks/useToast2";
-
-export interface ApiResponse<T = any> {
-  status: number;
-  success: boolean;
-  data: T;
-  error?: string | { [key: string]: string };
-}
 
 const creatAxiosInstance = (): AxiosInstance => {
   return axios.create({
@@ -129,21 +123,45 @@ class ApiService {
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.get<ApiResponse<T>>(url, config);
-      return { data: response.data.data, status: response.status, success: true };
+
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
       const status = error.response?.status;
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      return { error: apiErrorMessage, data: {} as any, status, success: false };
+      return { error: apiErrorMessage, status, success: false };
     }
   }
 
   async getThrowable<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.get<ApiResponse<T>>(url, config);
-      return { data: response.data.data, status: response.status, success: true };
+
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
@@ -151,14 +169,26 @@ class ApiService {
 
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      throw { error: apiErrorMessage, data: {} as any, status, success: false };
+      throw { error: apiErrorMessage, status, success: false };
     }
   }
 
   async post<T>(url: string, data: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.post<ApiResponse<T>>(url, data, config);
-      return { data: response.data.data, status: response.status, success: true };
+
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
@@ -167,7 +197,7 @@ class ApiService {
       console.log("status from the try catch : ", status);
       // if (status !== 201 || status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      return { error: apiErrorMessage, data: {} as any, status: status ?? 401, success: false };
+      return { error: apiErrorMessage, status: status ?? 401, success: false };
     }
   }
 
@@ -178,7 +208,19 @@ class ApiService {
   ): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.post<ApiResponse<T>>(url, data, config);
-      return { data: response.data.data, status: response.status, success: true };
+
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
@@ -186,14 +228,25 @@ class ApiService {
 
       if (status !== 201 || status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      throw { error: apiErrorMessage, data: {} as any, status, success: false };
+      throw { error: apiErrorMessage, status, success: false };
     }
   }
 
   async put<T>(url: string, data: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.put<ApiResponse<T>>(url, data, config);
-      return { data: response.data.data, status: response.status, success: true };
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
@@ -201,7 +254,7 @@ class ApiService {
 
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      return { error: apiErrorMessage, data: {} as any, status, success: false };
+      return { error: apiErrorMessage, status, success: false };
     }
   }
 
@@ -212,7 +265,18 @@ class ApiService {
   ): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.put<ApiResponse<T>>(url, data, config);
-      return { data: response.data.data, status: response.status, success: true };
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
@@ -220,14 +284,25 @@ class ApiService {
 
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      throw { error: apiErrorMessage, data: {} as any, status, success: false };
+      throw { error: apiErrorMessage, status, success: false };
     }
   }
 
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.delete<ApiResponse<T>>(url, config);
-      return { data: response.data.data, status: response.status, success: true };
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
@@ -235,14 +310,25 @@ class ApiService {
 
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      return { error: apiErrorMessage, data: {} as any, status, success: false };
+      return { error: apiErrorMessage, status, success: false };
     }
   }
 
   async deleteThrowable<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     try {
       const response = await this.api.delete<ApiResponse<T>>(url, config);
-      return { data: response.data.data, status: response.status, success: true };
+      if (response.data.success === false) {
+        throw new Error();
+      }
+      const responseBody = response.data;
+
+      return {
+        data: responseBody.data,
+        status: response.status,
+        success: true,
+        message: responseBody.message,
+        timestamp: responseBody.timestamp,
+      };
     } catch (error: any) {
       const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
 
@@ -250,7 +336,7 @@ class ApiService {
 
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      return { error: apiErrorMessage, data: {} as any, status, success: false };
+      return { error: apiErrorMessage, status, success: false };
     }
   }
 }

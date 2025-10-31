@@ -20,6 +20,8 @@ import com.example.TechnoShark.SchoolRanking.SchoolAcademics.DTO.SchoolAcademics
 import com.example.TechnoShark.SchoolRanking.SchoolAcademics.DTO.SchoolAcademicsResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolAcademics.Service.SchoolAcademicsService;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.SchoolAuthorizationService;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
+import com.example.TechnoShark.SchoolRanking.Utils.ApiResult;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -34,7 +36,7 @@ public class SchoolAcademicsController {
 
     @PostMapping({ "", "/" })
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<UUID> create(@PathVariable UUID schoolId,
+    public ResponseEntity<ApiResponse<UUID>> create(@PathVariable UUID schoolId,
             @RequestBody @Valid SchoolAcademicsRequest school_AcademicsRequest) {
 
         UUID userId = UserContext.getCurrentUserId();
@@ -44,12 +46,15 @@ public class SchoolAcademicsController {
 
         UUID schoolAcademicsId = school_AcademicsService.create(school_AcademicsRequest, schoolId);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(schoolAcademicsId);
+        return ApiResult.of(schoolAcademicsId)
+                .withMessage("School Academics created successfully")
+                .withStatus(HttpStatus.CREATED)
+                .toResponse();
     }
 
     @PutMapping("/{schoolAcademicsId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<SchoolAcademicsResponse> update(
+    public ResponseEntity<ApiResponse<SchoolAcademicsResponse>> update(
             @PathVariable UUID schoolId,
             @PathVariable UUID schoolAcademicsId,
             @RequestBody @Valid SchoolAcademicsRequest school_AcademicsRequest) {
@@ -62,16 +67,20 @@ public class SchoolAcademicsController {
         SchoolAcademicsResponse updatedEntity = school_AcademicsService.update(school_AcademicsRequest,
                 schoolAcademicsId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(updatedEntity);
+        return ApiResult.of(updatedEntity)
+                .withMessage("School Academics updated successfully")
+                .withStatus(HttpStatus.OK).toResponse();
     }
 
     @GetMapping("/{schoolAcademicsId}")
-    public ResponseEntity<SchoolAcademicsResponse> get(@PathVariable UUID schoolAcademicsId) {
+    public ResponseEntity<ApiResponse<SchoolAcademicsResponse>> get(@PathVariable UUID schoolAcademicsId) {
         // UUID schoolId = UserContext.getCurrentSchoolId();
 
         SchoolAcademicsResponse schooldId = school_AcademicsService.get(schoolAcademicsId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(schooldId);
+        return ApiResult.of(schooldId)
+                .withMessage("School Academics found successfully")
+                .withStatus(HttpStatus.OK).toResponse();
 
     }
 

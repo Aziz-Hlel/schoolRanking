@@ -31,7 +31,7 @@ public class SchoolAcademicsRequest {
 
     private boolean hasSpecialNeedsSupport;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "At least one extra language must be provided or set to null")
     private Set<@NotNull String> extraLanguagesTaught;
 
 }
