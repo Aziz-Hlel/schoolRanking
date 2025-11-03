@@ -1,16 +1,16 @@
-import { Form } from "@/components/ui/form";
-import AbstractWrapper from "./AbstractWrapper";
-import DetachedMedia from "../../DetachedForms/Media/DetachedMedia";
-import { schoolMediaSchema } from "@/types/School2.type";
-import type z from "zod";
-import { useForm } from "react-hook-form";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import useApiMutation from "@/hooks/useApiMutation";
+import { Form } from '@/components/ui/form';
+import AbstractWrapper from './AbstractWrapper';
+import DetachedMedia from '../../DetachedForms/Media/DetachedMedia';
+import { schoolMediaSchema } from '@/types/School2.type';
+import type z from 'zod';
+import { useForm } from 'react-hook-form';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import useApiMutation from '@/hooks/useApiMutation';
 
 type SchoolMedia = z.infer<typeof schoolMediaSchema>;
 
@@ -25,7 +25,7 @@ const MediaForm = () => {
   const mutationFn = (formData: SchoolMedia) =>
     apiService.postThrowable(apiGateway.form.media.create(schoolId), formData);
 
-  const queriesKeys = [["school", "detailed", schoolId], ["user-schools"]];
+  const queriesKeys = [['school', 'detailed', schoolId], ['user-schools']];
 
   const { safeAsyncMutate, isPending } = useApiMutation({ mutationFn, queriesKeys });
 
@@ -35,7 +35,7 @@ const MediaForm = () => {
     const response = await safeAsyncMutate(data);
 
     if (response.success === false) {
-      console.error("Failed to submit general form", response.error);
+      console.error('Failed to submit general form', response.error);
       return;
     }
 

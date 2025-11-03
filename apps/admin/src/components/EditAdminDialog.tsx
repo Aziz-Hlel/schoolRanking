@@ -1,9 +1,9 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -11,7 +11,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Dialog,
   DialogContent,
@@ -19,26 +19,26 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import type { Admin } from "@/types/Admin";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiService } from "@/service/Api/apiService";
-import apiGateway from "@/service/Api/apiGateway";
-import { toast } from "sonner";
-import { CheckLine } from "lucide-react";
-import { AlertToast } from "@/hooks/useToast2";
-import safeAsyncMutate from "@/utils/safeAsyncMutate";
+} from '@/components/ui/dialog';
+import type { Admin } from '@/types/Admin';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiService } from '@/service/Api/apiService';
+import apiGateway from '@/service/Api/apiGateway';
+import { toast } from 'sonner';
+import { CheckLine } from 'lucide-react';
+import { AlertToast } from '@/hooks/useToast2';
+import safeAsyncMutate from '@/utils/safeAsyncMutate';
 
 const editAdminSchema = z.object({
   firstName: z
     .string()
-    .min(3, "First name must be at least 3 characters")
-    .max(20, "First name must not exceed 20 characters"),
+    .min(3, 'First name must be at least 3 characters')
+    .max(20, 'First name must not exceed 20 characters'),
   lastName: z
     .string()
-    .min(3, "Last name must be at least 3 characters")
-    .max(20, "Last name must not exceed 20 characters"),
-  email: z.string().email("Please enter a valid email address"),
+    .min(3, 'Last name must be at least 3 characters')
+    .max(20, 'Last name must not exceed 20 characters'),
+  email: z.string().email('Please enter a valid email address'),
 });
 
 type EditAdminFormData = z.infer<typeof editAdminSchema>;
@@ -72,20 +72,20 @@ export const EditAdminDialog: React.FC<EditAdminDialogProps> = ({
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: mutationFn,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admins"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admins'] }),
   });
 
   const onSubmit = async (data: EditAdminFormData) => {
     const response = await safeAsyncMutate(mutateAsync, data);
 
     if (!response.success) {
-      toast("Failed to edit user");
+      toast('Failed to edit user');
       return;
     }
 
     AlertToast({
-      title: "User has been edited successfully",
-      description: "User has been edited successfully",
+      title: 'User has been edited successfully',
+      description: 'User has been edited successfully',
       icon: <CheckLine />,
     });
     onOpenChange(false);

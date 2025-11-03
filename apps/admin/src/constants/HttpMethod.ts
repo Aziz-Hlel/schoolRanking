@@ -1,9 +1,9 @@
 export const HttpMethods = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  PATCH: "PATCH",
-  DELETE: "DELETE",
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  PATCH: 'PATCH',
+  DELETE: 'DELETE',
 } as const;
 
-export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';

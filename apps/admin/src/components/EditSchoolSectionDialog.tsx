@@ -1,8 +1,8 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Form,
   FormControl,
@@ -10,7 +10,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Dialog,
   DialogContent,
@@ -18,8 +18,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { useToast } from "@/hooks/use-toast";
+} from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 
 interface EditSchoolSectionDialogProps {
   section: string;
@@ -37,24 +37,24 @@ export const EditSchoolSectionDialog: React.FC<EditSchoolSectionDialogProps> = (
 
   const getSectionTitle = () => {
     switch (section) {
-      case "general":
-        return "School Information";
-      case "academic":
-        return "Academic Programs";
-      case "facilities":
-        return "Facilities & Resources";
-      case "staff":
-        return "Staff & Leadership";
-      case "achievements":
-        return "Awards & Recognition";
+      case 'general':
+        return 'School Information';
+      case 'academic':
+        return 'Academic Programs';
+      case 'facilities':
+        return 'Facilities & Resources';
+      case 'staff':
+        return 'Staff & Leadership';
+      case 'achievements':
+        return 'Awards & Recognition';
       default:
-        return "Edit Section";
+        return 'Edit Section';
     }
   };
 
   const renderSectionForm = () => {
     switch (section) {
-      case "general":
+      case 'general':
         return (
           <div className="space-y-4">
             <FormField
@@ -98,7 +98,7 @@ export const EditSchoolSectionDialog: React.FC<EditSchoolSectionDialogProps> = (
             />
           </div>
         );
-      case "academic":
+      case 'academic':
         return (
           <div className="space-y-4">
             <FormField
@@ -152,7 +152,7 @@ export const EditSchoolSectionDialog: React.FC<EditSchoolSectionDialogProps> = (
 
   const onSubmit = (data: any) => {
     toast({
-      title: "Section updated successfully!",
+      title: 'Section updated successfully!',
       description: `${getSectionTitle()} has been updated.`,
     });
     onOpenChange(false);

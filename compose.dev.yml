@@ -1,17 +1,16 @@
-
 services:
   # Database Service
   db:
     image: postgres:15-alpine
     container_name: schoolranking-db-dev
-    restart: unless-stopped  # More professional than "always"
+    restart: unless-stopped # More professional than "always"
     environment:
       POSTGRES_DB: ${DEV__POSTGRES_DB}
       POSTGRES_USER: ${DEV__POSTGRES_USER}
       POSTGRES_PASSWORD: ${DEV__POSTGRES_PASSWORD}
     ports:
-      - "${DEV__POSTGRES_PORT}:${DEV__POSTGRES_PORT}" 
-    command: -p ${DEV__POSTGRES_PORT}  # ✅ override the internal listen port
+      - '${DEV__POSTGRES_PORT}:${DEV__POSTGRES_PORT}'
+    command: -p ${DEV__POSTGRES_PORT} # ✅ override the internal listen port
 
     volumes:
       - postgres-data-dev:/var/lib/postgresql/data
@@ -39,8 +38,8 @@ services:
       DATASOURCE_PASSWORD: ${DEV__POSTGRES_PASSWORD}
       SERVER_PORT: ${DEV__SERVER_PORT}
     ports:
-      - "8080:8080"
-      - "5005:5005"  # Debug port
+      - '8080:8080'
+      - '5005:5005' # Debug port
     volumes:
       # Volume mount for hot reload - critical for development
       - ./Backend/src:/app/src
@@ -67,7 +66,7 @@ services:
     container_name: schoolranking-frontend-dev
     restart: unless-stopped
     ports:
-      - "5173:5173"
+      - '5173:5173'
     volumes:
       # Volume mount for hot reload
       - ./Frontend/src:/app/src
@@ -77,10 +76,10 @@ services:
       # Prevent node_modules from being overwritten
       - /app/node_modules
     environment:
-      VITE_API_URL : ${DEV__VITE_API_URL}
-      VITE_NODE_ENV : ${DEV__VITE_NODE_ENV}
-      CHOKIDAR_USEPOLLING : true
-      WATCHPACK_POLLING : true
+      VITE_API_URL: ${DEV__VITE_API_URL}
+      VITE_NODE_ENV: ${DEV__VITE_NODE_ENV}
+      CHOKIDAR_USEPOLLING: true
+      WATCHPACK_POLLING: true
     depends_on:
       - backend
     networks:

@@ -1,6 +1,6 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import React from 'react';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -9,9 +9,9 @@ import {
   FormLabel,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import type { SchoolStaffData } from "@/types/school";
-import type { UseFormReturn } from "react-hook-form";
+} from '@/components/ui/form';
+import type { SchoolStaffData } from '@/types/school';
+import type { UseFormReturn } from 'react-hook-form';
 
 interface SchoolStaffStepProps {
   form: UseFormReturn<SchoolStaffData>;
@@ -19,32 +19,32 @@ interface SchoolStaffStepProps {
 
 export const SchoolStaffStep: React.FC<SchoolStaffStepProps> = ({ form }) => {
   const countryOptions = [
-    { id: "US", label: "United States" },
-    { id: "CA", label: "Canada" },
-    { id: "UK", label: "United Kingdom" },
-    { id: "AU", label: "Australia" },
-    { id: "DE", label: "Germany" },
-    { id: "FR", label: "France" },
-    { id: "ES", label: "Spain" },
-    { id: "IT", label: "Italy" },
-    { id: "JP", label: "Japan" },
-    { id: "CN", label: "China" },
-    { id: "IN", label: "India" },
-    { id: "ZA", label: "South Africa" },
+    { id: 'US', label: 'United States' },
+    { id: 'CA', label: 'Canada' },
+    { id: 'UK', label: 'United Kingdom' },
+    { id: 'AU', label: 'Australia' },
+    { id: 'DE', label: 'Germany' },
+    { id: 'FR', label: 'France' },
+    { id: 'ES', label: 'Spain' },
+    { id: 'IT', label: 'Italy' },
+    { id: 'JP', label: 'Japan' },
+    { id: 'CN', label: 'China' },
+    { id: 'IN', label: 'India' },
+    { id: 'ZA', label: 'South Africa' },
   ];
 
   const languageOptions = [
-    { id: "english", label: "English" },
-    { id: "arabic", label: "Arabic" },
-    { id: "french", label: "French" },
-    { id: "spanish", label: "Spanish" },
-    { id: "german", label: "German" },
-    { id: "italian", label: "Italian" },
-    { id: "mandarin", label: "Mandarin" },
-    { id: "japanese", label: "Japanese" },
-    { id: "hindi", label: "Hindi" },
-    { id: "portuguese", label: "Portuguese" },
-    { id: "korean", label: "Korean" },
+    { id: 'english', label: 'English' },
+    { id: 'arabic', label: 'Arabic' },
+    { id: 'french', label: 'French' },
+    { id: 'spanish', label: 'Spanish' },
+    { id: 'german', label: 'German' },
+    { id: 'italian', label: 'Italian' },
+    { id: 'mandarin', label: 'Mandarin' },
+    { id: 'japanese', label: 'Japanese' },
+    { id: 'hindi', label: 'Hindi' },
+    { id: 'portuguese', label: 'Portuguese' },
+    { id: 'korean', label: 'Korean' },
   ];
 
   return (

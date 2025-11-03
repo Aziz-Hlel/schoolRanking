@@ -1,5 +1,5 @@
-import type { ROLES } from "@/enums/roles";
-import type { ApiPageResponse } from "./ApiPageResponse";
+import type { ROLES } from '@/enums/roles';
+import type { ApiPageResponse } from './ApiPageResponse';
 
 export type Admin = {
   id: string;

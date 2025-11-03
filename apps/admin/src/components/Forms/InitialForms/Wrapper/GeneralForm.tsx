@@ -1,17 +1,17 @@
-import { Form } from "@/components/ui/form";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { schoolGeneralSchema } from "@/types/School2.type";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import type z from "zod";
-import AbstractWrapper from "./AbstractWrapper";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useChangePageById, useOrdredPages } from "@/store/usePageStore";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import useApiMutation from "@/hooks/useApiMutation";
-import DetachedGeneral from "../../DetachedForms/General/DetachedGeneral";
+import { Form } from '@/components/ui/form';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { schoolGeneralSchema } from '@/types/School2.type';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import type z from 'zod';
+import AbstractWrapper from './AbstractWrapper';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useChangePageById, useOrdredPages } from '@/store/usePageStore';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import useApiMutation from '@/hooks/useApiMutation';
+import DetachedGeneral from '../../DetachedForms/General/DetachedGeneral';
 
 type SchoolGeneral = z.infer<typeof schoolGeneralSchema>;
 
@@ -25,23 +25,23 @@ const GeneralForm = () => {
   const mutationFn = (formData: SchoolGeneral) =>
     apiService.postThrowable<string>(apiGateway.form.general.create(), formData);
 
-  const { safeAsyncMutate, isPending } = useApiMutation({ mutationFn, queryKey: ["user-schools"] });
+  const { safeAsyncMutate, isPending } = useApiMutation({ mutationFn, queryKey: ['user-schools'] });
 
   const navigate = useNavigate();
 
   const onSubmit = async (data: SchoolGeneral) => {
-    console.log("ordredPages b4 : ", ordredPages);
+    console.log('ordredPages b4 : ', ordredPages);
     const response = await safeAsyncMutate(data);
 
     if (response.success === false) {
-      console.error("Failed to submit general form", response.error);
+      console.error('Failed to submit general form', response.error);
       return;
     }
 
     const schoolId = response.data;
     fetchDetailedSchool(schoolId);
-    console.log("fcking school id : ", schoolId);
-    console.log("ordredPages rn : ", ordredPages);
+    console.log('fcking school id : ', schoolId);
+    console.log('ordredPages rn : ', ordredPages);
     changePageById(schoolId);
     navigate(`/dashboard/add-school/${schoolId}/form/academics`);
   };

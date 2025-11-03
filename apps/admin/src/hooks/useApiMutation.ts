@@ -3,7 +3,7 @@ import {
   useQueryClient,
   type DefaultError,
   type MutationFunction,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
 interface useApiMutationProps<TData, TVariables> {
   mutationFn: MutationFunction<TData, TVariables>;

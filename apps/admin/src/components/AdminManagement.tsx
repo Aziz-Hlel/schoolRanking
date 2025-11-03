@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { AddAdminDialog } from "./AddAdminDialog";
-import { EditAdminDialog } from "./EditAdminDialog";
-import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
-import { AdminDataTable } from "./AdminDataTable";
-import useApiQuery from "@/hooks/useApiQuery";
-import apiGateway from "@/service/Api/apiGateway";
-import type { Admin, AdminPage } from "@/types/Admin";
-import { PAGES } from "@/data/pages";
-import { useChangePage } from "@/hooks/useChangePage";
+import React, { useState } from 'react';
+import { AddAdminDialog } from './AddAdminDialog';
+import { EditAdminDialog } from './EditAdminDialog';
+import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
+import { AdminDataTable } from './AdminDataTable';
+import useApiQuery from '@/hooks/useApiQuery';
+import apiGateway from '@/service/Api/apiGateway';
+import type { Admin, AdminPage } from '@/types/Admin';
+import { PAGES } from '@/data/pages';
+import { useChangePage } from '@/hooks/useChangePage';
 
 export const AdminManagement: React.FC = () => {
   useChangePage(PAGES.admins);
@@ -17,7 +17,7 @@ export const AdminManagement: React.FC = () => {
   const { data } = useApiQuery<AdminPage>({
     url: apiGateway.user.getPageUser,
     queryParams: { page: 1, size: 20 },
-    queryKey: ["admins"],
+    queryKey: ['admins'],
     options: { fetchOnMount: true, config: { params: { page: 1, size: 20 } } },
   });
 

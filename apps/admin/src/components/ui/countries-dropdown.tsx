@@ -1,4 +1,4 @@
-import React, { useCallback, useState, forwardRef, useEffect } from "react";
+import React, { useCallback, useState, forwardRef, useEffect } from 'react';
 
 // shadcn
 import {
@@ -8,18 +8,18 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+} from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 // utils
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 // assets
-import { ChevronDown, ChevronsUpDown, CheckIcon, Globe } from "lucide-react";
-import { CircleFlag } from "react-circle-flags";
+import { ChevronDown, ChevronsUpDown, CheckIcon, Globe } from 'lucide-react';
+import { CircleFlag } from 'react-circle-flags';
 
 // data
-import { countries } from "country-data-list";
+import { countries } from 'country-data-list';
 
 export type Country = {
   alpha2: string;
@@ -61,13 +61,13 @@ type CountryDropdownProps = SingleCountryDropdownProps | MultipleCountryDropdown
 const CountryDropdownComponent = (
   {
     options = countries.all.filter(
-      (country: Country) => country.emoji && country.status !== "deleted" && country.ioc !== "PRK",
+      (country: Country) => country.emoji && country.status !== 'deleted' && country.ioc !== 'PRK',
     ),
     onChange,
     value, // Add value prop
     defaultValue,
     disabled = false,
-    placeholder = "Select a country",
+    placeholder = 'Select a country',
     slim = false,
     inline = false,
     multiple = false,
@@ -108,7 +108,7 @@ const CountryDropdownComponent = (
       }
     }
     // For single selection - support both alpha2 and alpha3
-    else if (!multiple && typeof currentValue === "string") {
+    else if (!multiple && typeof currentValue === 'string') {
       const currentCode = selectedCountries[0]?.alpha2;
       if (currentValue !== currentCode) {
         const initialCountry = options.find(
@@ -130,13 +130,13 @@ const CountryDropdownComponent = (
         if (!isControlled) {
           setSelectedCountries(newSelection);
         }
-        (onChange as MultipleCountryDropdownProps["onChange"])?.(newSelection);
+        (onChange as MultipleCountryDropdownProps['onChange'])?.(newSelection);
       } else {
         // Only update internal state if uncontrolled
         if (!isControlled) {
           setSelectedCountries([country]);
         }
-        (onChange as SingleCountryDropdownProps["onChange"])?.(country);
+        (onChange as SingleCountryDropdownProps['onChange'])?.(country);
         setOpen(false);
       }
     },
@@ -144,9 +144,9 @@ const CountryDropdownComponent = (
   );
 
   const triggerClasses = cn(
-    "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 hover:bg-secondary/80",
-    slim === true && "gap-1 w-min",
-    inline && "rounded-r-none border-r-0 gap-1 pr-1 w-min",
+    'flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 hover:bg-secondary/80',
+    slim === true && 'gap-1 w-min',
+    inline && 'rounded-r-none border-r-0 gap-1 pr-1 w-min',
     className,
   );
 
@@ -214,10 +214,10 @@ const CountryDropdownComponent = (
                     </div>
                     <CheckIcon
                       className={cn(
-                        "ml-auto h-4 w-4 shrink-0",
+                        'ml-auto h-4 w-4 shrink-0',
                         selectedCountries.some((c) => c.alpha2 === option.alpha2)
-                          ? "opacity-100"
-                          : "opacity-0",
+                          ? 'opacity-100'
+                          : 'opacity-0',
                       )}
                     />
                   </CommandItem>
@@ -230,6 +230,6 @@ const CountryDropdownComponent = (
   );
 };
 
-CountryDropdownComponent.displayName = "CountryDropdownComponent";
+CountryDropdownComponent.displayName = 'CountryDropdownComponent';
 
 export const CountriesDropdown = forwardRef(CountryDropdownComponent);

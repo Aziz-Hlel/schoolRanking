@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { PAGES } from "@/data/pages";
-import type { Page } from "@/types/page";
+import { create } from 'zustand';
+import { PAGES } from '@/data/pages';
+import type { Page } from '@/types/page';
 
 export const ordredPages = [PAGES.admins, PAGES.schools, PAGES.personalSchool, PAGES.addSchool];
 

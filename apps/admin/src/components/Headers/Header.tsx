@@ -1,5 +1,5 @@
-import type { Page } from "@/types/page";
-import React from "react";
+import type { Page } from '@/types/page';
+import React from 'react';
 
 interface HeaderProps {
   currentPage: Page;

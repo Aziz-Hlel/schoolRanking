@@ -1,8 +1,8 @@
-import type { SchoolStaff } from "@/types/School2.type";
-import { Badge } from "../ui/badge";
-import { CountryEnums } from "@/enums/CountryEnums";
-import { CalendarCheck } from "lucide-react";
-import { LanguageEnums } from "@/enums/LanguagesEnums";
+import type { SchoolStaff } from '@/types/School2.type';
+import { Badge } from '../ui/badge';
+import { CountryEnums } from '@/enums/CountryEnums';
+import { CalendarCheck } from 'lucide-react';
+import { LanguageEnums } from '@/enums/LanguagesEnums';
 
 const StaffCardContent = ({ section }: { section?: SchoolStaff }) => {
   if (!section) return null;

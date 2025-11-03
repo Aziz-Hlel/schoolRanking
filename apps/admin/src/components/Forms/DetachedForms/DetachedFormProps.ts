@@ -1,4 +1,4 @@
-import type { ApiResponse } from "@/service/Api/ApiResponse";
+import type { ApiResponse } from '@/service/Api/ApiResponse';
 
 export interface DetachedFormProps<K> {
   NavigationButtons: React.ReactNode;

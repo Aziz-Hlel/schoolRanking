@@ -1,7 +1,7 @@
-import { Badge } from "../ui/badge";
-import type { SchoolAcademics } from "@/types/School2.type";
-import { LevelEnums } from "@/enums/LevelEnums";
-import { CurriculumEnums } from "@/enums/CurriculumEnums";
+import { Badge } from '../ui/badge';
+import type { SchoolAcademics } from '@/types/School2.type';
+import { LevelEnums } from '@/enums/LevelEnums';
+import { CurriculumEnums } from '@/enums/CurriculumEnums';
 
 const AcademicCardContent = ({ section }: { section?: SchoolAcademics }) => {
   if (!section) return null;
@@ -15,7 +15,7 @@ const AcademicCardContent = ({ section }: { section?: SchoolAcademics }) => {
             {section.curriculums.map((curriculum) => {
               return (
                 (CurriculumEnums[curriculum as keyof typeof CurriculumEnums]?.label ?? curriculum) +
-                " - "
+                ' - '
               );
             })}
           </p>
@@ -39,7 +39,7 @@ const AcademicCardContent = ({ section }: { section?: SchoolAcademics }) => {
 
         {section.levelsOffered.map((level, index: number) => (
           <Badge key={index} variant="secondary" className="text-xs">
-            {LevelEnums[level as keyof typeof LevelEnums]?.label ?? level + "-"}
+            {LevelEnums[level as keyof typeof LevelEnums]?.label ?? level + '-'}
           </Badge>
         ))}
       </div>

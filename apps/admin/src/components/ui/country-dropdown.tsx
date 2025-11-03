@@ -1,4 +1,4 @@
-import React, { useCallback, useState, forwardRef, useEffect } from "react";
+import React, { useCallback, useState, forwardRef, useEffect } from 'react';
 
 // shadcn
 import {
@@ -8,18 +8,18 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+} from '@/components/ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 // utils
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 // assets
-import { ChevronDown, CheckIcon, Globe } from "lucide-react";
-import { CircleFlag } from "react-circle-flags";
+import { ChevronDown, CheckIcon, Globe } from 'lucide-react';
+import { CircleFlag } from 'react-circle-flags';
 
 // data
-import { countries } from "country-data-list";
+import { countries } from 'country-data-list';
 
 // Country interface
 export interface Country {
@@ -47,12 +47,12 @@ interface CountryDropdownProps {
 const CountryDropdownComponent = (
   {
     options = countries.all.filter(
-      (country: Country) => country.emoji && country.status !== "deleted" && country.ioc !== "PRK",
+      (country: Country) => country.emoji && country.status !== 'deleted' && country.ioc !== 'PRK',
     ),
     onChange,
     defaultValue,
     disabled = false,
-    placeholder = "Select a country",
+    placeholder = 'Select a country',
     slim = false,
     ...props
   }: CountryDropdownProps,
@@ -78,7 +78,7 @@ const CountryDropdownComponent = (
 
   const handleSelect = useCallback(
     (country: Country) => {
-      console.log("🌍 CountryDropdown value: ", country);
+      console.log('🌍 CountryDropdown value: ', country);
       setSelectedCountry(country);
       onChange?.(country);
       setOpen(false);
@@ -87,8 +87,8 @@ const CountryDropdownComponent = (
   );
 
   const triggerClasses = cn(
-    "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-    slim === true && "w-20",
+    'flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+    slim === true && 'w-20',
   );
 
   return (
@@ -142,8 +142,8 @@ const CountryDropdownComponent = (
                     </div>
                     <CheckIcon
                       className={cn(
-                        "ml-auto h-4 w-4 shrink-0",
-                        option.name === selectedCountry?.name ? "opacity-100" : "opacity-0",
+                        'ml-auto h-4 w-4 shrink-0',
+                        option.name === selectedCountry?.name ? 'opacity-100' : 'opacity-0',
                       )}
                     />
                   </CommandItem>
@@ -156,6 +156,6 @@ const CountryDropdownComponent = (
   );
 };
 
-CountryDropdownComponent.displayName = "CountryDropdownComponent";
+CountryDropdownComponent.displayName = 'CountryDropdownComponent';
 
 export const CountryDropdown = forwardRef(CountryDropdownComponent);

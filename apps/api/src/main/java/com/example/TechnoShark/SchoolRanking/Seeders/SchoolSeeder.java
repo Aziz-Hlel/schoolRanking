@@ -105,12 +105,13 @@ public class SchoolSeeder {
         schoolEntity.setCountry(getRandomEnumValue(CountryEnums.class));
         schoolEntity.setCity("city" + i);
         schoolEntity.setAddress("adress" + i);
+        schoolEntity.setDescription("whatever Nigga");
         schoolEntity.setPhoneNumber("0000000" + i);
         schoolEntity.setEmail("school" + i + "@example.com");
         schoolEntity.setYearEstablished(2000 + i);
         schoolEntity.setType(getRandomEnumValue(SchoolTypeEnums.class));
         schoolEntity.setWebsite("https://school" + i + ".tn");
-
+        schoolEntity.setCampusCountries(null);
         return schoolEntity;
     }
 
@@ -121,7 +122,9 @@ public class SchoolSeeder {
         academics.setCurriculums(getRandomEnumSet(CurriculumEnums.class));
         academics.setInternationalAccreditations(getRandomEnumSet(AccreditationEnums.class));
         academics.setLevelsOffered(getRandomEnumSet(LevelEnums.class));
-
+        academics.setHasGiftedPrograms(getRandomBoolean());
+        academics.setHasSpecialNeedsSupport(getRandomBoolean());
+        academics.setExtraLanguagesTaught(null);
         academics.setSchool(school); // Set the school reference
 
         return academics;
@@ -140,7 +143,11 @@ public class SchoolSeeder {
         facilities.setAiIntegration(getRandomBoolean());
         facilities.setTechnologyReadiness(getRandomEnumValue(RatingLevelEnums.class));
         facilities.setAwardsAndRecognitions("school" + i + " awards and recognitions");
-
+        facilities.setHasNurse(getRandomBoolean());
+        facilities.setHasPsychologist(getRandomBoolean());
+        facilities.setHasNutritionist(getRandomBoolean());
+        facilities.setHasTransportationServices(getRandomBoolean());
+        facilities.setTransportationPolicies(null);
         facilities.setSchool(school);
 
         return facilities;
@@ -155,11 +162,12 @@ public class SchoolSeeder {
         staff.setProfessionalDevelopment("school" + i + " professional development");
         staff.setStaffSizeEstimate(getRandomNumber(5, 50));
         staff.setTeacherLanguages(getRandomEnumSet(LanguageEnums.class));
-        staff.setTeacherNationalities(getRandomEnumSet(CountryEnums.class).stream().map(Enum::name).collect(java.util.stream.Collectors.toSet()));
+        staff.setTeacherNationalities(getRandomEnumSet(CountryEnums.class).stream().map(Enum::name)
+                .collect(java.util.stream.Collectors.toSet()));
         staff.setTeacherQualifications("school" + i + " teacher qualifications");
         staff.setLastInspectionDate(getRandomLocalDate(LocalDate.of(2000, 1, 1), LocalDate.of(2025, 1, 1)));
 
-    staff.setSchool(school);
+        staff.setSchool(school);
         school.setSchoolStaff(staff);
 
         return staff;
@@ -181,14 +189,13 @@ public class SchoolSeeder {
     private void createCustomUser() {
 
         int currentForm = CurrentProgressForm.SCHOOL_GENERAL;// CurrentProgressForm.SCHOOL_MEDIA;
-        boolean isCompleted = true;
+        boolean isCompleted = false;
         int i = 5;
 
         School school = null;
 
         School schoolEntity = createGeneralSchool(i);
         schoolEntity.setLastFormStep(currentForm);
-        schoolEntity.setFormsCompleted(isCompleted);
 
         SchoolAcademics academicsEntity = createAcademics(i, schoolEntity);
         schoolAcademicsRepo.save(academicsEntity);
@@ -218,8 +225,8 @@ public class SchoolSeeder {
 
     public void seed() {
 
-        if (schoolRepo.count() != 0)
-            return;
+        // if (schoolRepo.count() != 0)
+        //     return;
 
         createCustomUser();
 
@@ -228,7 +235,6 @@ public class SchoolSeeder {
             // --- 2. Create School ---
             School school = createGeneralSchool(i);
 
-            school.setFormsCompleted(true);
             school.setLastFormStep(AppConstants.FormsTotalSteps);
 
             // --- 3. Create Academics BEFORE saving school ---
@@ -256,7 +262,7 @@ public class SchoolSeeder {
             User user = User.builder()
                     .firstName("Admin")
                     .lastName(String.valueOf(i))
-                    .email("admin" + i + "@example.com")
+                    .email("admin00" + i + "@example.com")
                     .password(passwordEncoder.encode("admin" + i))
                     .role(RoleEnums.ADMIN)
                     .build();
@@ -273,7 +279,6 @@ public class SchoolSeeder {
             // --- 2. Create School ---
             School school = createGeneralSchool(i);
 
-            school.setFormsCompleted(true);
             school.setLastFormStep(AppConstants.FormsTotalSteps);
 
             // --- 3. Create Academics BEFORE saving school ---

@@ -1,15 +1,15 @@
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useAuth } from "@/contexts/AuthContext";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useAuth } from '@/contexts/AuthContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
   const validate = () => {
     const newErrors: typeof errors = {};
-    if (!email) newErrors.email = "Email is required";
-    if (!password) newErrors.password = "Password is required";
+    if (!email) newErrors.email = 'Email is required';
+    if (!password) newErrors.password = 'Password is required';
     return newErrors;
   };
 
@@ -33,10 +33,10 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
     const response = await login({ email, password });
     console.log(response);
 
-    if (response.success) navigate("/dashboard");
+    if (response.success) navigate('/dashboard');
 
     if (!response.success && response.status === 401)
-      setErrors({ email: "Invalid email or password" });
+      setErrors({ email: 'Invalid email or password' });
     !response.success && console.log(response);
 
     // if (!response.success && response.status !== 401) alert("uncaught error");
@@ -44,7 +44,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
     setIsSubmitting(false);
   };
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                 />
               </div>
               <Button type="submit" className="w-full disabled:bg-blue-400" disabled={isSubmitting}>
-                {isSubmitting ? "Logging in..." : "Login"}
+                {isSubmitting ? 'Logging in...' : 'Login'}
               </Button>
               {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
@@ -137,7 +137,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a> and{" "}
+        By clicking continue, you agree to our <a href="#">Terms of Service</a> and{' '}
         <a href="#">Privacy Policy</a>.
       </div>
     </div>

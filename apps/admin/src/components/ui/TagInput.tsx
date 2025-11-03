@@ -1,6 +1,6 @@
-import { useState, type KeyboardEvent } from "react";
-import { X } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { useState, type KeyboardEvent } from 'react';
+import { X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 interface TagInputProps {
   value: string[];
@@ -9,19 +9,19 @@ interface TagInputProps {
 }
 
 export const TagInput = ({ value, onChange, placeholder }: TagInputProps) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" || e.key === "," || e.key === "Tab") {
+    if (e.key === 'Enter' || e.key === ',' || e.key === 'Tab') {
       e.preventDefault();
       const newTag = inputValue.trim();
       if (newTag && !value.includes(newTag)) {
         onChange([...value, newTag]);
       }
-      setInputValue("");
+      setInputValue('');
     }
 
-    if (e.key === "Backspace" && !inputValue && value.length > 0) {
+    if (e.key === 'Backspace' && !inputValue && value.length > 0) {
       onChange(value.slice(0, -1));
     }
   };

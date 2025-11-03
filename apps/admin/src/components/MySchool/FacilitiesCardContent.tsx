@@ -1,13 +1,13 @@
-import { FacilityEnums } from "@/enums/FacilityEnums";
-import { Badge } from "../ui/badge";
-import type { SchoolFacilities } from "@/types/School2.type";
-import { ShieldCheck } from "lucide-react";
-import { ShieldMinus } from "lucide-react";
+import { FacilityEnums } from '@/enums/FacilityEnums';
+import { Badge } from '../ui/badge';
+import type { SchoolFacilities } from '@/types/School2.type';
+import { ShieldCheck } from 'lucide-react';
+import { ShieldMinus } from 'lucide-react';
 
-import { Bot } from "lucide-react";
-import { BotOff } from "lucide-react";
-import { AccessibilityEnums } from "@/enums/AccessibilityEnums";
-import { SustainabilityEnums } from "@/enums/SustainabilityEnums";
+import { Bot } from 'lucide-react';
+import { BotOff } from 'lucide-react';
+import { AccessibilityEnums } from '@/enums/AccessibilityEnums';
+import { SustainabilityEnums } from '@/enums/SustainabilityEnums';
 
 const FacilitiesCardContent = ({ section }: { section?: SchoolFacilities }) => {
   if (!section) return null;

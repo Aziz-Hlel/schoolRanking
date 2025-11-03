@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useToast } from "@/hooks/use-toast";
-import { OnboardingLayout } from "./onboarding/OnboardingLayout";
-import { NavigationButtons } from "./onboarding/NavigationButtons";
-import { SchoolGeneralStep } from "./school-steps/SchoolGeneralStep";
-import { SchoolAcademicsStep } from "./school-steps/SchoolAcademicsStep";
-import { SchoolMediaStep } from "./school-steps/SchoolMediaStep";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useToast } from '@/hooks/use-toast';
+import { OnboardingLayout } from './onboarding/OnboardingLayout';
+import { NavigationButtons } from './onboarding/NavigationButtons';
+import { SchoolGeneralStep } from './school-steps/SchoolGeneralStep';
+import { SchoolAcademicsStep } from './school-steps/SchoolAcademicsStep';
+import { SchoolMediaStep } from './school-steps/SchoolMediaStep';
 import {
   schoolGeneralSchema,
   schoolAcademicsSchema,
@@ -19,17 +19,17 @@ import {
   type SchoolStaffData,
   type SchoolMediaData,
   type CompleteSchoolData,
-} from "@/types/school";
+} from '@/types/school';
 
 const steps = [
-  { title: "School Information", description: "Basic details about your school" },
-  { title: "Academic Programs", description: "Curriculum and accreditation details" },
+  { title: 'School Information', description: 'Basic details about your school' },
+  { title: 'Academic Programs', description: 'Curriculum and accreditation details' },
   {
-    title: "Facilities & Sustainability",
-    description: "Infrastructure and environmental practices",
+    title: 'Facilities & Sustainability',
+    description: 'Infrastructure and environmental practices',
   },
-  { title: "Staff & Leadership", description: "Team qualifications and structure" },
-  { title: "Media & Documentation", description: "Links to reports and media content" },
+  { title: 'Staff & Leadership', description: 'Team qualifications and structure' },
+  { title: 'Media & Documentation', description: 'Links to reports and media content' },
 ];
 
 export const MultiStepSchoolOnboarding: React.FC = () => {
@@ -40,12 +40,12 @@ export const MultiStepSchoolOnboarding: React.FC = () => {
 
   // Load saved data from localStorage on mount
   useEffect(() => {
-    const savedData = localStorage.getItem("schoolOnboardingData");
+    const savedData = localStorage.getItem('schoolOnboardingData');
     if (savedData) {
       try {
         setFormData(JSON.parse(savedData));
       } catch (error) {
-        console.error("Failed to load saved data:", error);
+        console.error('Failed to load saved data:', error);
       }
     }
   }, []);
@@ -53,21 +53,21 @@ export const MultiStepSchoolOnboarding: React.FC = () => {
   // Save data to localStorage whenever formData changes
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
-      localStorage.setItem("schoolOnboardingData", JSON.stringify(formData));
+      localStorage.setItem('schoolOnboardingData', JSON.stringify(formData));
     }
   }, [formData]);
 
   const generalForm = useForm<SchoolGeneralData>({
     resolver: zodResolver(schoolGeneralSchema),
     defaultValues: {
-      name: formData.name || "",
+      name: formData.name || '',
       country: formData.country || undefined,
-      city: formData.city || "",
-      address: formData.address || "",
-      phoneNumber: formData.phoneNumber || "",
-      email: formData.email || "",
+      city: formData.city || '',
+      address: formData.address || '',
+      phoneNumber: formData.phoneNumber || '',
+      email: formData.email || '',
       yearEstablished: formData.yearEstablished || undefined,
-      website: formData.website || "",
+      website: formData.website || '',
       type: formData.type || undefined,
     },
   });
@@ -77,7 +77,7 @@ export const MultiStepSchoolOnboarding: React.FC = () => {
     defaultValues: {
       languagesOfInstruction: formData.languagesOfInstruction || undefined,
       internationalAccreditations: formData.internationalAccreditations || [],
-      accreditationDocsLinks: formData.accreditationDocsLinks || "",
+      accreditationDocsLinks: formData.accreditationDocsLinks || '',
       levelsOffered: formData.levelsOffered || [],
       curriculums: formData.curriculums || [],
     },
@@ -90,36 +90,36 @@ export const MultiStepSchoolOnboarding: React.FC = () => {
       accessibilityFeatures: formData.accessibilityFeatures || [],
       sustainabilityPractices: formData.sustainabilityPractices || [],
       universityDestinations: formData.universityDestinations || [],
-      csrActivities: formData.csrActivities || "",
+      csrActivities: formData.csrActivities || '',
       safetyCompliance: formData.safetyCompliance || false,
       aiIntegration: formData.aiIntegration || false,
       technologyReadiness: formData.technologyReadiness || undefined,
       industryPartnerships: formData.industryPartnerships || [],
-      awardsAndRecognitions: formData.awardsAndRecognitions || "",
+      awardsAndRecognitions: formData.awardsAndRecognitions || '',
     },
   });
 
   const staffForm = useForm<SchoolStaffData>({
     resolver: zodResolver(schoolStaffSchema),
     defaultValues: {
-      leadershipTeam: formData.leadershipTeam || "",
-      leadershipProfileLink: formData.leadershipProfileLink || "",
+      leadershipTeam: formData.leadershipTeam || '',
+      leadershipProfileLink: formData.leadershipProfileLink || '',
       staffSizeEstimate: formData.staffSizeEstimate || undefined,
-      teacherQualifications: formData.teacherQualifications || "",
+      teacherQualifications: formData.teacherQualifications || '',
       teacherNationalities: formData.teacherNationalities || [],
       teacherLanguages: formData.teacherLanguages || [],
-      professionalDevelopment: formData.professionalDevelopment || "",
-      lastInspectionDate: formData.lastInspectionDate || "",
+      professionalDevelopment: formData.professionalDevelopment || '',
+      lastInspectionDate: formData.lastInspectionDate || '',
     },
   });
 
   const mediaForm = useForm<SchoolMediaData>({
     resolver: zodResolver(schoolMediaSchema),
     defaultValues: {
-      bqaReportLink: formData.bqaReportLink || "",
-      brochureLink: formData.brochureLink || "",
-      galleryLink: formData.galleryLink || "",
-      videoTourLink: formData.videoTourLink || "",
+      bqaReportLink: formData.bqaReportLink || '',
+      brochureLink: formData.brochureLink || '',
+      galleryLink: formData.galleryLink || '',
+      videoTourLink: formData.videoTourLink || '',
     },
   });
 
@@ -171,22 +171,22 @@ export const MultiStepSchoolOnboarding: React.FC = () => {
         ...mediaData,
       } as CompleteSchoolData;
 
-      console.log("Complete school registration data:", completeData);
+      console.log('Complete school registration data:', completeData);
 
       // Clear localStorage after successful submission
-      localStorage.removeItem("schoolOnboardingData");
+      localStorage.removeItem('schoolOnboardingData');
 
       // updateUser({ isFirstLogin: false });
 
       toast({
-        title: "School registered successfully!",
-        description: "You can now access the dashboard.",
+        title: 'School registered successfully!',
+        description: 'You can now access the dashboard.',
       });
     } catch (error) {
       toast({
-        title: "Registration failed",
-        description: "Please try again.",
-        variant: "destructive",
+        title: 'Registration failed',
+        description: 'Please try again.',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);

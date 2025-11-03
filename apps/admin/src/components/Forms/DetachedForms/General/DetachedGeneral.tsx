@@ -1,23 +1,30 @@
-import { FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { type UseFormReturn } from "react-hook-form";
-import z from "zod";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  FormDescription,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { type UseFormReturn } from 'react-hook-form';
+import z from 'zod';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { PhoneInput } from "@/components/ui/phone-input";
-import { CountryEnums } from "@/enums/CountryEnums";
-import { SchoolTypeEnums } from "@/enums/SchoolTypeEnums";
-import { schoolGeneralSchema } from "@/types/School2.type";
-import type { FC } from "react";
-import { CountryDropdown, type Country } from "@/components/ui/country-dropdown";
-import { countries } from "country-data-list";
-import { Textarea } from "@/components/ui/textarea";
-import { MultiSelect } from "@/components/ui/multi-select";
+} from '@/components/ui/select';
+import { PhoneInput } from '@/components/ui/phone-input';
+import { CountryEnums } from '@/enums/CountryEnums';
+import { SchoolTypeEnums } from '@/enums/SchoolTypeEnums';
+import { schoolGeneralSchema } from '@/types/School2.type';
+import type { FC } from 'react';
+import { CountryDropdown, type Country } from '@/components/ui/country-dropdown';
+import { countries } from 'country-data-list';
+import { Textarea } from '@/components/ui/textarea';
+import { MultiSelect } from '@/components/ui/multi-select';
 
 interface DetachedFormProps {
   form: UseFormReturn<SchoolGeneral>;
@@ -216,7 +223,8 @@ const DetachedGeneral: FC<DetachedFormProps> = ({ form }) => {
               <FormItem className=" col-span-2">
                 <FormLabel>Countries with Campuses *</FormLabel>
                 <FormDescription>
-                  Include all locations outside your main country if your institution is international
+                  Include all locations outside your main country if your institution is
+                  international
                 </FormDescription>
                 <MultiSelect
                   options={Object.values(countries2).map((country) => country)}

@@ -1,20 +1,20 @@
 const RAMPS = {
-  value: "RAMPS" as const,
-  label: "Ramps",
+  value: 'RAMPS' as const,
+  label: 'Ramps',
 };
 const STAIRS = {
-  value: "STAIRS" as const,
-  label: "Stairs",
+  value: 'STAIRS' as const,
+  label: 'Stairs',
 };
 
 const WHEELCHAIRS = {
-  value: "WHEELCHAIRS" as const,
-  label: "Wheelchair Access",
+  value: 'WHEELCHAIRS' as const,
+  label: 'Wheelchair Access',
 };
 
 const ELEVATORS = {
-  value: "ELEVATORS" as const,
-  label: "Elevators",
+  value: 'ELEVATORS' as const,
+  label: 'Elevators',
 };
 
 export const AccessibilityEnums = {

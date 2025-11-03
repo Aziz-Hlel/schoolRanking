@@ -35,6 +35,7 @@ public class SchoolFeesService {
         UUID schoolFeesId = schoolFeesRepo.save(entity).getId();
 
         formProgressService.updateFormProgress(schoolId, CurrentProgressForm.SCHOOL_FEES);
+        formProgressService.markFormsCompleted(school.getId());
 
         return schoolFeesId;
 

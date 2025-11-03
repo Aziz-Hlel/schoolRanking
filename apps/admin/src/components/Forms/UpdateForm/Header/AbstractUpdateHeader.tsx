@@ -1,17 +1,17 @@
-import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { type FC } from "react";
+import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { type FC } from 'react';
 
 const AbstractUpdateHeader: FC<{ currentStep: number }> = ({ currentStep }) => {
   const steps = [
-    { title: "School Information", description: "Basic details about your school" },
-    { title: "Academic Programs", description: "Curriculum and accreditation details" },
+    { title: 'School Information', description: 'Basic details about your school' },
+    { title: 'Academic Programs', description: 'Curriculum and accreditation details' },
     {
-      title: "Facilities & Sustainability",
-      description: "Infrastructure and environmental practices",
+      title: 'Facilities & Sustainability',
+      description: 'Infrastructure and environmental practices',
     },
-    { title: "Staff & Leadership", description: "Team qualifications and structure" },
-    { title: "Media & Documentation", description: "Links to reports and media content" },
-    { title: "School Fees", description: "Fees and payment details" },
+    { title: 'Staff & Leadership', description: 'Team qualifications and structure' },
+    { title: 'Media & Documentation', description: 'Links to reports and media content' },
+    { title: 'School Fees', description: 'Fees and payment details' },
   ];
 
   return (

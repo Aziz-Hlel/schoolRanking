@@ -1,4 +1,4 @@
-import type { SchoolMedia } from "@/types/School2.type";
+import type { SchoolMedia } from '@/types/School2.type';
 
 const MediaCardContent = ({ section }: { section?: SchoolMedia }) => {
   if (!section) return null;

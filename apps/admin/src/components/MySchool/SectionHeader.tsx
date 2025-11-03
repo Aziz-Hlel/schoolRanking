@@ -1,8 +1,8 @@
-import type { ComponentType, SVGProps } from "react";
-import { Button } from "../ui/button";
-import { CardHeader, CardTitle } from "../ui/card";
-import { Edit } from "lucide-react";
-import { Link } from "react-router-dom";
+import type { ComponentType, SVGProps } from 'react';
+import { Button } from '../ui/button';
+import { CardHeader, CardTitle } from '../ui/card';
+import { Edit } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface sectionsProps {
   title: string;
@@ -31,7 +31,7 @@ const SchoolInfoHeader = ({ title, icon, color, editPath, editable }: sectionsPr
             variant="ghost"
             size="sm"
             // onClick={() => setEditingSection(id)}
-            className={"h-8 w-8 p-0 " + (!editable && " hover:cursor-not-allowed")}
+            className={'h-8 w-8 p-0 ' + (!editable && ' hover:cursor-not-allowed')}
           >
             <Edit className="w-4 h-4" />
           </Button>

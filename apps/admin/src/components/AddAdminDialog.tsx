@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -11,7 +11,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Dialog,
   DialogContent,
@@ -20,31 +20,31 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { CheckLine, Plus } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiService } from "@/service/Api/apiService";
-import apiGateway from "@/service/Api/apiGateway";
-import safeAsyncMutate from "@/utils/safeAsyncMutate";
-import { AlertToast } from "@/hooks/useToast2";
+} from '@/components/ui/dialog';
+import { CheckLine, Plus } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiService } from '@/service/Api/apiService';
+import apiGateway from '@/service/Api/apiGateway';
+import safeAsyncMutate from '@/utils/safeAsyncMutate';
+import { AlertToast } from '@/hooks/useToast2';
 
 const addAdminSchema = z
   .object({
     firstName: z
       .string()
-      .min(3, "First name must be at least 3 characters")
-      .max(20, "First name must not exceed 20 characters"),
+      .min(3, 'First name must be at least 3 characters')
+      .max(20, 'First name must not exceed 20 characters'),
     lastName: z
       .string()
-      .min(3, "Last name must be at least 3 characters")
-      .max(20, "Last name must not exceed 20 characters"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(1, "Password must be at least 8 characters"),
+      .min(3, 'Last name must be at least 3 characters')
+      .max(20, 'Last name must not exceed 20 characters'),
+    email: z.string().email('Please enter a valid email address'),
+    password: z.string().min(1, 'Password must be at least 8 characters'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"],
+    path: ['confirmPassword'],
   });
 type AddAdminFormData = z.infer<typeof addAdminSchema>;
 
@@ -57,19 +57,19 @@ export const AddAdminDialog = () => {
     mutationFn: addAdmin,
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admins"] });
-      console.log("Admin added successfully");
+      queryClient.invalidateQueries({ queryKey: ['admins'] });
+      console.log('Admin added successfully');
     },
   });
 
   const form = useForm<AddAdminFormData>({
     resolver: zodResolver(addAdminSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
@@ -78,18 +78,18 @@ export const AddAdminDialog = () => {
 
     if (!response.success) {
       console.log(response);
-      if (response.status === 409) form.setError("email", { message: "Email already exists" });
+      if (response.status === 409) form.setError('email', { message: 'Email already exists' });
       AlertToast({
-        title: "Failed to add admin",
-        description: "Failed to add admin",
+        title: 'Failed to add admin',
+        description: 'Failed to add admin',
         icon: <CheckLine />,
       });
       return;
     }
 
     AlertToast({
-      title: "Admin has been added successfully",
-      description: "Admin has been added successfully",
+      title: 'Admin has been added successfully',
+      description: 'Admin has been added successfully',
       icon: <CheckLine />,
     });
 

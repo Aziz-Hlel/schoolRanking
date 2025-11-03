@@ -1,16 +1,16 @@
-import { Form } from "@/components/ui/form";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { schoolAcademicsSchema } from "@/types/School2.type";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import type z from "zod";
-import DetachedAcademics from "../../DetachedForms/Academics/DetachedAcademics";
-import AbstractWrapper from "./AbstractWrapper";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import useApiMutation from "@/hooks/useApiMutation";
+import { Form } from '@/components/ui/form';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { schoolAcademicsSchema } from '@/types/School2.type';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import type z from 'zod';
+import DetachedAcademics from '../../DetachedForms/Academics/DetachedAcademics';
+import AbstractWrapper from './AbstractWrapper';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import useApiMutation from '@/hooks/useApiMutation';
 
 type SchoolAcademics = z.infer<typeof schoolAcademicsSchema>;
 
@@ -35,17 +35,17 @@ const AcademicsUpdateForm = () => {
   // const { mutateAsync, isPending } = useMutation({ mutationFn, });
   const { safeAsyncMutate, isPending } = useApiMutation({
     mutationFn,
-    queryKey: ["school", "detailed", schoolId],
+    queryKey: ['school', 'detailed', schoolId],
   });
 
   const onSubmit = async (data: SchoolAcademics) => {
     const response = await safeAsyncMutate(data);
 
     if (!response.success) {
-      console.error("Failed to submit academics form", response.error);
+      console.error('Failed to submit academics form', response.error);
       return;
     }
-    navigate("../../");
+    navigate('../../');
   };
 
   return (

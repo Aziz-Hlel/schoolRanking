@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const navigate = useNavigate();
@@ -13,8 +13,8 @@ const Login = () => {
 
   const validate = () => {
     const newErrors: typeof errors = {};
-    if (!email) newErrors.email = "Email is required";
-    if (!password) newErrors.password = "Password is required";
+    if (!email) newErrors.email = 'Email is required';
+    if (!password) newErrors.password = 'Password is required';
     return newErrors;
   };
 
@@ -28,10 +28,10 @@ const Login = () => {
     const response = await login({ email, password });
     console.log(response);
 
-    if (response.success) navigate("/dashboard");
+    if (response.success) navigate('/dashboard');
 
     if (!response.success && response.status === 401)
-      setErrors({ email: "Invalid email or password" });
+      setErrors({ email: 'Invalid email or password' });
     !response.success && console.log(response);
 
     // if (!response.success && response.status !== 401) alert("uncaught error");
@@ -67,7 +67,7 @@ const Login = () => {
         disabled={isSubmitting}
         className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition hover:cursor-pointer"
       >
-        {isSubmitting ? "Logging in..." : "Login"}
+        {isSubmitting ? 'Logging in...' : 'Login'}
       </button>
 
       {/* <div className="w-full flex justify-center">

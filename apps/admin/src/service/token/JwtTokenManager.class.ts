@@ -2,7 +2,7 @@ class JwtTokenManager {
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
 
-  private refreshTokenKeyName = "refreshToken"; // jwt refresh token keyName in localStorage
+  private refreshTokenKeyName = 'refreshToken'; // jwt refresh token keyName in localStorage
 
   // Set tokens in memory and localStorage
   setTokens(access: string, refresh: string): void {

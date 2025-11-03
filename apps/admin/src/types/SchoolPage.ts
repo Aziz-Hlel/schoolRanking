@@ -1,4 +1,4 @@
-import type { ApiPageResponse } from "./ApiPageResponse";
+import type { ApiPageResponse } from './ApiPageResponse';
 
 export type SchoolPage = {
   id: string;

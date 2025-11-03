@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,10 +8,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { apiService } from "@/service/Api/apiService";
-import apiGateway from "@/service/Api/apiGateway";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+} from '@/components/ui/alert-dialog';
+import { apiService } from '@/service/Api/apiService';
+import apiGateway from '@/service/Api/apiGateway';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface DeleteConfirmationDialogProps {
   open: boolean;

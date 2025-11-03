@@ -1,0 +1,23 @@
+{
+  "name": "nikomk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node scripts/docker-up.js dev",
+    "stage": "node scripts/docker-up.js stage",
+    "prod": "node scripts/docker-up.js prod",
+    "format:fix": "prettier --write ."
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.20.0",
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-sql": "^0.19.2"
+  }
+}

@@ -2,7 +2,7 @@ import {
   useMutation,
   type UseMutationOptions,
   type UseMutationResult,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
 
 interface SafeAsyncMutateOptions<TData, TError, TVariables>
   extends UseMutationOptions<TData, TError, TVariables> {}

@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
+import React from 'react';
+import { Button } from '@/components/ui/button';
 
 interface NavigationButtonsProps {
   currentStep: number;
@@ -33,7 +33,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       <div>
         {isLastStep ? (
           <Button onClick={onSubmit} disabled={isSubmitting}>
-            {isSubmitting ? "Completing..." : "Complete Registration"}
+            {isSubmitting ? 'Completing...' : 'Complete Registration'}
           </Button>
         ) : (
           <Button onClick={onNext}>Next</Button>

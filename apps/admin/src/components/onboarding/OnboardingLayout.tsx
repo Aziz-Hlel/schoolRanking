@@ -1,6 +1,6 @@
-import React from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { StepIndicator } from "./StepIndicator";
+import React from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { StepIndicator } from './StepIndicator';
 
 interface OnboardingLayoutProps {
   children: React.ReactNode;

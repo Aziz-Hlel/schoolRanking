@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AxiosInstance, AxiosRequestConfig } from "axios";
-import axios from "axios";
-import ENV from "../../utils/env.variables";
-import { jwtTokenManager } from "../token/JwtTokenManager.class";
-import type { ApiResponse } from "./ApiResponse";
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
+import ENV from '../../utils/env.variables';
+import { jwtTokenManager } from '../token/JwtTokenManager.class';
+import type { ApiResponse } from './ApiResponse';
 // import { AlertInfo } from "@/hooks/useToast2";
 
 const creatAxiosInstance = (): AxiosInstance => {
@@ -11,7 +11,7 @@ const creatAxiosInstance = (): AxiosInstance => {
     baseURL: ENV.BASE_URL,
     timeout: 10000,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   });
 };
@@ -73,7 +73,7 @@ class ApiService {
           } catch (refreshError) {
             this.processQueue(refreshError);
             jwtTokenManager.clearTokens();
-            window.location.href = "/login";
+            window.location.href = '/login';
             return Promise.reject(refreshError);
           } finally {
             this.isRefreshing = false;
@@ -109,7 +109,7 @@ class ApiService {
     const refreshToken = jwtTokenManager.getRefreshToken();
 
     if (!refreshToken) {
-      throw new Error("No refresh token available");
+      throw new Error('No refresh token available');
     }
 
     const response = await axios.post(`${this.api.defaults.baseURL}/user/refresh`, {
@@ -138,7 +138,7 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
@@ -164,7 +164,7 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
 
@@ -191,11 +191,11 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
-      console.log("error : ", error);
-      console.log("status from the try catch : ", status);
+      console.log('error : ', error);
+      console.log('status from the try catch : ', status);
       // if (status !== 201 || status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
       return { error: apiErrorMessage, status: status ?? 401, success: false };
@@ -223,7 +223,7 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
 
@@ -249,7 +249,7 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
 
@@ -279,7 +279,7 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
 
@@ -305,7 +305,7 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
 
@@ -331,7 +331,7 @@ class ApiService {
         timestamp: responseBody.timestamp,
       };
     } catch (error: any) {
-      const apiErrorMessage = error.response?.data?.error || error.message || "Request failed";
+      const apiErrorMessage = error.response?.data?.error || error.message || 'Request failed';
 
       const status = error.response?.status;
 

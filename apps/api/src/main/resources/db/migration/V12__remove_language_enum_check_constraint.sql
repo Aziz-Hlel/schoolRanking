@@ -1,3 +1,2 @@
-
 ALTER TABLE school_staff_languages
 DROP CONSTRAINT IF EXISTS school_staff_languages_language_check;

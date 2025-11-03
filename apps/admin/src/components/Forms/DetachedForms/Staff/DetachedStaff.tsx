@@ -5,17 +5,17 @@ import {
   FormControl,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { type UseFormReturn } from "react-hook-form";
-import z from "zod";
-import { LanguageEnums } from "@/enums/LanguagesEnums";
-import { schoolStaffSchema } from "@/types/School2.type";
-import { type FC } from "react";
-import { type Country } from "@/components/ui/countries-dropdown";
-import { MultiSelect } from "@/components/ui/multi-select";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { type UseFormReturn } from 'react-hook-form';
+import z from 'zod';
+import { LanguageEnums } from '@/enums/LanguagesEnums';
+import { schoolStaffSchema } from '@/types/School2.type';
+import { type FC } from 'react';
+import { type Country } from '@/components/ui/countries-dropdown';
+import { MultiSelect } from '@/components/ui/multi-select';
 // import { CountryEnums } from '@/enums/CountryEnums';
-  import { countries as countriesss } from "country-data-list";
+import { countries as countriesss } from 'country-data-list';
 
 interface DetachedStaffProps {
   form: UseFormReturn<SchoolStaff>;

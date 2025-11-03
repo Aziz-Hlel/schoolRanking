@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string }>({});
   const { signup } = useAuth();
@@ -13,9 +13,9 @@ const SignUp = () => {
 
   const validate = () => {
     const newErrors: typeof errors = {};
-    if (!name) newErrors.name = "Name is required";
-    if (!email) newErrors.email = "Email is required";
-    if (!password) newErrors.password = "Password is required";
+    if (!name) newErrors.name = 'Name is required';
+    if (!email) newErrors.email = 'Email is required';
+    if (!password) newErrors.password = 'Password is required';
     return newErrors;
   };
 
@@ -29,12 +29,12 @@ const SignUp = () => {
     try {
       const response = await signup({ name, email, password });
 
-      if (response.success) navigate("/protected");
+      if (response.success) navigate('/protected');
 
       if (!response.success && response.status === 309)
-        setErrors({ email: "Email already exists" });
+        setErrors({ email: 'Email already exists' });
 
-      if (!response.success && response.status !== 309) alert("Uncaught error");
+      if (!response.success && response.status !== 309) alert('Uncaught error');
     } finally {
       setIsSubmitting(false);
     }
@@ -81,7 +81,7 @@ const SignUp = () => {
         disabled={isSubmitting}
         className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition hover:cursor-pointer "
       >
-        {isSubmitting ? "Signing up..." : "Sign Up"}
+        {isSubmitting ? 'Signing up...' : 'Sign Up'}
       </button>
 
       <div className=" w-full flex justify-center">

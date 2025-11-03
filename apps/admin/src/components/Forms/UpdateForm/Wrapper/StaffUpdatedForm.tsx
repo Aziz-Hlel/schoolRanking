@@ -1,16 +1,16 @@
-import AbstractWrapper from "./AbstractWrapper";
-import { useNavigate } from "react-router-dom";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { schoolStaffSchema } from "@/types/School2.type";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import DetachedStaff from "../../DetachedForms/Staff/DetachedStaff";
-import type z from "zod";
-import { Form } from "@/components/ui/form";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import useApiMutation from "@/hooks/useApiMutation";
+import AbstractWrapper from './AbstractWrapper';
+import { useNavigate } from 'react-router-dom';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { schoolStaffSchema } from '@/types/School2.type';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import DetachedStaff from '../../DetachedForms/Staff/DetachedStaff';
+import type z from 'zod';
+import { Form } from '@/components/ui/form';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import useApiMutation from '@/hooks/useApiMutation';
 
 type SchoolStaff = z.infer<typeof schoolStaffSchema>;
 
@@ -32,7 +32,7 @@ const StaffUpdatedForm = () => {
 
   const { safeAsyncMutate, isPending } = useApiMutation({
     mutationFn,
-    queryKey: ["school", "detailed", schoolId],
+    queryKey: ['school', 'detailed', schoolId],
   });
 
   const navigate = useNavigate();
@@ -41,12 +41,12 @@ const StaffUpdatedForm = () => {
     const response = await safeAsyncMutate(data);
 
     if (!response.success) {
-      console.error("Failed to submit general form", response.error);
+      console.error('Failed to submit general form', response.error);
       return;
     }
-    navigate("../../");
+    navigate('../../');
   };
-  console.log("staff", form.formState.errors);
+  console.log('staff', form.formState.errors);
 
   return (
     <>

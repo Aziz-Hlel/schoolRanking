@@ -1,17 +1,17 @@
-import { Form } from "@/components/ui/form";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { schoolGeneralSchema } from "@/types/School2.type";
-import safeAsyncMutate from "@/utils/safeAsyncMutate";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import type z from "zod";
-import AbstractWrapper from "./AbstractWrapper";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import DetachedGeneral from "../../DetachedForms/General/DetachedGeneral";
+import { Form } from '@/components/ui/form';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { schoolGeneralSchema } from '@/types/School2.type';
+import safeAsyncMutate from '@/utils/safeAsyncMutate';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import type z from 'zod';
+import AbstractWrapper from './AbstractWrapper';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import DetachedGeneral from '../../DetachedForms/General/DetachedGeneral';
 
 type SchoolGeneral = z.infer<typeof schoolGeneralSchema>;
 
@@ -35,11 +35,11 @@ const GeneralUpdateForm = () => {
     const response = await safeAsyncMutate(mutateAsync, data);
 
     if (response.success === false) {
-      console.error("Failed to submit general form", response.error);
+      console.error('Failed to submit general form', response.error);
       return;
     }
     await fetchMyDetailedSchool();
-    navigate("../../");
+    navigate('../../');
   };
 
   return (

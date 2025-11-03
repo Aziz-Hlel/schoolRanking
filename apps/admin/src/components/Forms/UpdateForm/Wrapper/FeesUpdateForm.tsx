@@ -1,17 +1,17 @@
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { schoolFeesSchema, type SchoolFeesNoID } from "@/types/School2.type";
-import safeAsyncMutate from "@/utils/safeAsyncMutate";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import AbstractWrapper from "./AbstractWrapper";
-import { Form } from "@/components/ui/form";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import DetachdFees from "../../DetachedForms/Fees/DetachdFees";
-import z from "zod";
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { schoolFeesSchema, type SchoolFeesNoID } from '@/types/School2.type';
+import safeAsyncMutate from '@/utils/safeAsyncMutate';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import AbstractWrapper from './AbstractWrapper';
+import { Form } from '@/components/ui/form';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import DetachdFees from '../../DetachedForms/Fees/DetachdFees';
+import z from 'zod';
 
 const FeesUpdateForm = () => {
   const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
@@ -33,12 +33,12 @@ const FeesUpdateForm = () => {
   const onSubmit = async (data: SchoolFeesNoID) => {
     const response = await safeAsyncMutate(mutateAsync, data);
 
-    if (response.success===false) {
-      console.error("Failed to submit general form", response.error);
+    if (response.success === false) {
+      console.error('Failed to submit general form', response.error);
       return;
     }
     await fetchMyDetailedSchool();
-    navigate("../../");
+    navigate('../../');
   };
 
   return (

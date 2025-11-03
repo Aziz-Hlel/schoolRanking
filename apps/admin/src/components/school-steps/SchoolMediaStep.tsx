@@ -1,5 +1,5 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
+import React from 'react';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -8,9 +8,9 @@ import {
   FormLabel,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import type { UseFormReturn } from "react-hook-form";
-import type { SchoolMediaData } from "@/types/school";
+} from '@/components/ui/form';
+import type { UseFormReturn } from 'react-hook-form';
+import type { SchoolMediaData } from '@/types/school';
 
 interface SchoolMediaStepProps {
   form: UseFormReturn<SchoolMediaData>;

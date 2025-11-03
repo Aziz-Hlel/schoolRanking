@@ -1,12 +1,12 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
+import React from 'react';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Form,
   FormControl,
@@ -14,33 +14,33 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import type { UseFormReturn } from "react-hook-form";
-import type { SchoolGeneralData } from "@/types/school";
+} from '@/components/ui/form';
+import type { UseFormReturn } from 'react-hook-form';
+import type { SchoolGeneralData } from '@/types/school';
 
 const countries = [
-  { value: "US", label: "United States" },
-  { value: "CA", label: "Canada" },
-  { value: "UK", label: "United Kingdom" },
-  { value: "AU", label: "Australia" },
-  { value: "DE", label: "Germany" },
-  { value: "FR", label: "France" },
-  { value: "JP", label: "Japan" },
-  { value: "SG", label: "Singapore" },
-  { value: "AE", label: "United Arab Emirates" },
-  { value: "IN", label: "India" },
-  { value: "BR", label: "Brazil" },
-  { value: "MX", label: "Mexico" },
-  { value: "ZA", label: "South Africa" },
+  { value: 'US', label: 'United States' },
+  { value: 'CA', label: 'Canada' },
+  { value: 'UK', label: 'United Kingdom' },
+  { value: 'AU', label: 'Australia' },
+  { value: 'DE', label: 'Germany' },
+  { value: 'FR', label: 'France' },
+  { value: 'JP', label: 'Japan' },
+  { value: 'SG', label: 'Singapore' },
+  { value: 'AE', label: 'United Arab Emirates' },
+  { value: 'IN', label: 'India' },
+  { value: 'BR', label: 'Brazil' },
+  { value: 'MX', label: 'Mexico' },
+  { value: 'ZA', label: 'South Africa' },
 ];
 
 const schoolTypes = [
-  { value: "public", label: "Public School" },
-  { value: "private", label: "Private School" },
-  { value: "charter", label: "Charter School" },
-  { value: "international", label: "International School" },
-  { value: "religious", label: "Religious School" },
-  { value: "boarding", label: "Boarding School" },
+  { value: 'public', label: 'Public School' },
+  { value: 'private', label: 'Private School' },
+  { value: 'charter', label: 'Charter School' },
+  { value: 'international', label: 'International School' },
+  { value: 'religious', label: 'Religious School' },
+  { value: 'boarding', label: 'Boarding School' },
 ];
 
 interface SchoolGeneralStepProps {

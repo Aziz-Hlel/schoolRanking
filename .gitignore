@@ -63,3 +63,4 @@ apps/api/.idea/
 **/.eslintcache
 **/.cache
 **/pnpm-lock.yaml
+**/package-lock.json

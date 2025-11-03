@@ -1,17 +1,17 @@
-import { Form } from "@/components/ui/form";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { schoolFacilitiesSchema } from "@/types/School2.type";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import type z from "zod";
-import DetachedFacilities from "../../DetachedForms/Facilities/DetachedFacilities";
-import AbstractWrapper from "./AbstractWrapper";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import useApiMutation from "@/hooks/useApiMutation";
-import { produce } from "immer";
+import { Form } from '@/components/ui/form';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { schoolFacilitiesSchema } from '@/types/School2.type';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import type z from 'zod';
+import DetachedFacilities from '../../DetachedForms/Facilities/DetachedFacilities';
+import AbstractWrapper from './AbstractWrapper';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import useApiMutation from '@/hooks/useApiMutation';
+import { produce } from 'immer';
 
 export type SchoolFacilitiesData = z.infer<typeof schoolFacilitiesSchema>;
 
@@ -26,19 +26,19 @@ const FacilitiesForm = () => {
       accessibilityFeatures: [],
       sustainabilityPractices: [],
       universityDestinations: [],
-      csrActivities: "",
+      csrActivities: '',
       safetyCompliance: false, // required and default false
       aiIntegration: false, // required and default false
       technologyReadiness: undefined,
       industryPartnerships: [],
-      awardsAndRecognitions: "",
+      awardsAndRecognitions: '',
     },
   });
 
   const mutationFn = (formData: SchoolFacilitiesData) =>
     apiService.postThrowable(apiGateway.form.facilities.create(schoolId), formData);
 
-  const queriesKeys = [["school", "detailed", schoolId], ["user-schools"]];
+  const queriesKeys = [['school', 'detailed', schoolId], ['user-schools']];
 
   const { safeAsyncMutate, isPending } = useApiMutation({ mutationFn, queriesKeys });
 
@@ -54,7 +54,7 @@ const FacilitiesForm = () => {
     const response = await safeAsyncMutate(payload);
 
     if (response.success === false) {
-      console.error("Failed to submit general form", response.error);
+      console.error('Failed to submit general form', response.error);
       return;
     }
 

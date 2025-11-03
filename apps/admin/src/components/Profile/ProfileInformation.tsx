@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -11,19 +11,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/contexts/AuthContext";
-import { Link, Outlet } from "react-router-dom";
-import z from "zod";
-import { usePageContext } from "@/contexts/PageContext";
-import { PAGES } from "@/data/pages";
-import { useChangePage } from "@/hooks/useChangePage";
+} from '@/components/ui/form';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { Link, Outlet } from 'react-router-dom';
+import z from 'zod';
+import { usePageContext } from '@/contexts/PageContext';
+import { PAGES } from '@/data/pages';
+import { useChangePage } from '@/hooks/useChangePage';
 
 const profileSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
+  firstName: z.string().min(2, 'First name must be at least 2 characters'),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -45,7 +45,7 @@ export const ProfileInformation: React.FC = () => {
   });
 
   const onSubmit = async (data: ProfileFormData) => {
-    console.log("Profile updated:", data);
+    console.log('Profile updated:', data);
 
     // Update user name if changed
     if (data.firstName && data.lastName) {
@@ -53,8 +53,8 @@ export const ProfileInformation: React.FC = () => {
     }
 
     toast({
-      title: "Profile updated successfully!",
-      description: "Your personal information has been saved.",
+      title: 'Profile updated successfully!',
+      description: 'Your personal information has been saved.',
     });
   };
 
@@ -118,7 +118,7 @@ export const ProfileInformation: React.FC = () => {
               <div className="flex w-full justify-end">
                 <div className="flex justify-end">
                   <Button type="button" variant="link" className="hover:cursor-pointer">
-                    <Link to={"/dashboard/profile/change-password"}>Change password</Link>
+                    <Link to={'/dashboard/profile/change-password'}>Change password</Link>
                   </Button>
                 </div>
                 <div className="flex justify-end">

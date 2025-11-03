@@ -5,7 +5,7 @@
   },
   "java.configuration.updateBuildConfiguration": "interactive",
 
-    "editor.formatOnSave": true,
+  "editor.formatOnSave": true,
 
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -21,10 +21,14 @@
   },
 
   // --- Java / Spring Boot ---
+  "[sql]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[java]": {
     "editor.defaultFormatter": "redhat.java"
   },
   "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.quickSuggestions": {
       "strings": true
     },

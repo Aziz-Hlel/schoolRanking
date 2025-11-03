@@ -1,7 +1,7 @@
-import { apiService, type ApiResponse } from "../service/Api/apiService";
-import type { AxiosRequestConfig } from "axios";
-import { useQuery } from "@tanstack/react-query";
-import type { Pageable } from "@/types/Apis/Pageable";
+import { apiService, type ApiResponse } from '../service/Api/apiService';
+import type { AxiosRequestConfig } from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import type { Pageable } from '@/types/Apis/Pageable';
 
 interface UseApiOptions {
   url: string;

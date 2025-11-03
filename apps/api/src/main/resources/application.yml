@@ -1,15 +1,10 @@
-
-
 spring:
-
   profiles:
     active: ${PROFILES_ACTIVE}
 
   application:
     name: SchoolRanking
 
-
- 
   datasource:
     url: ${DATASOURCE_URL}
     username: ${DATASOURCE_USERNAME}
@@ -17,24 +12,22 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jackson:
-    default-property-inclusion: non_null  # Exclude all null fields globally
-    
-  jpa: 
+    default-property-inclusion: non_null # Exclude all null fields globally
+
+  jpa:
     hibernate:
-      ddl-auto: create-drop 
+      ddl-auto: create-drop
       # format_sql: true
-     
+
     # show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect        #This tells Hibernate (the ORM used by Spring Data JPA) how to generate SQL statements that are optimized for PostgreSQL.
+        dialect: org.hibernate.dialect.PostgreSQLDialect #This tells Hibernate (the ORM used by Spring Data JPA) how to generate SQL statements that are optimized for PostgreSQL.
 
 server:
   port: ${SERVER_PORT}
   servlet:
     context-path: /api # This automatically prefixes every controller path with /api
-
-
 
 # logging:
 #   level:

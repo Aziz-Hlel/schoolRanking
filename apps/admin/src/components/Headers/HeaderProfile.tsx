@@ -1,4 +1,4 @@
-import { PAGES } from "@/data/pages";
+import { PAGES } from '@/data/pages';
 
 const HeaderProfile = () => {
   const page = PAGES.profile;

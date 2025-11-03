@@ -15,6 +15,7 @@ import com.example.TechnoShark.SchoolRanking.SchoolMedia.Repo.SchoolMediaRepo;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 import com.example.TechnoShark.SchoolRanking.Schools.Repo.SchoolRepo;
 import com.example.TechnoShark.SchoolRanking.Schools.Service.FormProgressService;
+import com.example.TechnoShark.SchoolRanking.Utils.CurrentProgressForm;
 
 import lombok.AllArgsConstructor;
 
@@ -37,7 +38,7 @@ public class SchoolMediaService {
 
         SchoolMedia schoolMedia = school_MediaRepo.save(entity);
 
-        formProgressService.markFormsCompleted(school.getId());
+        formProgressService.updateFormProgress(schoolId, CurrentProgressForm.SCHOOL_MEDIA);
 
         return schoolMedia.getId();
 

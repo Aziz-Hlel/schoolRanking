@@ -8,14 +8,14 @@ services:
       POSTGRES_DB: ${PROD__POSTGRES_DB}
       POSTGRES_USER: ${PROD__POSTGRES_USER}
       POSTGRES_PASSWORD: ${PROD__POSTGRES_PASSWORD}
-    command: -p ${PROD__POSTGRES_PORT}  # ✅ override the internal listen port
+    command: -p ${PROD__POSTGRES_PORT} # ✅ override the internal listen port
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - ./database/init:/docker-entrypoint-initdb.d:ro
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${PROD__POSTGRES_USER}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${PROD__POSTGRES_USER}']
       interval: 30s
       timeout: 10s
       retries: 5
@@ -39,7 +39,7 @@ services:
       SERVER_PORT: ${PROD__SERVER_PORT}
       JAVA_OPTS: -Xmx1g -Xms512m
     expose:
-      - "8080"
+      - '8080'
     volumes:
       # Only mount logs for monitoring - no source code mounting
       - ./logs/backend:/app/logs
@@ -49,7 +49,15 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      test:
+        [
+          'CMD',
+          'wget',
+          '--no-verbose',
+          '--tries=1',
+          '--spider',
+          'http://localhost:8080/actuator/health',
+        ]
       interval: 30s
       timeout: 15s
       retries: 5
@@ -65,7 +73,6 @@ services:
         VITE_API_URL: ${PROD__VITE_API_URL}
         VITE_NODE_ENV: ${PROD__VITE_NODE_ENV}
 
-
     ports:
       - 443:443
       - 80:80
@@ -74,14 +81,12 @@ services:
       - caddy-data:/data
       - caddy-config:/config
 
-
     healthcheck:
-      test: ["CMD", "curl", "-fk", "https://localhost:8443/health"]
+      test: ['CMD', 'curl', '-fk', 'https://localhost:8443/health']
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
-
 
     restart: unless-stopped
 

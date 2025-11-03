@@ -1,20 +1,22 @@
-import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import type { FC } from "react";
+import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { TOTAL_FORMS } from '@/constants/totalForms';
+import type { FC } from 'react';
 
 const AbstractInitialHeader: FC<{ currentStep: number }> = ({ currentStep }) => {
   const steps = [
-    { title: "School Information", description: "Basic details about your school" },
-    { title: "Academic Programs", description: "Curriculum and accreditation details" },
+    { title: 'School Information', description: 'Basic details about your school' },
+    { title: 'Academic Programs', description: 'Curriculum and accreditation details' },
     {
-      title: "Facilities & Sustainability",
-      description: "Infrastructure and environmental practices",
+      title: 'Facilities & Sustainability',
+      description: 'Infrastructure and environmental practices',
     },
-    { title: "Staff & Leadership", description: "Team qualifications and structure" },
-    { title: "Media & Documentation", description: "Links to reports and media content" },
+    { title: 'Staff & Leadership', description: 'Team qualifications and structure' },
+    { title: 'Media & Documentation', description: 'Links to reports and media content' },
+    { title: 'School Fees', description: 'Fees and payment details' },
   ];
 
-  const totalSteps = 5;
+  const totalSteps = TOTAL_FORMS;
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
   return (

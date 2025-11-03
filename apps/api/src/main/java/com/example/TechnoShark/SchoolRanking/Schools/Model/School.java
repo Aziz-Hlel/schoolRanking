@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.example.TechnoShark.SchoolRanking.Config.AppConstants;
 import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.SchoolTypeEnums;
 import com.example.TechnoShark.SchoolRanking.SchoolAcademics.Model.SchoolAcademics;
@@ -28,6 +29,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -78,13 +80,16 @@ public class School {
     private String website;
 
     @ElementCollection
-    @CollectionTable(name = "school_campus_countries",joinColumns = @JoinColumn(name = "school_id"))
-    @Column(name = "country")
+    @CollectionTable(name = "school_campus_countries", joinColumns = @JoinColumn(name = "school_id"))
+    @Column(name = "country", nullable = true)
     private Set<String> campusCountries;
 
+    @Transient // ? <-- Not stored in the DB
+    public boolean getFormsCompleted() {
+        return lastFormStep != null && lastFormStep >= AppConstants.FormsTotalSteps;
+    }
+
     // //
-    @Column(nullable = false)
-    private Boolean formsCompleted = false;
 
     @Column(nullable = true)
     private Integer lastFormStep = 0;

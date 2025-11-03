@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+target
+*.jar
+*.class
+*.log
+*.env*
+package-lock.json
+
+**/V1__baseline.sql

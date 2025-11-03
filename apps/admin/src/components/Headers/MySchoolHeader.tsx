@@ -1,4 +1,4 @@
-import { PAGES } from "@/data/pages";
+import { PAGES } from '@/data/pages';
 
 const MySchoolHeader = () => {
   const page = PAGES.personalSchool;

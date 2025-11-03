@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState, type FC, type ReactNode } from "react";
-import apiGateway from "@/service/Api/apiGateway";
-import useApiQuery from "@/hooks/useApiQuery";
-import type { SchoolDetailed } from "@/types/School2.type";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useEffect, useState, type FC, type ReactNode } from 'react';
+import apiGateway from '@/service/Api/apiGateway';
+import useApiQuery from '@/hooks/useApiQuery';
+import type { SchoolDetailed } from '@/types/School2.type';
+import { useNavigate } from 'react-router-dom';
 
 interface DetailedSchoolContextProps {
   detailedSchool: SchoolDetailed | undefined;
@@ -13,21 +13,21 @@ interface DetailedSchoolContextProps {
 const DetailedSchoolContext = createContext<DetailedSchoolContextProps | undefined>(undefined);
 
 export const DetailedSchoolProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [schoolId, setSchoolId] = useState<string>("");
+  const [schoolId, setSchoolId] = useState<string>('');
 
   const navigate = useNavigate();
 
   const { data, refetch, isError } = useApiQuery<SchoolDetailed>({
     url: apiGateway.school.getDetailedSchool(schoolId),
-    queryKey: ["school", "detailed", schoolId],
-    options: { fetchOnMount: schoolId !== "" },
+    queryKey: ['school', 'detailed', schoolId],
+    options: { fetchOnMount: schoolId !== '' },
   });
 
   const detailedSchool = data?.data;
 
   useEffect(() => {
     if (isError) {
-      navigate("/dashboard/school/404");
+      navigate('/dashboard/school/404');
     }
   }, [isError, navigate]);
 
@@ -47,7 +47,7 @@ export const DetailedSchoolProvider: FC<{ children: ReactNode }> = ({ children }
 export const useDetailedSchool = () => {
   const context = useContext(DetailedSchoolContext);
   if (context === undefined)
-    throw new Error("useDetailedSchool must be used within a DetailedSchoolProvider");
+    throw new Error('useDetailedSchool must be used within a DetailedSchoolProvider');
 
   return context;
 };

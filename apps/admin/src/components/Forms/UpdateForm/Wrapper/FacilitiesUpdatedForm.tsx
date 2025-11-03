@@ -1,17 +1,17 @@
-import { Form } from "@/components/ui/form";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { schoolFacilitiesSchema } from "@/types/School2.type";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import type z from "zod";
-import DetachedFacilities from "../../DetachedForms/Facilities/DetachedFacilities";
-import AbstractWrapper from "./AbstractWrapper";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import useApiMutation from "@/hooks/useApiMutation";
-import { produce } from "immer";
+import { Form } from '@/components/ui/form';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { schoolFacilitiesSchema } from '@/types/School2.type';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import type z from 'zod';
+import DetachedFacilities from '../../DetachedForms/Facilities/DetachedFacilities';
+import AbstractWrapper from './AbstractWrapper';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import useApiMutation from '@/hooks/useApiMutation';
+import { produce } from 'immer';
 
 export type SchoolFacilitiesData = z.infer<typeof schoolFacilitiesSchema>;
 
@@ -33,7 +33,7 @@ const FacilitiesUpdatedForm = () => {
 
   const { safeAsyncMutate, isPending } = useApiMutation({
     mutationFn,
-    queryKey: ["school", "detailed", schoolId],
+    queryKey: ['school', 'detailed', schoolId],
   });
 
   const navigate = useNavigate();
@@ -46,11 +46,11 @@ const FacilitiesUpdatedForm = () => {
     });
     const response = await safeAsyncMutate(payload);
 
-    if (response.success===false) {
-      console.error("Failed to submit general form", response.error);
+    if (response.success === false) {
+      console.error('Failed to submit general form', response.error);
       return;
     }
-    navigate("../../");
+    navigate('../../');
   };
   console.log(form.formState.errors);
 

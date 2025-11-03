@@ -1,5 +1,5 @@
-import { ROLES } from "@/enums/roles";
-import z from "zod";
+import { ROLES } from '@/enums/roles';
+import z from 'zod';
 
 export const userPageSchema = z
   .object({

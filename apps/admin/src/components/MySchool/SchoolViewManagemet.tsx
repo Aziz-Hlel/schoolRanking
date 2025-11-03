@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import { Outlet, useParams } from "react-router-dom";
-import LoadingSpinner from "@/LoadingSpinner";
+import { useEffect } from 'react';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import { Outlet, useParams } from 'react-router-dom';
+import LoadingSpinner from '@/LoadingSpinner';
 
 const SchoolViewManagemet = () => {
   // const { changePage } = usePageContext();
@@ -17,7 +17,7 @@ const SchoolViewManagemet = () => {
   const { schoolId: schoolIdParam } = useParams();
 
   useEffect(() => {
-    console.log("schoolIdParam", schoolIdParam);
+    console.log('schoolIdParam', schoolIdParam);
     if (schoolIdParam) {
       fetchDetailedSchool(schoolIdParam);
     }

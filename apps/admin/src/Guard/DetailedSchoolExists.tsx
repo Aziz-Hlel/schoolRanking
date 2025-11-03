@@ -1,7 +1,7 @@
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import LoadingSpinner from "@/LoadingSpinner";
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import LoadingSpinner from '@/LoadingSpinner';
 
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
 const DetailedSchoolExists = () => {
   const { detailedSchool } = useDetailedSchool();

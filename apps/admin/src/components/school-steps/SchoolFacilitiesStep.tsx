@@ -1,6 +1,6 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import React from 'react';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -9,9 +9,9 @@ import {
   FormLabel,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import type { SchoolFacilitiesData } from "@/types/school";
-import type { UseFormReturn } from "react-hook-form";
+} from '@/components/ui/form';
+import type { SchoolFacilitiesData } from '@/types/school';
+import type { UseFormReturn } from 'react-hook-form';
 
 interface SchoolFacilitiesStepProps {
   form: UseFormReturn<SchoolFacilitiesData>;
@@ -19,33 +19,33 @@ interface SchoolFacilitiesStepProps {
 
 export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form }) => {
   const facilityOptions = [
-    { id: "library", label: "Library" },
-    { id: "laboratory", label: "Laboratory" },
-    { id: "gymnasium", label: "Gymnasium" },
-    { id: "cafeteria", label: "Cafeteria" },
-    { id: "auditorium", label: "Auditorium" },
-    { id: "playground", label: "Playground" },
-    { id: "swimming-pool", label: "Swimming Pool" },
-    { id: "art-studio", label: "Art Studio" },
-    { id: "music-room", label: "Music Room" },
-    { id: "computer-lab", label: "Computer Lab" },
-    { id: "sports-field", label: "Sports Field" },
+    { id: 'library', label: 'Library' },
+    { id: 'laboratory', label: 'Laboratory' },
+    { id: 'gymnasium', label: 'Gymnasium' },
+    { id: 'cafeteria', label: 'Cafeteria' },
+    { id: 'auditorium', label: 'Auditorium' },
+    { id: 'playground', label: 'Playground' },
+    { id: 'swimming-pool', label: 'Swimming Pool' },
+    { id: 'art-studio', label: 'Art Studio' },
+    { id: 'music-room', label: 'Music Room' },
+    { id: 'computer-lab', label: 'Computer Lab' },
+    { id: 'sports-field', label: 'Sports Field' },
   ];
 
   const accessibilityOptions = [
-    { id: "wheelchair-access", label: "Wheelchair Access" },
-    { id: "elevator", label: "Elevator" },
-    { id: "braille-signage", label: "Braille Signage" },
-    { id: "hearing-loop", label: "Hearing Loop" },
-    { id: "accessible-restrooms", label: "Accessible Restrooms" },
+    { id: 'wheelchair-access', label: 'Wheelchair Access' },
+    { id: 'elevator', label: 'Elevator' },
+    { id: 'braille-signage', label: 'Braille Signage' },
+    { id: 'hearing-loop', label: 'Hearing Loop' },
+    { id: 'accessible-restrooms', label: 'Accessible Restrooms' },
   ];
 
   const sustainabilityOptions = [
-    { id: "solar-panels", label: "Solar Panels" },
-    { id: "recycling-program", label: "Recycling Program" },
-    { id: "water-conservation", label: "Water Conservation" },
-    { id: "energy-efficient-lighting", label: "Energy Efficient Lighting" },
-    { id: "green-building-certification", label: "Green Building Certification" },
+    { id: 'solar-panels', label: 'Solar Panels' },
+    { id: 'recycling-program', label: 'Recycling Program' },
+    { id: 'water-conservation', label: 'Water Conservation' },
+    { id: 'energy-efficient-lighting', label: 'Energy Efficient Lighting' },
+    { id: 'green-building-certification', label: 'Green Building Certification' },
   ];
 
   return (
@@ -202,10 +202,10 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
               <FormControl>
                 <Input
                   placeholder="Harvard University, Oxford University, MIT..."
-                  value={field.value?.join(", ") || ""}
+                  value={field.value?.join(', ') || ''}
                   onChange={(e) => {
                     const universities = e.target.value
-                      .split(",")
+                      .split(',')
                       .map((s) => s.trim())
                       .filter((s) => s);
                     field.onChange(universities);
@@ -247,10 +247,10 @@ export const SchoolFacilitiesStep: React.FC<SchoolFacilitiesStepProps> = ({ form
               <FormControl>
                 <Input
                   placeholder="Tech companies, local businesses, NGOs..."
-                  value={field.value?.join(", ") || ""}
+                  value={field.value?.join(', ') || ''}
                   onChange={(e) => {
                     const partnerships = e.target.value
-                      .split(",")
+                      .split(',')
                       .map((s) => s.trim())
                       .filter((s) => s);
                     field.onChange(partnerships);

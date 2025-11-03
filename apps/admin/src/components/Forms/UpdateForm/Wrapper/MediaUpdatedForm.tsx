@@ -1,16 +1,16 @@
-import { Form } from "@/components/ui/form";
-import AbstractWrapper from "./AbstractWrapper";
-import DetachedMedia from "../../DetachedForms/Media/DetachedMedia";
-import { schoolMediaSchema } from "@/types/School2.type";
-import type z from "zod";
-import { useForm } from "react-hook-form";
-import apiGateway from "@/service/Api/apiGateway";
-import { apiService } from "@/service/Api/apiService";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-import NavigationButtons from "../NavigationButton/NavigationButtons";
-import { useDetailedSchool } from "@/contexts/DetailedSchoolProvider";
-import useApiMutation from "@/hooks/useApiMutation";
+import { Form } from '@/components/ui/form';
+import AbstractWrapper from './AbstractWrapper';
+import DetachedMedia from '../../DetachedForms/Media/DetachedMedia';
+import { schoolMediaSchema } from '@/types/School2.type';
+import type z from 'zod';
+import { useForm } from 'react-hook-form';
+import apiGateway from '@/service/Api/apiGateway';
+import { apiService } from '@/service/Api/apiService';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
+import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import useApiMutation from '@/hooks/useApiMutation';
 
 type SchoolMedia = z.infer<typeof schoolMediaSchema>;
 
@@ -31,7 +31,7 @@ const MediaUpdatedForm = () => {
 
   const { safeAsyncMutate, isPending } = useApiMutation({
     mutationFn,
-    queryKey: ["school", "detailed", schoolId],
+    queryKey: ['school', 'detailed', schoolId],
   });
 
   const navigate = useNavigate();
@@ -40,11 +40,11 @@ const MediaUpdatedForm = () => {
     const response = await safeAsyncMutate(data);
 
     if (response.success === false) {
-      console.error("Failed to submit general form", response.error);
+      console.error('Failed to submit general form', response.error);
       return;
     }
 
-    navigate("../../");
+    navigate('../../');
   };
 
   return (

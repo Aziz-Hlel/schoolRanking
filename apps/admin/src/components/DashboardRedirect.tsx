@@ -1,9 +1,9 @@
-import { useAuth } from "@/contexts/AuthContext";
-import { PAGES } from "@/data/pages";
-import { ROLES } from "@/enums/roles";
-import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from '@/contexts/AuthContext';
+import { PAGES } from '@/data/pages';
+import { ROLES } from '@/enums/roles';
+import { Navigate, Outlet } from 'react-router-dom';
 
-const DashboardRedirect = () => {
+const RoleVerification = () => {
   const { user } = useAuth();
 
   if (!user) return null;
@@ -16,4 +16,4 @@ const DashboardRedirect = () => {
   return <Navigate to="/unauthorized" replace />;
 };
 
-export default DashboardRedirect;
+export default RoleVerification;

@@ -1,7 +1,7 @@
-import { CountryEnums } from "@/enums/CountryEnums";
-import type { SchoolGeneral } from "@/types/School2.type";
-import { Globe, MapPin } from "lucide-react";
-import { CircleFlag } from "react-circle-flags";
+import { CountryEnums } from '@/enums/CountryEnums';
+import type { SchoolGeneral } from '@/types/School2.type';
+import { Globe, MapPin } from 'lucide-react';
+import { CircleFlag } from 'react-circle-flags';
 
 const GeneralCardContent = ({ section }: { section?: SchoolGeneral }) => {
   if (!section) return null;
@@ -31,8 +31,8 @@ const GeneralCardContent = ({ section }: { section?: SchoolGeneral }) => {
         <p
           className="font-medium w-full  truncate"
           style={{
-            display: "-webkit-box",
-            WebkitBoxOrient: "vertical",
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
             WebkitLineClamp: 2,
           }}
         >

@@ -1,26 +1,26 @@
 const SOLAR = {
-  value: "SOLAR" as const,
-  label: "Solar Panels",
+  value: 'SOLAR' as const,
+  label: 'Solar Panels',
 };
 
 const RECYCLING = {
-  value: "RECYCLING" as const,
-  label: "Recycling Program",
+  value: 'RECYCLING' as const,
+  label: 'Recycling Program',
 };
 
 const WATER_CONSERVATION = {
-  value: "WATER_CONSERVATION" as const,
-  label: "Water Conservation",
+  value: 'WATER_CONSERVATION' as const,
+  label: 'Water Conservation',
 };
 
 const ENERGY_EFFICIENT_LIGHTING = {
-  value: "ENERGY_EFFICIENT_LIGHTING" as const,
-  label: "Energy Efficient Lighting",
+  value: 'ENERGY_EFFICIENT_LIGHTING' as const,
+  label: 'Energy Efficient Lighting',
 };
 
 const GREEN_SPACES = {
-  value: "GREEN_SPACES" as const,
-  label: "Green Building Certification",
+  value: 'GREEN_SPACES' as const,
+  label: 'Green Building Certification',
 };
 
 export const SustainabilityEnums = {

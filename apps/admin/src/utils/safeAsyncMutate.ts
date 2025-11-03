@@ -1,4 +1,4 @@
-import type { UseMutateAsyncFunction } from "@tanstack/react-query";
+import type { UseMutateAsyncFunction } from '@tanstack/react-query';
 
 const safeAsyncMutate = async <TResponse, TData>(
   mutateAsync: UseMutateAsyncFunction<TResponse, Error, TData, unknown>,

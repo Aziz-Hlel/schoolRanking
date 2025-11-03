@@ -8,7 +8,7 @@ services:
       POSTGRES_DB: ${STAGE__POSTGRES_DB}
       POSTGRES_USER: ${STAGE__POSTGRES_USER}
       POSTGRES_PASSWORD: ${STAGE__POSTGRES_PASSWORD}
-    command: -p ${STAGE__POSTGRES_PORT}  # ✅ override the internal listen port
+    command: -p ${STAGE__POSTGRES_PORT} # ✅ override the internal listen port
     volumes:
       - postgres-data-stage:/var/lib/postgresql/data
       - ./database/init:/docker-entrypoint-initdb.d:ro
@@ -63,7 +63,6 @@ services:
         VITE_API_URL: ${STAGE__VITE_API_URL}
         VITE_NODE_ENV: ${STAGE__VITE_NODE_ENV}
 
-
     ports:
       - 8443:8443
     volumes:
@@ -71,14 +70,12 @@ services:
       - caddy-data-stage:/data
       - caddy-config-stage:/config
 
-
     # healthcheck:
     #   test: ["CMD", "curl", "-fk", "https://localhost:8443/health"]
     #   interval: 30s
     #   timeout: 5s
     #   retries: 3
     #   start_period: 10s
-
 
     restart: unless-stopped
 

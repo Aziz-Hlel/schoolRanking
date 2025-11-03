@@ -1,7 +1,7 @@
-import { LoginForm } from "@/components/login-form";
-import { useAuth } from "@/contexts/AuthContext";
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { LoginForm } from '@/components/login-form';
+import { useAuth } from '@/contexts/AuthContext';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 const Login2 = () => {
   const { user } = useAuth();

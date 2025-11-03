@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { XIcon } from "lucide-react";
-import { type Dispatch, type SetStateAction, forwardRef, useState } from "react";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { XIcon } from 'lucide-react';
+import { type Dispatch, type SetStateAction, forwardRef, useState } from 'react';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -13,13 +13,13 @@ type InputTagsProps = InputProps & {
 
 export const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
   ({ value, onChange, ...props }, ref) => {
-    const [pendingDataPoint, setPendingDataPoint] = useState("");
+    const [pendingDataPoint, setPendingDataPoint] = useState('');
 
     const addPendingDataPoint = () => {
       if (pendingDataPoint) {
         const newDataPoints = new Set([...value, pendingDataPoint]);
         onChange(Array.from(newDataPoints));
-        setPendingDataPoint("");
+        setPendingDataPoint('');
       }
     };
 
@@ -30,10 +30,10 @@ export const InputTags = forwardRef<HTMLInputElement, InputTagsProps>(
             value={pendingDataPoint}
             onChange={(e) => setPendingDataPoint(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === 'Enter') {
                 e.preventDefault();
                 addPendingDataPoint();
-              } else if (e.key === "," || e.key === " ") {
+              } else if (e.key === ',' || e.key === ' ') {
                 e.preventDefault();
                 addPendingDataPoint();
               }

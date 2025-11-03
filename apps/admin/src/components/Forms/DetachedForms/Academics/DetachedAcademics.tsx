@@ -5,20 +5,20 @@ import {
   FormControl,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { type UseFormReturn } from "react-hook-form";
-import { Textarea } from "@/components/ui/textarea";
-import { AccreditationEnums } from "@/enums/AccreditationEnums";
-import { LevelEnums } from "@/enums/LevelEnums";
-import { CurriculumEnums } from "@/enums/CurriculumEnums";
-import { Checkbox } from "@/components/ui/checkbox";
-import { schoolAcademicsSchema } from "@/types/School2.type";
-import type { FC } from "react";
-import type z from "zod";
-import { Label } from "@/components/ui/label";
-import { MultiSelect } from "@/components/ui/multi-select";
-import { languages } from "country-data-list";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { type UseFormReturn } from 'react-hook-form';
+import { Textarea } from '@/components/ui/textarea';
+import { AccreditationEnums } from '@/enums/AccreditationEnums';
+import { LevelEnums } from '@/enums/LevelEnums';
+import { CurriculumEnums } from '@/enums/CurriculumEnums';
+import { Checkbox } from '@/components/ui/checkbox';
+import { schoolAcademicsSchema } from '@/types/School2.type';
+import type { FC } from 'react';
+import type z from 'zod';
+import { Label } from '@/components/ui/label';
+import { MultiSelect } from '@/components/ui/multi-select';
+import { languages } from 'country-data-list';
 
 interface DetachedFormProps {
   form: UseFormReturn<SchoolAcademics>;

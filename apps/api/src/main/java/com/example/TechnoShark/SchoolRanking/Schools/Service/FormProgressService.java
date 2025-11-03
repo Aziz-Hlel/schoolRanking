@@ -27,7 +27,7 @@ public class FormProgressService {
      */
     public void updateFormProgress(UUID schoolId, Integer completedStep) {
         if (completedStep < 1 || completedStep > AppConstants.FormsTotalSteps)
-            throw new IllegalArgumentException("Form step must be between 1 and 5");
+            throw new IllegalArgumentException("Form step must be between 1 and " + AppConstants.FormsTotalSteps);
 
         School school = schoolRepository.findById(schoolId)
                 .orElseThrow(() -> new IllegalArgumentException("School not found with id: " + schoolId));
@@ -35,12 +35,6 @@ public class FormProgressService {
         // Only update if this step is greater than current progress
         if (completedStep > school.getLastFormStep()) {
             school.setLastFormStep(completedStep);
-
-            // Mark forms as completed if all 5 steps are done
-            if (completedStep == AppConstants.FormsTotalSteps) {
-                school.setFormsCompleted(true);
-            }
-
             schoolRepository.save(school);
         }
     }
@@ -54,7 +48,6 @@ public class FormProgressService {
         School school = schoolRepository.findById(schoolId)
                 .orElseThrow(() -> new IllegalArgumentException("School not found with id: " + schoolId));
 
-        school.setFormsCompleted(true);
         school.setLastFormStep(AppConstants.FormsTotalSteps);
         schoolRepository.save(school);
     }

@@ -5,18 +5,18 @@ import {
   FormControl,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { type UseFormReturn } from "react-hook-form";
-import z from "zod";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { type UseFormReturn } from 'react-hook-form';
+import z from 'zod';
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { TagInput } from "@/components/ui/TagInput";
-import { FacilityEnums } from "@/enums/FacilityEnums";
-import { AccessibilityEnums } from "@/enums/AccessibilityEnums";
-import { SustainabilityEnums } from "@/enums/SustainabilityEnums";
-import { schoolFacilitiesSchema } from "@/types/School2.type";
-import { type FC } from "react";
+import { Checkbox } from '@/components/ui/checkbox';
+import { TagInput } from '@/components/ui/TagInput';
+import { FacilityEnums } from '@/enums/FacilityEnums';
+import { AccessibilityEnums } from '@/enums/AccessibilityEnums';
+import { SustainabilityEnums } from '@/enums/SustainabilityEnums';
+import { schoolFacilitiesSchema } from '@/types/School2.type';
+import { type FC } from 'react';
 import {
   Select,
   SelectContent,
@@ -24,10 +24,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { RatingLevelEnums } from "@/enums/RatingLevelEnums";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/select';
+import { RatingLevelEnums } from '@/enums/RatingLevelEnums';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 interface DetachedFormProps {
   form: UseFormReturn<SchoolFacilitiesData>;
@@ -36,7 +36,7 @@ interface DetachedFormProps {
 export type SchoolFacilitiesData = z.infer<typeof schoolFacilitiesSchema>;
 
 const DetachedFacilities: FC<DetachedFormProps> = ({ form }) => {
-  const hasTransportationServices = form.watch("hasTransportationServices");
+  const hasTransportationServices = form.watch('hasTransportationServices');
 
   // useEffect(()=>{
   //     if(hasTransportationServices){
@@ -378,7 +378,7 @@ const DetachedFacilities: FC<DetachedFormProps> = ({ form }) => {
               <Textarea
                 placeholder="Specify any transportation policies, specific bus routes, or special arrangements available for students."
                 {...field}
-                value={hasTransportationServices ? field.value : ""}
+                value={hasTransportationServices ? field.value : ''}
               />
             </FormControl>
             <FormMessage />

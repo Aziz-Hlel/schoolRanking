@@ -1,7 +1,7 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+import React from 'react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -10,37 +10,37 @@ import {
   FormLabel,
   FormMessage,
   FormDescription,
-} from "@/components/ui/form";
-import type { UseFormReturn } from "react-hook-form";
-import type { SchoolAcademicsData } from "@/types/school";
+} from '@/components/ui/form';
+import type { UseFormReturn } from 'react-hook-form';
+import type { SchoolAcademicsData } from '@/types/school';
 
 const accreditations = [
-  { value: "IB", label: "International Baccalaureate (IB)" },
-  { value: "CIS", label: "Council of International Schools (CIS)" },
-  { value: "NEASC", label: "New England Association of Schools and Colleges (NEASC)" },
-  { value: "WASC", label: "Western Association of Schools and Colleges (WASC)" },
-  { value: "MSA", label: "Middle States Association (MSA)" },
-  { value: "SACS", label: "Southern Association of Colleges and Schools (SACS)" },
-  { value: "ACSI", label: "Association of Christian Schools International (ACSI)" },
-  { value: "BSO", label: "British Schools Overseas (BSO)" },
+  { value: 'IB', label: 'International Baccalaureate (IB)' },
+  { value: 'CIS', label: 'Council of International Schools (CIS)' },
+  { value: 'NEASC', label: 'New England Association of Schools and Colleges (NEASC)' },
+  { value: 'WASC', label: 'Western Association of Schools and Colleges (WASC)' },
+  { value: 'MSA', label: 'Middle States Association (MSA)' },
+  { value: 'SACS', label: 'Southern Association of Colleges and Schools (SACS)' },
+  { value: 'ACSI', label: 'Association of Christian Schools International (ACSI)' },
+  { value: 'BSO', label: 'British Schools Overseas (BSO)' },
 ];
 
 const levels = [
-  { value: "preschool", label: "Preschool (Ages 3-5)" },
-  { value: "elementary", label: "Elementary (Ages 6-11)" },
-  { value: "middle", label: "Middle School (Ages 12-14)" },
-  { value: "high", label: "High School (Ages 15-18)" },
-  { value: "university", label: "University/College" },
+  { value: 'preschool', label: 'Preschool (Ages 3-5)' },
+  { value: 'elementary', label: 'Elementary (Ages 6-11)' },
+  { value: 'middle', label: 'Middle School (Ages 12-14)' },
+  { value: 'high', label: 'High School (Ages 15-18)' },
+  { value: 'university', label: 'University/College' },
 ];
 
 const curriculums = [
-  { value: "IB", label: "International Baccalaureate (IB)" },
-  { value: "AP", label: "Advanced Placement (AP)" },
-  { value: "A-Level", label: "A-Level" },
-  { value: "national", label: "National Curriculum" },
-  { value: "montessori", label: "Montessori" },
-  { value: "waldorf", label: "Waldorf/Steiner" },
-  { value: "cambridge", label: "Cambridge International" },
+  { value: 'IB', label: 'International Baccalaureate (IB)' },
+  { value: 'AP', label: 'Advanced Placement (AP)' },
+  { value: 'A-Level', label: 'A-Level' },
+  { value: 'national', label: 'National Curriculum' },
+  { value: 'montessori', label: 'Montessori' },
+  { value: 'waldorf', label: 'Waldorf/Steiner' },
+  { value: 'cambridge', label: 'Cambridge International' },
 ];
 
 export const SchoolAcademicsStep: React.FC<{

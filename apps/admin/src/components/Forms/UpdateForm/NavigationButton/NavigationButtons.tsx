@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import type { FC } from "react";
-import { Link } from "react-router-dom";
+import { Button } from '@/components/ui/button';
+import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 interface NavigationButtonsProps {
   currentStep: number;
@@ -25,7 +25,7 @@ const NavigationButtons: FC<NavigationButtonsProps> = ({
   return (
     <div className="flex justify-between pt-6">
       <div>
-        <Link to={"../../"}>
+        <Link to={'../../'}>
           <Button
             type="button"
             variant="destructive"

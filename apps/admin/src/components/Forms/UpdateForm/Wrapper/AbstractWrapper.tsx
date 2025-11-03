@@ -1,6 +1,6 @@
-import { Card } from "@/components/ui/card";
-import React from "react";
-import AbstractUpdateHeader from "../Header/AbstractUpdateHeader";
+import { Card } from '@/components/ui/card';
+import React from 'react';
+import AbstractUpdateHeader from '../Header/AbstractUpdateHeader';
 
 const AbstractWrapper = ({
   children,

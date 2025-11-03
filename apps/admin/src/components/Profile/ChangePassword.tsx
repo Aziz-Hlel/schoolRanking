@@ -4,29 +4,29 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from '@/components/ui/drawer';
 
-import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
-import z from "zod";
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Button } from '../ui/button';
+import { Link } from 'react-router-dom';
+import z from 'zod';
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '../ui/form';
+import { Input } from '../ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 const changePasswordSchema = z
   .object({
     currentPassword: z
       .string()
-      .min(8, "Password must be at least 8 characters")
+      .min(8, 'Password must be at least 8 characters')
       .optional()
-      .or(z.literal("")),
+      .or(z.literal('')),
     newPassword: z
       .string()
-      .min(8, "Password must be at least 8 characters")
+      .min(8, 'Password must be at least 8 characters')
       .optional()
-      .or(z.literal("")),
-    confirmPassword: z.string().optional().or(z.literal("")),
+      .or(z.literal('')),
+    confirmPassword: z.string().optional().or(z.literal('')),
   })
   .refine(
     (data) => {
@@ -37,7 +37,7 @@ const changePasswordSchema = z
     },
     {
       message: "Passwords don't match",
-      path: ["confirmPassword"],
+      path: ['confirmPassword'],
     },
   );
 
@@ -47,14 +47,14 @@ const ChangePassword = () => {
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
     },
   });
 
   const onSubmit = async (data: ProfileFormData) => {
-    console.log("Change Password submitted:", data);
+    console.log('Change Password submitted:', data);
     // Here you would typically handle the password change logic, e.g., API call
   };
 
@@ -113,7 +113,7 @@ const ChangePassword = () => {
           <Button className="w-fit hover:cursor-pointer">Submit</Button>
           <DrawerClose>
             <Button variant="outline">
-              <Link to={"../"}>Return</Link>
+              <Link to={'../'}>Return</Link>
             </Button>
           </DrawerClose>
         </DrawerFooter>

@@ -1,14 +1,14 @@
-import type { ROLES } from "@/enums/roles";
-import type { ComponentType, SVGProps } from "react";
+import type { ROLES } from '@/enums/roles';
+import type { ComponentType, SVGProps } from 'react';
 
 export const sidebarButton = {
-  Schools: "Schools",
-  Admins: "Admins",
-  Profile: "Profile",
-  MySchool: "MySchool",
+  Schools: 'Schools',
+  Admins: 'Admins',
+  Profile: 'Profile',
+  MySchool: 'MySchool',
 } as const;
 
-type HeaderType = "MySchoolHeader" | "AdminsHeader" | "SchoolsHeader";
+type HeaderType = 'MySchoolHeader' | 'AdminsHeader' | 'SchoolsHeader';
 
 export type SidebarButton = (typeof sidebarButton)[keyof typeof sidebarButton];
 export type s = keyof typeof sidebarButton;

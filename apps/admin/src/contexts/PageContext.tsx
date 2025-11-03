@@ -1,12 +1,12 @@
-import { ordredPages, PAGES } from "@/data/pages";
-import { sidebarButton, type Page } from "@/types/page";
-import { createContext, useContext, useEffect, useState } from "react";
-import { useAuth } from "./AuthContext";
-import { ROLES } from "@/enums/roles";
-import { usePage, usePageStore } from "@/store/usePageStore";
-import useApiQuery from "@/hooks/useApiQuery";
-import apiGateway from "@/service/Api/apiGateway";
-import { School } from "lucide-react";
+import { ordredPages, PAGES } from '@/data/pages';
+import { sidebarButton, type Page } from '@/types/page';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useAuth } from './AuthContext';
+import { ROLES } from '@/enums/roles';
+import { usePage, usePageStore } from '@/store/usePageStore';
+import useApiQuery from '@/hooks/useApiQuery';
+import apiGateway from '@/service/Api/apiGateway';
+import { School } from 'lucide-react';
 
 interface PageContextProps {
   currentPage: Page;
@@ -34,7 +34,7 @@ export const PageProvider = ({ children }: { children: React.ReactNode }) => {
     isLoading: isLodadingSidebar,
   } = useApiQuery<ApiUserSchoolsRes[]>({
     url: apiGateway.userSchool.getUserSchools(),
-    queryKey: ["user-schools"],
+    queryKey: ['user-schools'],
     options: { fetchOnMount: user?.role === ROLES.ADMIN ? true : false },
   });
 
@@ -54,13 +54,13 @@ export const PageProvider = ({ children }: { children: React.ReactNode }) => {
       id: data.id,
       sidebarTitle: data.name,
       sidebarButton: sidebarButton.MySchool,
-      mainPageTitle: "School Management", // or School Profile
-      mainPageDescription: "Overview of your school information",
+      mainPageTitle: 'School Management', // or School Profile
+      mainPageDescription: 'Overview of your school information',
       allowedRoles: [ROLES.ADMIN],
       icon: School,
-      sidebarLabel: "My School",
+      sidebarLabel: 'My School',
 
-      headerType: "MySchoolHeader",
+      headerType: 'MySchoolHeader',
       path: `/dashboard/my-school/${data.id}`,
       additionalInfo: { formsCompleted: data.formsCompleted, lastFormStep: data.lastFormStep },
     };
@@ -86,7 +86,7 @@ export const PageProvider = ({ children }: { children: React.ReactNode }) => {
 export const usePageContext = () => {
   const context = useContext(PageContext);
   if (context === undefined) {
-    throw new Error("usePage must be used within a PageProvider");
+    throw new Error('usePage must be used within a PageProvider');
   }
   return context;
 };

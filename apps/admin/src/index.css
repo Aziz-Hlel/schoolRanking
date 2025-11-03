@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -117,6 +117,18 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Disable Input Number Arrows */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  @apply appearance-none m-0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 /* Theme Color */

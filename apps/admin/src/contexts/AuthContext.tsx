@@ -1,11 +1,11 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import apiGateway from "../service/Api/apiGateway";
-import { apiService, type ApiResponse } from "../service/Api/apiService";
-import type { signUpSchema } from "../schemas/signUpSchema";
-import type { sigInSchema } from "../schemas/signInSchema";
-import { jwtTokenManager } from "../service/token/JwtTokenManager.class";
-import type { SigInApiResponse, SignUpApiResponse } from "../types/Apis/auth";
-import type { User } from "../types/user";
+import { createContext, useState, useEffect, useContext } from 'react';
+import apiGateway from '../service/Api/apiGateway';
+import { apiService, type ApiResponse } from '../service/Api/apiService';
+import type { signUpSchema } from '../schemas/signUpSchema';
+import type { sigInSchema } from '../schemas/signInSchema';
+import { jwtTokenManager } from '../service/token/JwtTokenManager.class';
+import type { SigInApiResponse, SignUpApiResponse } from '../types/Apis/auth';
+import type { User } from '../types/user';
 
 type IAuthContext = {
   user: User | null | undefined;
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        console.log("ousll useffect");
+        console.log('ousll useffect');
 
         // Load tokens from localStorage
         jwtTokenManager.loadTokensFromStorage();
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           setIsLoading(false);
         }
       } catch (error) {
-        console.error("Auth initialization error:", error);
+        console.error('Auth initialization error:', error);
         setUser(null);
         setIsLoading(false);
         jwtTokenManager.clearTokens();
@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };
