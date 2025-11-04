@@ -49,7 +49,6 @@ env.PROJECT_ROOT = ROOT;
 
 // Logs
 console.log(`${YELLOW}🚀 Starting Docker in ${envArg.toUpperCase()} Env...${NC}`);
-console.log(`${GREEN}Project root is: ${env.PROJECT_ROOT}${NC}`);
 
 // Run Docker Compose
 execSync(`docker compose -f ${DOCKER_COMPOSE_MAP[envArg]} up --build`, {
