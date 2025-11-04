@@ -36,6 +36,7 @@ public interface SchoolMapper {
     @Mapping(target = "schoolMedia", ignore = true)
     @Mapping(target = "schoolFees", ignore = true)
     @Mapping(target = "schoolStaff", ignore = true)
+    @Mapping(target = "schoolStudents", ignore = true)
     @Mapping(target = "formsCompleted", ignore = true)
     @Mapping(target = "lastFormStep", constant = "1")
     public abstract School toEntity(SchoolRequest dto, User user);
@@ -53,6 +54,7 @@ public interface SchoolMapper {
     @Mapping(target = "schoolStaff", ignore = true)
     @Mapping(target = "schoolMedia", ignore = true)
     @Mapping(target = "schoolFees", ignore = true)
+    @Mapping(target = "schoolStudents", ignore = true)
     @Mapping(target = "formsCompleted", ignore = true)
     @Mapping(target = "lastFormStep", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

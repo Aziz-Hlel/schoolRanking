@@ -22,7 +22,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.Enumerated; 
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -109,7 +109,10 @@ public class School {
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     private SchoolFees schoolFees;
 
-    // Add audit fields - industry standard
+    @OneToOne(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private SchoolFees schoolStudents;
+
+    // ? Add audit fields - industry standard
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
