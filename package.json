@@ -10,7 +10,7 @@
     "format:fix": "prettier --write ."
   },
   "lint-staged": {
-    "*": "prettier --write"
+    "*": "npx prettier --write ."
   },
   "keywords": [],
   "type": "module",
