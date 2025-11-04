@@ -1,36 +1,35 @@
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import apiGateway from '@/service/Api/apiGateway';
 import { apiService } from '@/service/Api/apiService';
-import { schoolFeesSchema, type SchoolFeesNoID } from '@/types/School2.type';
+import { schoolStudentsSchema, type SchoolStudentsNoID } from '@/types/School2.type';
 import safeAsyncMutate from '@/utils/safeAsyncMutate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import AbstractWrapper from './AbstractWrapper';
-import { Form } from '@/components/ui/form';
-import NavigationButtons from '../NavigationButton/NavigationButtons';
-import DetachdFees from '../../DetachedForms/Fees/DetachdFees';
+import { Form, useNavigate } from 'react-router-dom';
 import z from 'zod';
+import AbstractWrapper from './AbstractWrapper';
+import DetachedStudents from '../../DetachedForms/DetachedStudents/DetachedStudents';
+import NavigationButtons from '../NavigationButton/NavigationButtons';
 
-const FeesUpdateForm = () => {
+const StudentsUpdateForm = () => {
   const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
   const school = detailedSchool!;
   const schoolId = school.schoolGeneral!.id;
 
-  const form = useForm<SchoolFeesNoID>({
-    resolver: zodResolver(schoolFeesSchema.extend({ id: z.string() })),
-    defaultValues: school.schoolFees,
+  const form = useForm<SchoolStudentsNoID>({
+    resolver: zodResolver(schoolStudentsSchema.extend({ id: z.string() })),
+    defaultValues: school.schoolStudents,
   });
 
-  const mutationFn = (payload: SchoolFeesNoID) =>
-    apiService.putThrowable(apiGateway.form.fees.update(schoolId, schoolId), payload);
+  const mutationFn = (payload: SchoolStudentsNoID) =>
+    apiService.putThrowable(apiGateway.form.students.update(schoolId, schoolId), payload);
 
   const { mutateAsync, isPending } = useMutation({ mutationFn });
 
   const navigate = useNavigate();
 
-  const onSubmit = async (data: SchoolFeesNoID) => {
+  const onSubmit = async (data: SchoolStudentsNoID) => {
     const response = await safeAsyncMutate(mutateAsync, data);
 
     if (response.success === false) {
@@ -43,13 +42,13 @@ const FeesUpdateForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={5}>
+      <AbstractWrapper currentStep={6}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 max-w-3xl mx-auto py-10"
           >
-            <DetachdFees form={form} />
+            <DetachedStudents form={form} />
 
             <NavigationButtons
               currentStep={0}
@@ -66,4 +65,4 @@ const FeesUpdateForm = () => {
   );
 };
 
-export default FeesUpdateForm;
+export default StudentsUpdateForm;

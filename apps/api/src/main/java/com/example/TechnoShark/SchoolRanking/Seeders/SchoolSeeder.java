@@ -189,7 +189,6 @@ public class SchoolSeeder {
     private void createCustomUser() {
 
         int currentForm = CurrentProgressForm.SCHOOL_GENERAL;// CurrentProgressForm.SCHOOL_MEDIA;
-        boolean isCompleted = false;
         int i = 5;
 
         School school = null;
@@ -226,7 +225,7 @@ public class SchoolSeeder {
     public void seed() {
 
         // if (schoolRepo.count() != 0)
-        //     return;
+        // return;
 
         createCustomUser();
 
@@ -279,7 +278,7 @@ public class SchoolSeeder {
             // --- 2. Create School ---
             School school = createGeneralSchool(i);
 
-            school.setLastFormStep(AppConstants.FormsTotalSteps);
+            school.setLastFormStep(CurrentProgressForm.SCHOOL_FEES);
 
             // --- 3. Create Academics BEFORE saving school ---
             SchoolAcademics academicsEntity = createAcademics(i, school);

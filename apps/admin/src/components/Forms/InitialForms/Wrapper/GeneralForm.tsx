@@ -12,6 +12,7 @@ import { useChangePageById, useOrdredPages } from '@/store/usePageStore';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
 import DetachedGeneral from '../../DetachedForms/General/DetachedGeneral';
+import CONSTS from '@/constants/CONST';
 
 type SchoolGeneral = z.infer<typeof schoolGeneralSchema>;
 
@@ -48,7 +49,7 @@ const GeneralForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={0}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.General}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

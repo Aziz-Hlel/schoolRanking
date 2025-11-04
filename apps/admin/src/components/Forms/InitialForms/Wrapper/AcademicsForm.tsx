@@ -11,6 +11,7 @@ import AbstractWrapper from './AbstractWrapper';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
+import CONSTS from '@/constants/CONST';
 
 type SchoolAcademics = z.infer<typeof schoolAcademicsSchema>;
 
@@ -40,7 +41,7 @@ const AcademicsForm = () => {
   const onSubmit = async (data: SchoolAcademics) => {
     const response = await safeAsyncMutate(data);
     console.log(response);
-    if (!response.success) {
+    if (response.success === false) {
       console.error('Failed to submit academics form', response.error);
       return;
     }
@@ -49,7 +50,7 @@ const AcademicsForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={1}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Academics}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

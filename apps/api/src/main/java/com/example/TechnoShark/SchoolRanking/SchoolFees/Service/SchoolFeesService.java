@@ -34,7 +34,7 @@ public class SchoolFeesService {
         SchoolFees entity = schoolFeesMapper.toEntity(schoolFeesRequest, school);
         UUID schoolFeesId = schoolFeesRepo.save(entity).getId();
 
-        formProgressService.updateFormProgress(schoolId, CurrentProgressForm.SCHOOL_FEES);
+        formProgressService.updateFormProgress(schoolId, CurrentProgressForm.SCHOOL_STUDENTS);
         // ? removed this function for now cuz the form supposed to be completed on its
         // ? own at this point
         // formProgressService.markFormsCompleted(school.getId());

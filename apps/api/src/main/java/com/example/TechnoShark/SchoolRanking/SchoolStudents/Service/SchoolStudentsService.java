@@ -36,7 +36,7 @@ public class SchoolStudentsService implements SchoolStudentsServiceImp {
         SchoolStudents entity = schoolStudentsMapper.toEntity(schoolStudentsRequest, school);
         SchoolStudents saved = schoolStudentsRepo.save(entity);
 
-        formProgressService.updateFormProgress(schoolId, CurrentProgressForm.SCHOOL_STUDENTS);
+        formProgressService.updateFormProgress(schoolId, CurrentProgressForm.SCHOOL_STUDENTS + 1);
 
         return saved.getId();
     }

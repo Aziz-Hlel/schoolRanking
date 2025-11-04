@@ -12,6 +12,7 @@ import NavigationButtons from '../NavigationButton/NavigationButtons';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
 import { produce } from 'immer';
+import CONSTS from '@/constants/CONST';
 
 export type SchoolFacilitiesData = z.infer<typeof schoolFacilitiesSchema>;
 
@@ -54,7 +55,7 @@ const FacilitiesForm = () => {
     const response = await safeAsyncMutate(payload);
 
     if (response.success === false) {
-      console.error('Failed to submit general form', response.error);
+      console.error('Failed to submit facilities form', response.error);
       return;
     }
 
@@ -63,7 +64,7 @@ const FacilitiesForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={2}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Facilities}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

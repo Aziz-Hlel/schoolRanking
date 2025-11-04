@@ -12,9 +12,10 @@ import { Form } from '@/components/ui/form';
 import DetachdFees from '../../DetachedForms/Fees/DetachdFees';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
+import CONSTS from '@/constants/CONST';
 
 const FeesForm = () => {
-  const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
+  const { detailedSchool } = useDetailedSchool();
   const schoolId = detailedSchool.schoolGeneral!.id;
 
   const form = useForm<SchoolFeesNoID>({
@@ -70,16 +71,15 @@ const FeesForm = () => {
     const response = await safeAsyncMutate(payload);
 
     if (response.success === false) {
-      console.error('Failed to submit general form', response.error);
+      console.error('Failed to submit fees form', response.error);
       return;
     }
-    await fetchMyDetailedSchool();
-    navigate(`/dashboard/add-school/${schoolId}`);
+    navigate(`/dashboard/add-school/${schoolId}/form/students`);
   };
 
   return (
     <>
-      <AbstractWrapper currentStep={5}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Fees}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

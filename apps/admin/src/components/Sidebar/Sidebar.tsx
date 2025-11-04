@@ -10,6 +10,8 @@ import type { FC } from 'react';
 import { usePageContext } from '@/contexts/PageContext';
 import { useOrdredPages } from '@/store/usePageStore';
 import { CircleAlert } from 'lucide-react';
+import { TOTAL_FORMS } from '@/constants/totalForms';
+import CONSTS from '@/constants/CONST';
 
 interface SidebarProps {
   currentPage: Page;
@@ -62,12 +64,12 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
                   // onClick={() => onPageChange(page)}
                   onClick={() => changePage(page)}
                 >
-                  <Icon className="w-4 h-4 mr-2 flex-shrink-0 " />
+                  <Icon className="w-4 h-4 mr-2  " />
                   <span className="truncate">{page.sidebarTitle}</span>
                   {page.additionalInfo?.formsCompleted === false && (
                     <>
                       <span className="text-yellow-600 text-xs font-medium ml-2">
-                        {page.additionalInfo?.lastFormStep}/5
+                        {page.additionalInfo?.lastFormStep}/{CONSTS.TOTAL_FORMS}
                       </span>
                       <CircleAlert className="text-yellow-600" />
                     </>
@@ -92,7 +94,7 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
             )}
             onClick={() => changePage(PAGES.profile)}
           >
-            <User className="w-4 h-4 mr-2 flex-shrink-0" />
+            <User className="w-4 h-4 mr-2 " />
             <span className="truncate">Profile</span>
           </Button>
         </Link>
@@ -102,12 +104,12 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
           onClick={logout}
           className="w-full justify-start mb-3 text-sm lg:text-base h-10 lg:h-11 text-destructive hover:text-destructive hover:bg-destructive/10"
         >
-          <LogOut className="w-4 h-4 mr-2 flex-shrink-0" />
+          <LogOut className="w-4 h-4 mr-2 " />
           <span className="truncate">Sign Out</span>
         </Button>
 
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center ">
             <User className="w-4 h-4 text-primary-foreground" />
           </div>
           <div className="flex-1 min-w-0">

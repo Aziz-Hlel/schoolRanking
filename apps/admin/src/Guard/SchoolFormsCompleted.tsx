@@ -27,6 +27,11 @@ const SchoolFormsCompleted = () => {
   if (!detailedSchool.schoolFees)
     return <Navigate to={`/dashboard/add-school/${detailedSchool.schoolGeneral.id}/form/fees`} />;
 
+  if (!detailedSchool.schoolStudents)
+    return (
+      <Navigate to={`/dashboard/add-school/${detailedSchool.schoolGeneral.id}/form/students`} />
+    );
+
   return <Outlet />;
 };
 

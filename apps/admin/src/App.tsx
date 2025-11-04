@@ -32,6 +32,8 @@ import SchoolFormsCompleted from './Guard/SchoolFormsCompleted';
 import SchoolNotFound from './pages/Notfounds/SchoolNotFound';
 import FeesUpdateForm from './components/Forms/UpdateForm/Wrapper/FeesUpdateForm';
 import FeesForm from './components/Forms/InitialForms/Wrapper/FeesForm';
+import StudentsForm from './components/Forms/InitialForms/Wrapper/StudentsForm';
+import StudentsUpdateForm from './components/Forms/UpdateForm/Wrapper/StudentsUpdateForm';
 
 const queryClient = new QueryClient();
 
@@ -97,6 +99,7 @@ function App() {
                               <Route path="staff" element={<StaffUpdatedForm />} />
                               <Route path="media" element={<MediaUpdatedForm />} />
                               <Route path="fees" element={<FeesUpdateForm />} />
+                              <Route path="students" element={<StudentsUpdateForm />} />
                             </Route>
                           </Route>
                         </Route>
@@ -109,6 +112,7 @@ function App() {
                             <Route path=":schoolId/form/staff" element={<StaffForm />} />
                             <Route path=":schoolId/form/media" element={<MediaForm />} />
                             <Route path=":schoolId/form/fees" element={<FeesForm />} />
+                            <Route path=":schoolId/form/students" element={<StudentsForm />} />
                           </Route>
                         </Route>
                       </Route>

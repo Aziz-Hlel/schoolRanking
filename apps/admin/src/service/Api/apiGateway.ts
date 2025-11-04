@@ -60,6 +60,11 @@ const apiGateway = {
       update: (schoolId: string, schoolFeesId: string) =>
         `/schools/${schoolId}/school-fees/${schoolFeesId}` as const,
     },
+    students: {
+      create: (schoolId: string) => `/schools/${schoolId}/school-students/` as const,
+      update: (schoolId: string, schoolStudentsId: string) =>
+        `/schools/${schoolId}/school-students/${schoolStudentsId}` as const,
+    },
   },
 };
 

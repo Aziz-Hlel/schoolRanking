@@ -9,6 +9,7 @@ import { AccreditationEnums } from '@/enums/AccreditationEnums';
 import { LevelEnums } from '@/enums/LevelEnums';
 import z from 'zod';
 import { RatingLevelEnums } from '@/enums/RatingLevelEnums';
+import { EstimateTypeEnums } from '@/enums/EstimateTypeEnums';
 
 // Schemas
 
@@ -157,6 +158,39 @@ export const schoolFeesSchema = z.object({
     .default([]),
 });
 
+export const schoolStudentsSchema = z.object({
+  totalStudents: z
+    .number()
+    .int('Total students must be a whole number')
+    .positive('Total students must be a positive number')
+    .optional()
+    .transform((val) => (val === 0 ? undefined : val)),
+  nationalities: z.array(z.string()).default([]),
+  extracurricularActivities: z
+    .array(
+      z.object({
+        name: z.string().min(2, 'Activity name must be at least 2 characters'),
+        description: z.string().min(10, 'Description must be at least 10 characters'),
+      }),
+    )
+    .default([]),
+  averageStudentsPerClassroom: z.object({
+    grade: z.string().min(1, 'Grade is required'),
+    numberOfStudents: z
+      .number()
+      .int('Number of students must be a whole number')
+      .positive('Number of students must be a positive number'),
+    estimateType: z
+      .enum(
+        Object.values(EstimateTypeEnums).map((EstimateType) => EstimateType.value) as [
+          string,
+          ...string[],
+        ],
+      )
+      .optional(),
+  }),
+});
+
 type Id = {
   id: string;
 };
@@ -185,6 +219,10 @@ export type SchoolFeesNoID = z.infer<typeof schoolFeesSchema>;
 
 export type SchoolFees = SchoolFeesNoID & Id;
 
+export type SchoolStudentsNoID = z.infer<typeof schoolStudentsSchema>;
+
+export type SchoolStudents = SchoolStudentsNoID & Id;
+
 export type SchoolDetailed = {
   schoolGeneral?: SchoolGeneral;
   schoolStaff?: SchoolStaff;
@@ -192,4 +230,5 @@ export type SchoolDetailed = {
   schoolMedia?: SchoolMedia;
   schoolAcademics?: SchoolAcademics;
   schoolFees?: SchoolFees;
+  schoolStudents?: SchoolStudents;
 };

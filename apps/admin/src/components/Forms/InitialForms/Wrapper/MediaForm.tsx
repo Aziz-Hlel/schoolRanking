@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
+import CONSTS from '@/constants/CONST';
 
 type SchoolMedia = z.infer<typeof schoolMediaSchema>;
 
@@ -35,18 +36,18 @@ const MediaForm = () => {
     const response = await safeAsyncMutate(data);
 
     if (response.success === false) {
-      console.error('Failed to submit general form', response.error);
+      console.error('Failed to submit media form', response.error);
       return;
     }
 
     const schoolId = detailedSchool.schoolGeneral!.id;
-    await fetchDetailedSchool(schoolId);
+    fetchDetailedSchool(schoolId);
     navigate(`/dashboard/add-school/${schoolId}/form/fees`);
   };
 
   return (
     <>
-      <AbstractWrapper currentStep={4}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Media}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

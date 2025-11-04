@@ -3,17 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import apiGateway from '@/service/Api/apiGateway';
 import { apiService } from '@/service/Api/apiService';
 import { schoolStaffSchema } from '@/types/School2.type';
-import safeAsyncMutate from '@/utils/safeAsyncMutate';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
 import { useForm, type FieldErrors } from 'react-hook-form';
 import DetachedStaff from '../../DetachedForms/Staff/DetachedStaff';
 import type z from 'zod';
 import { Form } from '@/components/ui/form';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
-import { useEffect } from 'react';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
+import CONSTS from '@/constants/CONST';
 
 type SchoolStaff = z.infer<typeof schoolStaffSchema>;
 
@@ -33,8 +31,8 @@ const StaffForm = () => {
   const onSubmit = async (data: SchoolStaff) => {
     const response = await safeAsyncMutate(data);
 
-    if (!response.success) {
-      console.error('Failed to submit general form', response.error);
+    if (response.success === false) {
+      console.error('Failed to submit staff form', response.error);
       return;
     }
 
@@ -48,7 +46,7 @@ const StaffForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={3}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Staff}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit, onError)}
