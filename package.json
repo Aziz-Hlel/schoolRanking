@@ -10,7 +10,7 @@
     "format:fix": "prettier --write ."
   },
   "lint-staged": {
-    "*": "pnpm run format:fix --"
+    "*": "prettier --write"
   },
   "keywords": [],
   "type": "module",
