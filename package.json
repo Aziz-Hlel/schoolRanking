@@ -10,7 +10,7 @@
     "format:fix": "prettier --write ."
   },
   "lint-staged": {
-    "*": "npx prettier --write --ignore-unknown"
+    "*": "prettier --write --ignore-unknown"
   },
   "keywords": [],
   "type": "module",
