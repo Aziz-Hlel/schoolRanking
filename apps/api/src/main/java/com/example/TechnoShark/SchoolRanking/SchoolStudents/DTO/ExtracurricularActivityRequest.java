@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class ExtracurricularActivityRequestDto {
+public class ExtracurricularActivityRequest {
 
     @NotBlank
     private String name;

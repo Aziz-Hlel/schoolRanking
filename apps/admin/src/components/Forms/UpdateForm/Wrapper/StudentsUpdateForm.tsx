@@ -6,11 +6,13 @@ import safeAsyncMutate from '@/utils/safeAsyncMutate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { Form, useNavigate } from 'react-router-dom';
 import z from 'zod';
 import AbstractWrapper from './AbstractWrapper';
 import DetachedStudents from '../../DetachedForms/DetachedStudents/DetachedStudents';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
+import CONSTS from '@/constants/CONST';
+import { Form } from '@/components/ui/form';
+import { useNavigate } from 'react-router-dom';
 
 const StudentsUpdateForm = () => {
   const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
@@ -18,7 +20,7 @@ const StudentsUpdateForm = () => {
   const schoolId = school.schoolGeneral!.id;
 
   const form = useForm<SchoolStudentsNoID>({
-    resolver: zodResolver(schoolStudentsSchema.extend({ id: z.string() })),
+    resolver: zodResolver(schoolStudentsSchema),
     defaultValues: school.schoolStudents,
   });
 
@@ -42,7 +44,7 @@ const StudentsUpdateForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={6}>
+      <AbstractWrapper currentStep={0}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

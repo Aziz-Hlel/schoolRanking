@@ -25,6 +25,7 @@ interface ExtracurricularActivitiesProps {
 const ExtracurricularActivities: FC<ExtracurricularActivitiesProps> = ({ form }) => {
   const { fields, feesLength, otherFeesLength, append, handleDelete, handleMove } = useGetArray({
     form,
+    fieldName: 'extracurricularActivities',
   });
 
   return (
@@ -46,35 +47,33 @@ const ExtracurricularActivities: FC<ExtracurricularActivitiesProps> = ({ form })
             render={({ field }) => (
               <Card className="w-full ">
                 <CardContent>
-                  <div className="flex flex-col  space-y-8">
-                    <div className="grid grid-cols-4 space-x-2">
-                      <FormItem className=" col-span-2 row-span-1 ">
-                        <FormLabel className=" h-fit">Extra Curricular Activity</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder="Math Club" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
+                  <div className="flex flex-col  space-y-4">
+                    <FormItem className=" col-span-2 row-span-1 flex flex-col ">
+                      <FormLabel className=" h-fit">Extra Curricular Activity</FormLabel>
+                      <FormControl>
+                        <Input {...field} placeholder="Math Club" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
 
-                      <FormField
-                        control={form.control}
-                        name={`extracurricularActivities.${index}.description`}
-                        render={({ field }) => (
-                          <FormItem className="  col-span-3 row-span-1">
-                            <FormLabel>Fee Description</FormLabel>
-                            <FormControl>
-                              <Textarea
-                                {...field}
-                                className="min-h-40 h-40"
-                                rows={2}
-                                placeholder={`Student gatherings to explore advanced mathematical concepts and problem-solving.`}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                    <FormField
+                      control={form.control}
+                      name={`extracurricularActivities.${index}.description`}
+                      render={({ field }) => (
+                        <FormItem className="  col-span-3 row-span-1 flex flex-col items-start">
+                          <FormLabel>Fee Description</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              {...field}
+                              className="min-h-20 h-20"
+                              rows={2}
+                              placeholder={`Student gatherings to explore advanced mathematical concepts and problem-solving.`}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
                 </CardContent>
                 <CardFooter className=" flex space-x-2   justify-end">

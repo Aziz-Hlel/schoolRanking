@@ -16,8 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.TechnoShark.SchoolRanking.Auth.Util.UserContext;
 import com.example.TechnoShark.SchoolRanking.Enums.RoleEnums;
-import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsRequestDto;
-import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsResponseDto;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsRequest;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolStudents.Service.SchoolStudentsService;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Service.SchoolAuthorizationService;
 import com.example.TechnoShark.SchoolRanking.Utils.ApiResponse;
@@ -38,7 +38,7 @@ public class SchoolStudentsController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ApiResponse<UUID>> create(
             @PathVariable UUID schoolId,
-            @RequestBody @Valid SchoolStudentsRequestDto SchoolStudentsRequestDto) {
+            @RequestBody @Valid SchoolStudentsRequest SchoolStudentsRequestDto) {
 
         UUID userId = UserContext.getCurrentUserId();
 
@@ -58,7 +58,7 @@ public class SchoolStudentsController {
     public ResponseEntity<ApiResponse<String>> update(
             @PathVariable UUID schoolId,
             @PathVariable UUID schoolStudentsId,
-            @RequestBody @Valid SchoolStudentsRequestDto SchoolStudentsRequestDto) {
+            @RequestBody @Valid SchoolStudentsRequest SchoolStudentsRequestDto) {
 
         UUID userId = UserContext.getCurrentUserId();
 
@@ -74,8 +74,8 @@ public class SchoolStudentsController {
     }
 
     @GetMapping("/{schoolStudentsId}")
-    public ResponseEntity<ApiResponse<SchoolStudentsResponseDto>> get(@PathVariable UUID schoolStudentsId) {
-        SchoolStudentsResponseDto response = schoolStudentsService.get(schoolStudentsId);
+    public ResponseEntity<ApiResponse<SchoolStudentsResponse>> get(@PathVariable UUID schoolStudentsId) {
+        SchoolStudentsResponse response = schoolStudentsService.get(schoolStudentsId);
 
         return ApiResult.of(response)
                 .withMessage("School students found successfully")

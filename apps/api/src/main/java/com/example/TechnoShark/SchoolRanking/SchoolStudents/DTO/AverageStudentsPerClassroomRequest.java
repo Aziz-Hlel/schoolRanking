@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class AverageStudentsPerClassroomRequestDto {
+public class AverageStudentsPerClassroomRequest {
 
     @NotBlank
     private String grade;

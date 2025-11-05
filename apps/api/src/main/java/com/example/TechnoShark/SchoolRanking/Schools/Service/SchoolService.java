@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.TechnoShark.SchoolRanking.ErrorHandler.Exceptions.ResourceNotFoundException;
-import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolDetailedResponse2;
+import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolDetailedResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolPageResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolProgressResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolRequest;
@@ -39,7 +39,6 @@ public class SchoolService {
 
     private final EntityManager entityManager;
 
-    
     public UUID create(SchoolRequest schoolRequest, UUID userId) {
 
         User user = entityManager.getReference(User.class, userId);
@@ -54,12 +53,10 @@ public class SchoolService {
         userSchoolEntity.setSchool(school);
         userSchoolRepo.save(userSchoolEntity);
 
-
-        return school.getId() ;
+        return school.getId();
 
     }
 
-    
     public SchoolResponse update(SchoolRequest schoolRequest, UUID schoolId) {
 
         School existingSchool = schoolRepo.findById(schoolId)
@@ -89,15 +86,13 @@ public class SchoolService {
         return page;
     }
 
-    
-    public SchoolDetailedResponse2 getDetailed(UUID schoolId) {
+    public SchoolDetailedResponse getDetailed(UUID schoolId) {
         // ! add condition to check if user is the school's owner or he ADMIN
         School school = schoolRepo.findWithDetailsById(schoolId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "School not found"));
-        return schoolMapper.toDetailedDto2(school);
+        return schoolMapper.toDetailedDto(school);
     }
 
-    
     public SchoolProgressResponse getFormProgress(UUID schoolId) {
 
         School school = schoolRepo.findById(schoolId)

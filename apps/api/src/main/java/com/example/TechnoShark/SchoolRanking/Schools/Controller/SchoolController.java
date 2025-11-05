@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.TechnoShark.SchoolRanking.Auth.Util.UserContext;
 import com.example.TechnoShark.SchoolRanking.Enums.RoleEnums;
-import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolDetailedResponse2;
+import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolDetailedResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolPageRequest;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolPageResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolProgressResponse;
@@ -102,8 +102,8 @@ public class SchoolController {
 
     @GetMapping("/infos/{schoolId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<ApiResponse<SchoolDetailedResponse2>> getDetailedSchool(@PathVariable UUID schoolId) {
-        SchoolDetailedResponse2 school = schoolService.getDetailed(schoolId);
+    public ResponseEntity<ApiResponse<SchoolDetailedResponse>> getDetailedSchool(@PathVariable UUID schoolId) {
+        SchoolDetailedResponse school = schoolService.getDetailed(schoolId);
 
         return ApiResult.of(school)
                 .withMessage("School retrieved successfully")

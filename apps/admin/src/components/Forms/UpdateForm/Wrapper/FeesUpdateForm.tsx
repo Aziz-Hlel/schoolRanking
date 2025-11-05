@@ -12,6 +12,7 @@ import { Form } from '@/components/ui/form';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import DetachdFees from '../../DetachedForms/Fees/DetachdFees';
 import z from 'zod';
+import CONSTS from '@/constants/CONST';
 
 const FeesUpdateForm = () => {
   const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
@@ -43,7 +44,7 @@ const FeesUpdateForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={5}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Fees}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsRequestDto;
-import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsResponseDto;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsRequest;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolStudents.Mapper.SchoolStudentsMapper;
 import com.example.TechnoShark.SchoolRanking.SchoolStudents.Model.SchoolStudents;
 import com.example.TechnoShark.SchoolRanking.SchoolStudents.Repo.SchoolStudentsRepo;
@@ -29,7 +29,7 @@ public class SchoolStudentsService implements SchoolStudentsServiceImp {
     private final FormProgressService formProgressService;
 
     @Override
-    public UUID create(SchoolStudentsRequestDto schoolStudentsRequest, UUID schoolId) {
+    public UUID create(SchoolStudentsRequest schoolStudentsRequest, UUID schoolId) {
         School school = schoolRepo.findById(schoolId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "School not found"));
 
@@ -42,7 +42,7 @@ public class SchoolStudentsService implements SchoolStudentsServiceImp {
     }
 
     @Override
-    public String update(SchoolStudentsRequestDto schoolStudentsRequest, UUID schoolStudentsId) {
+    public String update(SchoolStudentsRequest schoolStudentsRequest, UUID schoolStudentsId) {
         Optional<SchoolStudents> existing = schoolStudentsRepo.findById(schoolStudentsId);
 
         if (existing.isEmpty())
@@ -55,7 +55,7 @@ public class SchoolStudentsService implements SchoolStudentsServiceImp {
     }
 
     @Override
-    public SchoolStudentsResponseDto get(UUID schoolStudentsId) {
+    public SchoolStudentsResponse get(UUID schoolStudentsId) {
         SchoolStudents entity = schoolStudentsRepo.findById(schoolStudentsId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "School Students not found"));
         return schoolStudentsMapper.toDto(entity);

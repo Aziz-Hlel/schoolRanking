@@ -11,6 +11,7 @@ import { Form } from '@/components/ui/form';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
+import CONSTS from '@/constants/CONST';
 
 type SchoolStaff = z.infer<typeof schoolStaffSchema>;
 
@@ -40,7 +41,7 @@ const StaffUpdatedForm = () => {
   const onSubmit = async (data: SchoolStaff) => {
     const response = await safeAsyncMutate(data);
 
-    if (!response.success) {
+    if (response.success === false) {
       console.error('Failed to submit general form', response.error);
       return;
     }
@@ -50,7 +51,7 @@ const StaffUpdatedForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={3}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Staff}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

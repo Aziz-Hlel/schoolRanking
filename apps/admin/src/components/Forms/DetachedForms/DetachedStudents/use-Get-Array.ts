@@ -1,13 +1,20 @@
 import type { SchoolStudentsNoID } from '@/types/School2.type';
-import { useFieldArray, type UseFormReturn } from 'react-hook-form';
+import {
+  useFieldArray,
+  type UseFieldArrayProps,
+  type UseFormReturn,
+  type FieldPath,
+} from 'react-hook-form';
 
 interface DetachedFormProps {
   form: UseFormReturn<SchoolStudentsNoID>;
+  fieldName: UseFieldArrayProps<SchoolStudentsNoID>['name'];
+  aa?: FieldPath<SchoolStudentsNoID>;
 }
-export const useGetArray = ({ form }: DetachedFormProps) => {
+export const useGetArray = ({ form, fieldName }: DetachedFormProps) => {
   const { fields, append, remove, move, swap } = useFieldArray({
     control: form.control,
-    name: 'averageStudentsPerClassroom',
+    name: fieldName,
   });
 
   const feesLength = fields.length;

@@ -25,6 +25,7 @@ interface NumberStudentsPerClassProps {
 const NumberStudentsPerClass: FC<NumberStudentsPerClassProps> = ({ form }) => {
   const { fields, feesLength, otherFeesLength, append, handleDelete, handleMove } = useGetArray({
     form,
+    fieldName: 'averageStudentsPerClassroom',
   });
 
   return (
@@ -48,7 +49,7 @@ const NumberStudentsPerClass: FC<NumberStudentsPerClassProps> = ({ form }) => {
                 <CardContent>
                   <div className="flex flex-col  space-y-8">
                     <div className="grid grid-cols-4 space-x-2">
-                      <FormItem className=" col-span-2 row-span-1 ">
+                      <FormItem className=" col-span-2 row-span-1  flex flex-col items-start">
                         <FormLabel className=" h-fit">Grade</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="Elementary (Ages 6-11)" />
@@ -63,13 +64,13 @@ const NumberStudentsPerClass: FC<NumberStudentsPerClassProps> = ({ form }) => {
                             control={form.control}
                             name={`averageStudentsPerClassroom.${index}.numberOfStudents`}
                             render={({ field }) => (
-                              <FormItem className=" w-8/12 ">
+                              <FormItem className=" flex flex-col items-start">
                                 <FormControl>
                                   <Input
                                     {...field}
                                     placeholder=""
                                     type="number"
-                                    className=" h-full appearance-none"
+                                    className=" w-20"
                                     onChange={(e) => {
                                       const value = e.target.value;
                                       field.onChange(value === '' ? undefined : parseInt(value));

@@ -10,7 +10,6 @@ import org.mapstruct.ReportingPolicy;
 
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.MySchoolsPreview;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolDetailedResponse;
-import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolDetailedResponse2;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolPageResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolProgressResponse;
 import com.example.TechnoShark.SchoolRanking.Schools.DTO.SchoolRequest;
@@ -74,10 +73,8 @@ public interface SchoolMapper {
     @Mapping(target = "isComplete", source = "formsCompleted")
     SchoolPageResponse toPageDto(School school);
 
-    SchoolDetailedResponse toDetailedDto(School school);
-
     @Mapping(target = "schoolGeneral", source = "school")
-    SchoolDetailedResponse2 toDetailedDto2(School school);
+    SchoolDetailedResponse toDetailedDto(School school);
 
     SchoolProgressResponse toProgressDto(School school);
 

@@ -12,6 +12,7 @@ import AbstractWrapper from './AbstractWrapper';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import DetachedGeneral from '../../DetachedForms/General/DetachedGeneral';
+import CONSTS from '@/constants/CONST';
 
 type SchoolGeneral = z.infer<typeof schoolGeneralSchema>;
 
@@ -44,7 +45,7 @@ const GeneralUpdateForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={0}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.General}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

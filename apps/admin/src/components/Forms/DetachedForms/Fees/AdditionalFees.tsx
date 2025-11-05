@@ -36,8 +36,6 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
     isAdditionalFee: true,
   });
 
-  console.log('zabour om l adiditional fees :', fees);
-
   return (
     <>
       <div>
@@ -60,7 +58,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                 <CardContent>
                   <div className="flex flex-col  space-y-8">
                     <div className="grid grid-cols-4 space-x-2">
-                      <FormItem className=" col-span-3 row-span-1 ">
+                      <FormItem className=" col-span-3 row-span-1  flex flex-col items-start justify-start">
                         <FormLabel className=" h-fit">Fee Title</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="Elementary (Ages 6-11)" />
@@ -68,14 +66,14 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                         <FormMessage />
                       </FormItem>
 
-                      <div className=" flex flex-col row-span-1 gap-2">
+                      <div className="  row-span-1 gap-2 h-full">
                         <Label>Amount</Label>
                         <div className="flex  w-full">
                           <FormField
                             control={form.control}
                             name={`feeItems.${feeItem.index}.price`}
                             render={({ field }) => (
-                              <FormItem className=" w-8/12 ">
+                              <FormItem className=" w-8/12 flex flex-col items-start">
                                 <FormControl>
                                   <Input
                                     {...field}
@@ -96,7 +94,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                             control={form.control}
                             name={`feeItems.${feeItem.index}.currency`}
                             render={({ field }) => (
-                              <FormItem className="">
+                              <FormItem className="flex flex-col items-start  ">
                                 <FormControl>
                                   <Select {...field} onValueChange={field.onChange}>
                                     <SelectTrigger className="">
@@ -126,7 +124,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                       control={form.control}
                       name={`feeItems.${feeItem.index}.description`}
                       render={({ field }) => (
-                        <FormItem className="  col-span-3 row-span-1">
+                        <FormItem className="  col-span-3 row-span-1 flex flex-col items-start">
                           <FormLabel>Fee Description</FormLabel>
                           <FormControl>
                             <Textarea
@@ -185,7 +183,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
           onClick={() =>
             appendFeeItem({
               title: '',
-              price: 1,
+              price: undefined,
               currency: 'USD',
               description: '',
               isAdditionalFee: true,

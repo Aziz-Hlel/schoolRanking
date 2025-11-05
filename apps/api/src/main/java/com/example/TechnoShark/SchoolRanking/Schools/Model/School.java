@@ -15,6 +15,7 @@ import com.example.TechnoShark.SchoolRanking.SchoolFacilities.Model.SchoolFacili
 import com.example.TechnoShark.SchoolRanking.SchoolFees.Model.SchoolFees;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.Model.SchoolMedia;
 import com.example.TechnoShark.SchoolRanking.SchoolStaff.Model.SchoolStaff;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.Model.SchoolStudents;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -110,7 +111,7 @@ public class School {
     private SchoolFees schoolFees;
 
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-    private SchoolFees schoolStudents;
+    private SchoolStudents schoolStudents;
 
     // ? Add audit fields - industry standard
     @CreationTimestamp

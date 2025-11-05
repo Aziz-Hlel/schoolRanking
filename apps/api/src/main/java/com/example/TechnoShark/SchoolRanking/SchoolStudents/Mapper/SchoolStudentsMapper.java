@@ -2,8 +2,8 @@ package com.example.TechnoShark.SchoolRanking.SchoolStudents.Mapper;
 
 import org.mapstruct.*;
 
-import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsRequestDto;
-import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsResponseDto;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsRequest;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO.SchoolStudentsResponse;
 import com.example.TechnoShark.SchoolRanking.SchoolStudents.Model.SchoolStudents;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 
@@ -14,12 +14,12 @@ public interface SchoolStudentsMapper {
 
     @Mapping(target = "school", source = "school")
     @Mapping(target = "id", ignore = true) // uses school ID (MapsId)
-    SchoolStudents toEntity(SchoolStudentsRequestDto request, School school);
+    SchoolStudents toEntity(SchoolStudentsRequest request, School school);
 
     @Mapping(target = "id", source = "schoolStudentsId")
     @Mapping(target = "school", ignore = true)
-    SchoolStudents updateEntity(SchoolStudentsRequestDto request, UUID schoolStudentsId,
+    SchoolStudents updateEntity(SchoolStudentsRequest request, UUID schoolStudentsId,
             @MappingTarget SchoolStudents schoolStudents);
 
-    SchoolStudentsResponseDto toDto(SchoolStudents entity);
+    SchoolStudentsResponse toDto(SchoolStudents entity);
 }

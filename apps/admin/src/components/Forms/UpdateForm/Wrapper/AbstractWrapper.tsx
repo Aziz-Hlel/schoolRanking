@@ -1,13 +1,16 @@
 import { Card } from '@/components/ui/card';
 import React from 'react';
 import AbstractUpdateHeader from '../Header/AbstractUpdateHeader';
+import type CONSTS from '@/constants/CONST';
+
+type stepsAllowed = (typeof CONSTS)['formSteps'][keyof (typeof CONSTS)['formSteps']];
 
 const AbstractWrapper = ({
   children,
   currentStep,
 }: {
   children: React.ReactNode;
-  currentStep: number;
+  currentStep: stepsAllowed;
 }) => {
   return (
     <>

@@ -8,6 +8,7 @@ interface DetachedFormProps {
   form: UseFormReturn<SchoolFeesNoID>;
 }
 const DetachdFees: FC<DetachedFormProps> = ({ form }) => {
+  console.log(form.formState.errors);
   return (
     <>
       <PrimaryFees form={form} />

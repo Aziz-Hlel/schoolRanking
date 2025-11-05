@@ -34,6 +34,7 @@ import FeesUpdateForm from './components/Forms/UpdateForm/Wrapper/FeesUpdateForm
 import FeesForm from './components/Forms/InitialForms/Wrapper/FeesForm';
 import StudentsForm from './components/Forms/InitialForms/Wrapper/StudentsForm';
 import StudentsUpdateForm from './components/Forms/UpdateForm/Wrapper/StudentsUpdateForm';
+import ScrollToTop from './utils/ScrollToTop';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <PageProvider>

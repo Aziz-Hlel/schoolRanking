@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
+import CONSTS from '@/constants/CONST';
 
 type SchoolMedia = z.infer<typeof schoolMediaSchema>;
 
@@ -49,7 +50,7 @@ const MediaUpdatedForm = () => {
 
   return (
     <>
-      <AbstractWrapper currentStep={4}>
+      <AbstractWrapper currentStep={CONSTS.formSteps.Media}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

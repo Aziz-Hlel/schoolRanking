@@ -162,8 +162,9 @@ export const schoolStudentsSchema = z.object({
     .number()
     .int('Total students must be a whole number')
     .positive('Total students must be a positive number')
+    .max(100000, 'Total students must be less than 100,000')
     .optional()
-    .transform((val) => (val === 0 ? undefined : val)),
+    .transform((val) => (val === undefined ? undefined : Number(val))),
   nationalities: z.array(z.string()).default([]),
   extracurricularActivities: z
     .array(
