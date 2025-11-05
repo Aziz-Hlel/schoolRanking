@@ -2,8 +2,8 @@
 # 🧠 Root-level ignores
 # ===============================
 backup/** 
-.env
-.env.*
+./.env
+./.env.*
 !.env.example
 !config/.env.dev
 .DS_Store
