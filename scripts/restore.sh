@@ -63,26 +63,9 @@ if [ "$confirm" != "yes" ]; then
     exit 0
 fi
 
-# # Step 1: Stop backend container if it exists and is running
-# if [ "$BACKEND_EXISTS" -gt 0 ]; then
-#     if docker ps --format '{{.Names}}' | grep -q "$BACKEND_CONTAINER_NAME"; then
-#         echo "🛑 Stopping backend container..."
-#         docker stop "$BACKEND_CONTAINER_NAME"
-#         BACKEND_WAS_RUNNING=true
-#     else
-#         echo "📋 Backend container is already stopped"
-#         BACKEND_WAS_RUNNING=false
-#     fi
-# else
-#     echo "📋 Backend container not found, skipping stop"
-#     BACKEND_WAS_RUNNING=false
-# fi
 
-# echo "🔄 Restoring database..."
 
-# Step 2: Terminate active connections
-
-export PGPASSWORD="$DB_PASS"
+export PGPASSWORD="$POSTGRES_PASSWORD"
 
 # --- Terminate active connections ---
 echo "[INFO] Terminating active connections on $POSTGRES_DB..."

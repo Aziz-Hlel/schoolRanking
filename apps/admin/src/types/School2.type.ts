@@ -9,7 +9,6 @@ import { AccreditationEnums } from '@/enums/AccreditationEnums';
 import { LevelEnums } from '@/enums/LevelEnums';
 import z from 'zod';
 import { RatingLevelEnums } from '@/enums/RatingLevelEnums';
-import { EstimateTypeEnums } from '@/enums/EstimateTypeEnums';
 
 // Schemas
 
@@ -174,21 +173,17 @@ export const schoolStudentsSchema = z.object({
       }),
     )
     .default([]),
-  averageStudentsPerClassroom: z.object({
-    grade: z.string().min(1, 'Grade is required'),
-    numberOfStudents: z
-      .number()
-      .int('Number of students must be a whole number')
-      .positive('Number of students must be a positive number'),
-    estimateType: z
-      .enum(
-        Object.values(EstimateTypeEnums).map((EstimateType) => EstimateType.value) as [
-          string,
-          ...string[],
-        ],
-      )
-      .optional(),
-  }),
+  averageStudentsPerClassroom: z
+    .array(
+      z.object({
+        grade: z.string().min(1, 'Grade name is required'),
+        numberOfStudents: z
+          .number({ required_error: 'Number of students is required' })
+          .int('Number of students must be a whole number')
+          .positive('Number of students must be a positive number'),
+      }),
+    )
+    .default([]),
 });
 
 type Id = {
