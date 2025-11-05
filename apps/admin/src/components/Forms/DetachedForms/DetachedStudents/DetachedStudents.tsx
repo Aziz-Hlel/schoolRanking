@@ -13,6 +13,7 @@ import type { UseFormReturn } from 'react-hook-form';
 import type z from 'zod';
 import { useGetArray } from './use-Get-Array';
 import NumberStudentsPerClass from './NumberStudentsPerClass';
+import ExtracurricularActivities from './ExtracurricularActivities';
 
 interface DetachedFormProps {
   form: UseFormReturn<SchoolStudentsNoID>;
