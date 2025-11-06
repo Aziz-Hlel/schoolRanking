@@ -1,5 +1,5 @@
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolStudentsSchema, type SchoolStudentsNoID } from '@/types/School2.type';
 import safeAsyncMutate from '@/utils/safeAsyncMutate';
@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import AbstractWrapper from './AbstractWrapper';
-import DetachedStudents from '../../DetachedForms/DetachedStudents/DetachedStudents';
+import DetachedStudents from '../../DetachedForms/Students/DetachedStudents';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import CONSTS from '@/constants/CONST';
 import { Form } from '@/components/ui/form';
@@ -25,7 +25,7 @@ const StudentsUpdateForm = () => {
   });
 
   const mutationFn = (payload: SchoolStudentsNoID) =>
-    apiService.putThrowable(apiGateway.form.students.update(schoolId, schoolId), payload);
+    apiService.putThrowable(apiRoutes.form.students.update(schoolId, schoolId), payload);
 
   const { mutateAsync, isPending } = useMutation({ mutationFn });
 

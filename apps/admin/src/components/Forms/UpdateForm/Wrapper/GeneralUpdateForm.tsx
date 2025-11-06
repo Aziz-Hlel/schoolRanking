@@ -1,5 +1,5 @@
 import { Form } from '@/components/ui/form';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolGeneralSchema } from '@/types/School2.type';
 import safeAsyncMutate from '@/utils/safeAsyncMutate';
@@ -26,7 +26,7 @@ const GeneralUpdateForm = () => {
   });
 
   const mutationFn = (payload: SchoolGeneral) =>
-    apiService.putThrowable(apiGateway.form.general.update(school.schoolGeneral!.id), payload);
+    apiService.putThrowable(apiRoutes.form.general.update(school.schoolGeneral!.id), payload);
 
   const { mutateAsync, isPending } = useMutation({ mutationFn });
 

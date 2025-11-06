@@ -1,6 +1,6 @@
 import AbstractWrapper from './AbstractWrapper';
 import { useNavigate } from 'react-router-dom';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolStaffSchema } from '@/types/School2.type';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,7 +27,7 @@ const StaffUpdatedForm = () => {
 
   const mutationFn = (formData: SchoolStaff) =>
     apiService.putThrowable(
-      apiGateway.form.staff.update(schoolId, school.schoolStaff!.id),
+      apiRoutes.form.staff.update(schoolId, school.schoolStaff!.id),
       formData,
     );
 

@@ -13,18 +13,18 @@ import { AccreditationEnums } from '@/enums/AccreditationEnums';
 import { LevelEnums } from '@/enums/LevelEnums';
 import { CurriculumEnums } from '@/enums/CurriculumEnums';
 import { Checkbox } from '@/components/ui/checkbox';
-import { schoolAcademicsSchema } from '@/types/School2.type';
+import { schoolAcademicsSchema, type SchoolAcademicsNoID } from '@/types/School2.type';
 import type { FC } from 'react';
 import type z from 'zod';
 import { Label } from '@/components/ui/label';
 import { MultiSelect } from '@/components/ui/multi-select';
 import { languages } from 'country-data-list';
+import { TagInput } from '@/components/ui/TagInput';
+import InnovativeTeachingMethods from './InnovativeTeachingMethods';
 
 interface DetachedFormProps {
-  form: UseFormReturn<SchoolAcademics>;
+  form: UseFormReturn<SchoolAcademicsNoID>;
 }
-
-type SchoolAcademics = z.infer<typeof schoolAcademicsSchema>;
 
 const DetachedAcademics: FC<DetachedFormProps> = ({ form }) => {
   const languagesOptions = languages.all.map((language) => ({
@@ -105,10 +105,30 @@ const DetachedAcademics: FC<DetachedFormProps> = ({ form }) => {
 
       <FormField
         control={form.control}
+        name="additionalAccreditations"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-base">
+              Additional Accreditations *(click "enter" to add)
+            </FormLabel>
+            <FormDescription>
+              List any further accreditations your school holds beyond the primary one. These are
+              endorsements from educational bodies that verify quality standards.
+            </FormDescription>
+            <FormControl>
+              <TagInput value={field.value || []} onChange={field.onChange} placeholder="" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
         name="accreditationDocsLinks"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Accreditation Documentation Links</FormLabel>
+            <FormLabel>Accreditation Documentation Links *</FormLabel>
             <FormControl>
               <Textarea
                 placeholder="Provide links to accreditation documents or certificates..."
@@ -215,6 +235,25 @@ const DetachedAcademics: FC<DetachedFormProps> = ({ form }) => {
 
       <FormField
         control={form.control}
+        name="additionalCurriculums"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel className="text-base">
+              Additional Curriculums *(click "enter" to add)
+            </FormLabel>
+            <FormDescription>
+              Include any other educational frameworks or programs your school offers alongside the
+              main curriculum, such as specialized or international programs.
+            </FormDescription>
+            <FormControl>
+              <TagInput value={field.value || []} onChange={field.onChange} placeholder="" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
         name="extraLanguagesTaught"
         render={() => (
           // Corrected FormField implementation
@@ -285,6 +324,8 @@ const DetachedAcademics: FC<DetachedFormProps> = ({ form }) => {
           </FormItem>
         )}
       />
+
+      <InnovativeTeachingMethods form={form} />
     </div>
   );
 };

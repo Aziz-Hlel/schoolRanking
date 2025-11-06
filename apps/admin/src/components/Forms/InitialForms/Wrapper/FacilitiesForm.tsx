@@ -1,5 +1,5 @@
 import { Form } from '@/components/ui/form';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolFacilitiesSchema } from '@/types/School2.type';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,7 +37,7 @@ const FacilitiesForm = () => {
   });
 
   const mutationFn = (formData: SchoolFacilitiesData) =>
-    apiService.postThrowable(apiGateway.form.facilities.create(schoolId), formData);
+    apiService.postThrowable(apiRoutes.form.facilities.create(schoolId), formData);
 
   const queriesKeys = [['school', 'detailed', schoolId], ['user-schools']];
 

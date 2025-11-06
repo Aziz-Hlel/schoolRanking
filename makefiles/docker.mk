@@ -28,7 +28,7 @@ docker-dev-up: ## Start development environment
 	@touch $(ENV_LOCAL) $(ENV_ROOT)
 	@set -a && . $(ENV_DEV) && . $(ENV_LOCAL) && . $(ENV_ROOT) && set +a;
 	@export PROJECT_ROOT=$(ROOT)
-	@echo "${GREEN}Project root is: $$PROJECT_ROOT"   # <-- Added line
+# 	@echo "${GREEN}Project root is: $$PROJECT_ROOT"   # <-- Added line
 	@docker compose -f $(DOCKER_ROOT)/compose.dev.yml up --build
 	@echo "${GREEN}✅ "
 

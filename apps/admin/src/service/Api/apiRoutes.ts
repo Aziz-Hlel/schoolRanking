@@ -1,6 +1,6 @@
 import ENV from '../../utils/env.variables';
 
-const apiGateway = {
+const apiRoutes = {
   baseUrl: ENV.BASE_URL,
 
   auth: {
@@ -68,4 +68,4 @@ const apiGateway = {
   },
 };
 
-export default apiGateway;
+export default apiRoutes;

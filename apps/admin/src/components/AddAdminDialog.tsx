@@ -24,7 +24,7 @@ import {
 import { CheckLine, Plus } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiService } from '@/service/Api/apiService';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import safeAsyncMutate from '@/utils/safeAsyncMutate';
 import { AlertToast } from '@/hooks/useToast2';
 
@@ -52,7 +52,7 @@ export const AddAdminDialog = () => {
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  const addAdmin = (form: AddAdminFormData) => apiService.post(apiGateway.user.add, form);
+  const addAdmin = (form: AddAdminFormData) => apiService.post(apiRoutes.user.add, form);
   const { mutateAsync, isPending } = useMutation({
     mutationFn: addAdmin,
 

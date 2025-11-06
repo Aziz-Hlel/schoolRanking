@@ -1,5 +1,5 @@
 import { Form } from '@/components/ui/form';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolAcademicsSchema } from '@/types/School2.type';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,7 +29,7 @@ const AcademicsUpdateForm = () => {
 
   const mutationFn = (payload: SchoolAcademics) =>
     apiService.putThrowable(
-      apiGateway.form.academics.update(schoolId, school.schoolAcademics!.id),
+      apiRoutes.form.academics.update(schoolId, school.schoolAcademics!.id),
       payload,
     );
 

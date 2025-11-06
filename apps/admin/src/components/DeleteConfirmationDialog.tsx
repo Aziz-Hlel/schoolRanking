@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { apiService } from '@/service/Api/apiService';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface DeleteConfirmationDialogProps {

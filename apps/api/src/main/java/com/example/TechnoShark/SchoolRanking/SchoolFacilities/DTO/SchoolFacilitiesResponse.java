@@ -9,22 +9,22 @@ import com.example.TechnoShark.SchoolRanking.Enums.RatingLevelEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.SustainabilityEnums;
 
 public record SchoolFacilitiesResponse(
-        UUID id,
-        List<FacilityEnums> facilities,
-        List<AccessibilityEnums> accessibilityFeatures,
-        List<SustainabilityEnums> sustainabilityPractices,
-        List<String> universityDestinations,
-        String csrActivities,
-        List<String> industryPartnerships,
-        boolean safetyCompliance,
-        boolean aiIntegration,
-        RatingLevelEnums technologyReadiness,
-        String awardsAndRecognitions,
-        boolean hasNurse,
-        boolean hasPsychologist,
-        boolean hasFoodService,
-        boolean hasNutritionist,
-        boolean hasTransportationServices,
-        String transportationPolicies
-) {
+                UUID id,
+                List<FacilityEnums> facilities,
+                List<AccessibilityEnums> accessibilityFeatures,
+                List<SustainabilityEnums> sustainabilityPractices,
+                List<String> universityDestinations,
+                String csrActivities,
+                List<String> industryPartnerships,
+                boolean safetyCompliance,
+                boolean aiIntegration,
+                String aiIntegrationDescription,
+                RatingLevelEnums technologyReadiness,
+                String awardsAndRecognitions,
+                boolean hasNurse,
+                boolean hasPsychologist,
+                boolean hasFoodService,
+                boolean hasNutritionist,
+                boolean hasTransportationServices,
+                String transportationPolicies) {
 }

@@ -1,4 +1,7 @@
 {
   "editor.defaultFormatter": "redhat.java",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+    "[sql]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }  
 }

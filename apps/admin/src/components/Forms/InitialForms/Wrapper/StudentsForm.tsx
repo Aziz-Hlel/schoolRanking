@@ -1,6 +1,6 @@
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolStudentsSchema } from '@/types/School2.type';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +10,7 @@ import type z from 'zod';
 import AbstractWrapper from './AbstractWrapper';
 import { Form } from '@/components/ui/form';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
-import DetachedStudents from '../../DetachedForms/DetachedStudents/DetachedStudents';
+import DetachedStudents from '../../DetachedForms/Students/DetachedStudents';
 import CONSTS from '@/constants/CONST';
 
 type SchoolStudents = z.infer<typeof schoolStudentsSchema>;
@@ -20,7 +20,7 @@ const StudentsForm = () => {
   const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
   const schoolId = detailedSchool!.schoolGeneral!.id;
   const mutationFn = (formData: SchoolStudents) =>
-    apiService.postThrowable(apiGateway.form.students.create(schoolId), formData);
+    apiService.postThrowable(apiRoutes.form.students.create(schoolId), formData);
 
   const queriesKeys = [['school', 'detailed', schoolId], ['user-schools']];
 
@@ -36,7 +36,7 @@ const StudentsForm = () => {
       return;
     }
     await fetchMyDetailedSchool();
-    navigate(`/dashboard/add-school/${schoolId}`);
+    navigate(`/dashboard/my-school/${schoolId}`);
   };
   return (
     <>

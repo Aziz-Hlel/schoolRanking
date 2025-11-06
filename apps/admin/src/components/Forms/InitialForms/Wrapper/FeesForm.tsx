@@ -1,5 +1,5 @@
 import useApiMutation from '@/hooks/useApiMutation';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolFeesSchema, type SchoolFeesNoID } from '@/types/School2.type';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -43,7 +43,7 @@ const FeesForm = () => {
   });
 
   const mutationFn = (formData: SchoolFeesNoID) =>
-    apiService.postThrowable(apiGateway.form.fees.create(schoolId), formData);
+    apiService.postThrowable(apiRoutes.form.fees.create(schoolId), formData);
 
   const queriesKeys = [['school', 'detailed', schoolId], ['user-schools']];
 

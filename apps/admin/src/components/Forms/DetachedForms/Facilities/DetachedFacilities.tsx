@@ -37,12 +37,7 @@ export type SchoolFacilitiesData = z.infer<typeof schoolFacilitiesSchema>;
 
 const DetachedFacilities: FC<DetachedFormProps> = ({ form }) => {
   const hasTransportationServices = form.watch('hasTransportationServices');
-
-  // useEffect(()=>{
-  //     if(hasTransportationServices){
-
-  //     }
-  // },[hasTransportationServices])
+  const hasAiIntegration = form.watch('aiIntegration');
 
   return (
     <div className="space-y-6">
@@ -181,32 +176,6 @@ const DetachedFacilities: FC<DetachedFormProps> = ({ form }) => {
               ))}
             </div>
             <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="aiIntegration"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Label className="p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950">
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  className="cursor-pointer"
-                />
-                <div className="space-y-1 leading-none">
-                  <div className=" cursor-pointer">Ai Integration</div>
-                  <FormDescription>
-                    Check if your school currently uses artificial intelligence (AI) in any of its
-                    operations or systems.
-                  </FormDescription>
-                  <FormMessage />
-                </div>
-              </Label>
-            </FormControl>
           </FormItem>
         )}
       />
@@ -379,6 +348,53 @@ const DetachedFacilities: FC<DetachedFormProps> = ({ form }) => {
                 placeholder="Specify any transportation policies, specific bus routes, or special arrangements available for students."
                 {...field}
                 value={hasTransportationServices ? field.value : ''}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="aiIntegration"
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <Label className="p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950">
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  className="cursor-pointer"
+                />
+                <div className="space-y-1 leading-none">
+                  <div className=" cursor-pointer">AI & Technology Integration</div>
+                  <FormDescription>
+                    Check if your school currently uses artificial intelligence (AI) or other
+                    advanced technologies in its operations, classrooms, or systems.
+                  </FormDescription>
+                  <FormMessage />
+                </div>
+              </Label>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        disabled={!hasAiIntegration}
+        name="aiIntegrationDescription"
+        render={({ field }) => (
+          <FormItem className="md:col-span-2 flex flex-col space-y-2">
+            <FormLabel className="text-gray-700 ">
+              AI & Technology Integration Description
+            </FormLabel>
+            <FormControl className=" ">
+              <Textarea
+                placeholder={`Provide details on how AI and other technologies are used. For example, list specific tools, platforms, or describe their application in classrooms, administration, or student learning.`}
+                {...field}
+                value={hasAiIntegration ? field.value : ''}
               />
             </FormControl>
             <FormMessage />

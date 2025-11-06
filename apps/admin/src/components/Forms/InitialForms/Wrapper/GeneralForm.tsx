@@ -1,5 +1,5 @@
 import { Form } from '@/components/ui/form';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolGeneralSchema } from '@/types/School2.type';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +24,7 @@ const GeneralForm = () => {
   const { fetchDetailedSchool } = useDetailedSchool();
 
   const mutationFn = (formData: SchoolGeneral) =>
-    apiService.postThrowable<string>(apiGateway.form.general.create(), formData);
+    apiService.postThrowable<string>(apiRoutes.form.general.create(), formData);
 
   const { safeAsyncMutate, isPending } = useApiMutation({ mutationFn, queryKey: ['user-schools'] });
 

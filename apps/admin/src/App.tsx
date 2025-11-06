@@ -8,7 +8,7 @@ import { Toaster as Sonner } from '@/components/ui/sonner';
 import { AdminManagement } from './components/AdminManagement';
 import { SchoolsManagement } from './components/SchoolsManagement';
 import { ProfileInformation } from './components/Profile/ProfileInformation';
-import { SchoolView } from './components/MySchool/SchoolView';
+import { SchoolView } from './components/SchoolCardView/SchoolView';
 import ChangePassword from './components/Profile/ChangePassword';
 import AuthorizedRoutes from './Guard/AuthorizedRoutes';
 import { ROLES } from './enums/roles';
@@ -26,7 +26,7 @@ import AcademicsUpdateForm from './components/Forms/UpdateForm/Wrapper/Academics
 import FacilitiesUpdatedForm from './components/Forms/UpdateForm/Wrapper/FacilitiesUpdatedForm';
 import StaffUpdatedForm from './components/Forms/UpdateForm/Wrapper/StaffUpdatedForm';
 import MediaUpdatedForm from './components/Forms/UpdateForm/Wrapper/MediaUpdatedForm';
-import SchoolViewManagemet from './components/MySchool/SchoolViewManagemet';
+import SchoolViewManagemet from './components/SchoolCardView/SchoolViewManagemet';
 import Login2 from './pages/Login2';
 import SchoolFormsCompleted from './Guard/SchoolFormsCompleted';
 import SchoolNotFound from './pages/Notfounds/SchoolNotFound';
@@ -83,6 +83,7 @@ function App() {
                                 <Route path="staff" element={<StaffUpdatedForm />} />
                                 <Route path="media" element={<MediaUpdatedForm />} />
                                 <Route path="fees" element={<FeesUpdateForm />} />
+                                <Route path="students" element={<StudentsUpdateForm />} />
                               </Route>
                             </Route>
                           </Route>

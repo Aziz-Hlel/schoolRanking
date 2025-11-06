@@ -43,7 +43,7 @@ public class SchoolStaffRequestDTO {
     @Size(min = 1, message = "At least one teacher language must be provided")
     private Set<LanguageEnums> teacherLanguages = new HashSet<>();
 
-    @NotBlank
+    @Nullable
     private String professionalDevelopment;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

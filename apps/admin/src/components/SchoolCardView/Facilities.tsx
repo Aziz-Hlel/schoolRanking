@@ -1,8 +1,15 @@
 import { FacilityEnums } from '@/enums/FacilityEnums';
 import { Badge } from '../ui/badge';
 import type { SchoolFacilities } from '@/types/School2.type';
-import { ShieldCheck } from 'lucide-react';
-import { ShieldMinus } from 'lucide-react';
+import {
+  ShieldCheck,
+  Stethoscope,
+  ShieldMinus,
+  Speech,
+  HandPlatter,
+  ChefHat,
+  Bus,
+} from 'lucide-react';
 
 import { Bot } from 'lucide-react';
 import { BotOff } from 'lucide-react';
@@ -63,6 +70,67 @@ const FacilitiesCardContent = ({ section }: { section?: SchoolFacilities }) => {
           <p className="text-sm">AI itegration</p>
           <span>
             {section.aiIntegration ? <Bot className="text-green-700" /> : <BotOff className="" />}
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className=" flex gap-2 ">
+          <p className="text-sm">Nurse presence</p>
+          <span>
+            {section.hasNurse ? (
+              <Stethoscope className="text-green-700" />
+            ) : (
+              <Stethoscope className=" text-muted-foreground" />
+            )}
+          </span>
+        </div>
+
+        <div className=" flex gap-2 ">
+          <p className="text-sm">Psychologist presence</p>
+          <span>
+            {section.hasPsychologist ? (
+              <Speech className="text-green-700" />
+            ) : (
+              <Speech className="text-muted-foreground" />
+            )}
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className=" flex gap-2 ">
+          <p className="text-sm">Food service</p>
+          <span>
+            {section.hasFoodService ? (
+              <HandPlatter className="text-green-700" />
+            ) : (
+              <HandPlatter className=" text-muted-foreground" />
+            )}
+          </span>
+        </div>
+
+        <div className=" flex gap-2 ">
+          <p className="text-sm">Nutritionist</p>
+          <span>
+            {section.hasNutritionist ? (
+              <ChefHat className="text-green-700" />
+            ) : (
+              <ChefHat className="text-muted-foreground" />
+            )}
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className=" flex gap-2 ">
+          <p className="text-sm">Transportation services</p>
+          <span>
+            {section.hasTransportationServices ? (
+              <Bus className="text-green-700" />
+            ) : (
+              <Bus className=" text-muted-foreground" />
+            )}
           </span>
         </div>
       </div>

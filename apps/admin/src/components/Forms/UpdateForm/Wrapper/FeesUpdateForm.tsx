@@ -1,5 +1,5 @@
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolFeesSchema, type SchoolFeesNoID } from '@/types/School2.type';
 import safeAsyncMutate from '@/utils/safeAsyncMutate';
@@ -25,7 +25,7 @@ const FeesUpdateForm = () => {
   });
 
   const mutationFn = (payload: SchoolFeesNoID) =>
-    apiService.putThrowable(apiGateway.form.fees.update(schoolId, schoolId), payload);
+    apiService.putThrowable(apiRoutes.form.fees.update(schoolId, schoolId), payload);
 
   const { mutateAsync, isPending } = useMutation({ mutationFn });
 

@@ -77,6 +77,9 @@ public class SchoolFacilities {
     @Column(nullable = false)
     private Boolean aiIntegration;
 
+    @Column(nullable = true, name = "ai_integration_description", columnDefinition = "TEXT")
+    private String aiIntegrationDescription;
+
     @Enumerated(EnumType.STRING)
     private RatingLevelEnums technologyReadiness;
 

@@ -7,6 +7,7 @@ import com.example.TechnoShark.SchoolRanking.Enums.FacilityEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.RatingLevelEnums;
 import com.example.TechnoShark.SchoolRanking.Enums.SustainabilityEnums;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -37,6 +38,10 @@ public class SchoolFacilitiesRequest {
 
     @NotNull
     private Boolean aiIntegration;
+
+    @Size(max = 1000, message = "Description must be less than 1000 characters")
+    @Nullable
+    private String aiIntegrationDescription;
 
     // @NotNull
     private RatingLevelEnums technologyReadiness;

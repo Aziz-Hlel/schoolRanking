@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type FC, type ReactNode } from 'react';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import useApiQuery from '@/hooks/useApiQuery';
 import type { SchoolDetailed } from '@/types/School2.type';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ interface DetailedSchoolContextProps {
   detailedSchool: SchoolDetailed | undefined;
   fetchDetailedSchool: (schoolId: string) => void;
   fetchMyDetailedSchool: () => Promise<any>;
+  isLoading: boolean;
 }
 
 const DetailedSchoolContext = createContext<DetailedSchoolContextProps | undefined>(undefined);
@@ -17,8 +18,8 @@ export const DetailedSchoolProvider: FC<{ children: ReactNode }> = ({ children }
 
   const navigate = useNavigate();
 
-  const { data, refetch, isError } = useApiQuery<SchoolDetailed>({
-    url: apiGateway.school.getDetailedSchool(schoolId),
+  const { data, refetch, isError, isLoading } = useApiQuery<SchoolDetailed>({
+    url: apiRoutes.school.getDetailedSchool(schoolId),
     queryKey: ['school', 'detailed', schoolId],
     options: { fetchOnMount: schoolId !== '' },
   });
@@ -37,7 +38,7 @@ export const DetailedSchoolProvider: FC<{ children: ReactNode }> = ({ children }
 
   return (
     <DetailedSchoolContext.Provider
-      value={{ detailedSchool, fetchDetailedSchool, fetchMyDetailedSchool }}
+      value={{ detailedSchool, fetchDetailedSchool, fetchMyDetailedSchool, isLoading }}
     >
       {children}
     </DetailedSchoolContext.Provider>

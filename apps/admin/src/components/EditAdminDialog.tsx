@@ -23,7 +23,7 @@ import {
 import type { Admin } from '@/types/Admin';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiService } from '@/service/Api/apiService';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { toast } from 'sonner';
 import { CheckLine } from 'lucide-react';
 import { AlertToast } from '@/hooks/useToast2';
@@ -68,7 +68,7 @@ export const EditAdminDialog: React.FC<EditAdminDialogProps> = ({
   const queryClient = useQueryClient();
 
   const mutationFn = (data: EditAdminFormData) =>
-    apiService.putThrowable<Admin>(apiGateway.user.update(admin.id), data);
+    apiService.putThrowable<Admin>(apiRoutes.user.update(admin.id), data);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: mutationFn,

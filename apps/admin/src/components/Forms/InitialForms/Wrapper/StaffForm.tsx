@@ -1,6 +1,6 @@
 import AbstractWrapper from './AbstractWrapper';
 import { useNavigate } from 'react-router-dom';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { schoolStaffSchema } from '@/types/School2.type';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,7 +20,7 @@ const StaffForm = () => {
   const { detailedSchool } = useDetailedSchool();
   const schoolId = detailedSchool!.schoolGeneral!.id;
   const mutationFn = (formData: SchoolStaff) =>
-    apiService.postThrowable(apiGateway.form.staff.create(schoolId), formData);
+    apiService.postThrowable(apiRoutes.form.staff.create(schoolId), formData);
 
   const queriesKeys = [['school', 'detailed', schoolId], ['user-schools']];
 

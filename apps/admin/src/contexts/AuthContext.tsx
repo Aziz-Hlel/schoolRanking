@@ -1,13 +1,23 @@
-import { createContext, useState, useEffect, useContext } from 'react';
-import apiGateway from '../service/Api/apiGateway';
-import { apiService, type ApiResponse } from '../service/Api/apiService';
+import { createContext, useState, useEffect, useContext, useMemo, useCallback } from 'react';
+import apiRoutes from '../service/Api/apiRoutes';
 import type { signUpSchema } from '../schemas/signUpSchema';
 import type { sigInSchema } from '../schemas/signInSchema';
 import { jwtTokenManager } from '../service/token/JwtTokenManager.class';
 import type { SigInApiResponse, SignUpApiResponse } from '../types/Apis/auth';
 import type { User } from '../types/user';
+import type { ApiResponse } from '@/service/Api/ApiResponse';
+import { apiService } from '@/service/Api/apiService';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import authService from '@/service/auth.service';
+
+type AuthState =
+  | { status: 'loading'; user: null }
+  | { status: 'authenticated'; user: User }
+  | { status: 'unauthenticated'; user: null };
 
 type IAuthContext = {
+  authState: AuthState;
+
   user: User | null | undefined;
   isLoading: boolean;
   signup: (data: signUpSchema) => Promise<ApiResponse<SignUpApiResponse>>;
@@ -18,115 +28,123 @@ type IAuthContext = {
 
 const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
+const AUTH_QUERY_KEY = ['auth', 'user'] as const;
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  const getCurrentUser = async () => {
-    const response = await apiService.get<User>(apiGateway.auth.me);
-    return response;
-  };
+  const { data: authData, isLoading } = useQuery<ApiResponse<User>>({
+    queryKey: AUTH_QUERY_KEY,
+    queryFn: async () => {
+      const accessToken = jwtTokenManager.getAccessToken();
+      const refreshToken = jwtTokenManager.getRefreshToken();
 
-  const whoAmI = async () => {
-    const response = await getCurrentUser();
-    if (response.success) {
-      setUser(response.data);
-    } else {
-      setUser(null);
-    }
-  };
-
-  useEffect(() => {
-    const initializeAuth = async () => {
-      try {
-        console.log('ousll useffect');
-
-        // Load tokens from localStorage
-        jwtTokenManager.loadTokensFromStorage();
-
-        if (!jwtTokenManager.refreshTokenExist()) {
-          setUser(null);
-          setIsLoading(false);
-          return;
-        } else {
-          // Try to get user profile to verify token is still valid
-          const refreshToken = jwtTokenManager.getRefreshToken();
-
-          const response = await apiService.post<{ accessToken: string; refreshToken: string }>(
-            apiGateway.auth.refresh,
-            { refreshToken },
-          );
-
-          if (response.success) {
-            jwtTokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
-
-            const userResponse = await getCurrentUser();
-
-            userResponse.success ? setUser(userResponse.data) : setUser(null);
-          } else {
-            // Token invalid, clear it
-            setUser(null);
-            jwtTokenManager.clearTokens();
-          }
-
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error('Auth initialization error:', error);
-        setUser(null);
-        setIsLoading(false);
-        jwtTokenManager.clearTokens();
+      // No tokens at all - user is not authenticated
+      if (!accessToken && !refreshToken) {
+        throw new Error('No authentication tokens');
       }
-    };
 
-    initializeAuth();
-  }, []);
+      // Try to fetch user with access token
+      if (accessToken) {
+        try {
+          const response = await authService.me();
+          if (response.success) {
+            return response;
+          }
+        } catch (error) {
+          // Access token failed, will try refresh below
+          console.warn('Access token invalid, attempting refresh');
+        }
+      }
 
-  const signup = async (data: signUpSchema) => {
-    setIsLoading(true);
+      // Access token missing or invalid - try refresh token
+      if (refreshToken) {
+        const refreshResponse = await authService.refresh(refreshToken);
 
-    const response = await apiService.post<SignUpApiResponse>(apiGateway.auth.signUp, data);
+        if (refreshResponse.success) {
+          jwtTokenManager.setTokens(
+            refreshResponse.data.accessToken,
+            refreshResponse.data.refreshToken,
+          );
+          // Fetch user data with new token
+          return await authService.me();
+        }
+      }
 
-    if (response.success) {
-      const { accessToken, refreshToken, user } = response.data;
-      jwtTokenManager.setTokens(accessToken, refreshToken);
-      setUser(user);
-    } else setUser(null);
+      // Both tokens failed
+      jwtTokenManager.clearTokens();
+      throw new Error('Authentication failed');
+    },
+    enabled: !!jwtTokenManager.getAccessToken() || !!jwtTokenManager.getRefreshToken(),
+    retry: false, // Don't retry failed auth requests
+    staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+    gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes (formerly cacheTime)
+  });
 
-    setIsLoading(false);
-
-    return response;
-  };
-
-  const login = async (data: sigInSchema) => {
-    setIsLoading(true);
-
-    const response = await apiService.post<SigInApiResponse>(apiGateway.auth.login, data);
-
-    if (response.success) {
-      const { accessToken, refreshToken, user } = response.data;
-      jwtTokenManager.setTokens(accessToken, refreshToken);
-
-      setUser(user);
+  const authState: AuthState = useMemo(() => {
+    if (isLoading) {
+      return { status: 'loading', user: null };
     }
+    if (authData?.success && authData.data) {
+      return { status: 'authenticated', user: authData.data };
+    }
+    return { status: 'unauthenticated', user: null };
+  }, [isLoading, authData]);
 
-    setIsLoading(false);
+  const signUpMutation = useMutation({
+    mutationFn: authService.signUp,
+    onSuccess: (response) => {
+      if (!response.success) return;
+      jwtTokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
+      queryClient.setQueryData(AUTH_QUERY_KEY, response);
+    },
+  });
 
-    return response;
-  };
+  const loginMutation = useMutation({
+    mutationFn: authService.login,
+    onSuccess: (response) => {
+      if (!response.success) return;
+      jwtTokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
+      queryClient.setQueryData(AUTH_QUERY_KEY, response);
+    },
+  });
 
-  const logout = async () => {
-    setUser(null);
+  const register = useCallback(
+    async (data: signUpSchema) => {
+      try {
+        return await signUpMutation.mutateAsync(data);
+      } catch (error) {
+        return error;
+      }
+    },
+    [signUpMutation],
+  );
+
+  const login = useCallback(
+    async (data: sigInSchema) => {
+      try {
+        return await loginMutation.mutateAsync(data);
+      } catch (error) {
+        return error;
+      }
+    },
+    [loginMutation],
+  );
+
+  const logout = useCallback(() => {
     jwtTokenManager.clearTokens();
-  };
+    queryClient.setQueryData(AUTH_QUERY_KEY, null);
+    queryClient.removeQueries({ queryKey: AUTH_QUERY_KEY });
+  }, [queryClient]);
 
   const contextValue: IAuthContext = {
-    user,
+    authState,
+    user: authState.user,
     isLoading,
-    signup,
+    signup: register,
     login,
     logout,
-    refreshUser: whoAmI,
+    refreshUser: () => queryClient.refetchQueries({ queryKey: AUTH_QUERY_KEY }),
   };
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

@@ -4,7 +4,7 @@ import DetachedMedia from '../../DetachedForms/Media/DetachedMedia';
 import { schoolMediaSchema } from '@/types/School2.type';
 import type z from 'zod';
 import { useForm } from 'react-hook-form';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ const MediaUpdatedForm = () => {
 
   const mutationFn = (formData: SchoolMedia) =>
     apiService.putThrowable(
-      apiGateway.form.media.update(schoolId, school.schoolMedia!.id),
+      apiRoutes.form.media.update(schoolId, school.schoolMedia!.id),
       formData,
     );
 

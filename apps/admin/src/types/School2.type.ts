@@ -44,6 +44,7 @@ export const schoolAcademicsSchema = z.object({
   internationalAccreditations: z
     .array(z.enum(Object.keys(AccreditationEnums) as [string, ...string[]]))
     .min(1, 'At least one accreditation is required'),
+  additionalAccreditations: z.array(z.string()).default([]),
   accreditationDocsLinks: z.string().optional(),
   levelsOffered: z
     .array(z.enum(Object.keys(LevelEnums) as [string, ...string[]]))
@@ -51,6 +52,7 @@ export const schoolAcademicsSchema = z.object({
   curriculums: z
     .array(z.enum(Object.keys(CurriculumEnums) as [string, ...string[]]))
     .min(1, 'At least one curriculum is required'),
+  additionalCurriculums: z.array(z.string()).default([]),
   extraLanguagesTaught: z
     .array(z.string())
     .optional()
@@ -59,39 +61,66 @@ export const schoolAcademicsSchema = z.object({
   hasSpecialNeedsSupport: z
     .boolean({ required_error: 'Special needs support is required' })
     .default(false),
+  innovativeTeachingMethods: z.array(
+    z.object({
+      title: z
+        .string({ required_error: 'Title is required' })
+        .min(2, 'Title must be at least 2 characters'),
+      description: z.string().optional(),
+    }),
+  ),
 });
 
 export const schoolFacilitiesSchema = z.object({
   facilities: z
     .array(z.enum(Object.keys(FacilityEnums) as [string, ...string[]]))
     .min(1, 'At least one facility is required'),
+
   accessibilityFeatures: z
     .array(z.enum(Object.keys(AccessibilityEnums) as [string, ...string[]]))
     .min(1, 'At least one accessibility feature is required'),
+
   sustainabilityPractices: z
     .array(z.enum(Object.keys(SustainabilityEnums) as [string, ...string[]]))
     .min(1, 'At least one sustainability practice is required'),
+
   universityDestinations: z
     .array(z.string().min(2, 'University name must be at least 2 characters'))
     .min(1, 'At least one university destination is required'),
+
   csrActivities: z.string().min(10, 'CSR activities description must be at least 10 characters'),
+
   hasNurse: z.boolean({ required_error: 'Nurse is required' }).default(false),
+
   hasPsychologist: z.boolean({ required_error: 'Psychologist is required' }).default(false),
+
   hasFoodService: z.boolean({ required_error: 'Food service is required' }).default(false),
+
   hasNutritionist: z.boolean({ required_error: 'Nutritionist is required' }).default(false),
+
   safetyCompliance: z.boolean({ required_error: 'Safety compliance is required' }).default(false),
+
   aiIntegration: z.boolean({ required_error: 'AI integration is required' }),
+
+  aiIntegrationDescription: z
+    .string()
+    .optional()
+    .transform((val) => (val?.trim() === '' ? undefined : val)),
+
   hasTransportationServices: z
     .boolean({ required_error: 'Transportation services is required' })
     .default(false),
+
   transportationPolicies: z
     .union([z.string().min(1), z.literal('')])
     .optional()
     .transform((val) => (val?.trim() === '' ? undefined : val)),
   technologyReadiness: z.enum(Object.keys(RatingLevelEnums) as [string, ...string[]]),
+
   industryPartnerships: z
     .array(z.string().min(2, 'Partnership name must be at least 2 characters'))
     .min(1, 'At least one industry partnership is required'),
+
   awardsAndRecognitions: z.string().optional(),
 });
 
@@ -121,7 +150,8 @@ export const schoolStaffSchema = z.object({
 
   professionalDevelopment: z
     .string()
-    .min(10, 'Professional development description must be at least 10 characters'),
+    .optional()
+    .transform((val) => (val?.trim() === '' ? undefined : val)),
 
   lastInspectionDate: z
     .string()
@@ -169,8 +199,13 @@ export const schoolStudentsSchema = z.object({
   extracurricularActivities: z
     .array(
       z.object({
-        name: z.string().min(2, 'Activity name must be at least 2 characters'),
-        description: z.string().min(10, 'Description must be at least 10 characters'),
+        name: z
+          .string({ required_error: 'Activity name is required' })
+          .min(2, 'Activity name must be at least 2 characters')
+          .trim(),
+        description: z
+          .string({ required_error: 'Description is required' })
+          .min(10, 'Description must be at least 10 characters'),
       }),
     )
     .default([]),
@@ -195,7 +230,7 @@ type SchoolGeneralNoID = z.infer<typeof schoolGeneralSchema>;
 
 export type SchoolGeneral = SchoolGeneralNoID & Id;
 
-type SchoolAcademicsNoID = z.infer<typeof schoolAcademicsSchema>;
+export type SchoolAcademicsNoID = z.infer<typeof schoolAcademicsSchema>;
 
 export type SchoolAcademics = SchoolAcademicsNoID & Id;
 
@@ -221,10 +256,10 @@ export type SchoolStudents = SchoolStudentsNoID & Id;
 
 export type SchoolDetailed = {
   schoolGeneral?: SchoolGeneral;
-  schoolStaff?: SchoolStaff;
-  schoolFacilities?: SchoolFacilities;
-  schoolMedia?: SchoolMedia;
   schoolAcademics?: SchoolAcademics;
+  schoolFacilities?: SchoolFacilities;
+  schoolStaff?: SchoolStaff;
+  schoolMedia?: SchoolMedia;
   schoolFees?: SchoolFees;
   schoolStudents?: SchoolStudents;
 };

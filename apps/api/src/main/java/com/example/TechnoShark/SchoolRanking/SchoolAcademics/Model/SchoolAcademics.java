@@ -49,6 +49,12 @@ public class SchoolAcademics {
     @Column(name = "accreditation")
     private Set<AccreditationEnums> internationalAccreditations;
 
+    @ElementCollection
+    @CollectionTable(name = "additional_school_accreditations", joinColumns = @JoinColumn(name = "school_academics_id"))
+    @Column(name = "accreditation")
+    @Builder.Default
+    private Set<String> additionalAccreditations = Set.of();
+
     @Column(nullable = true)
     private String accreditationDocsLinks;
 
@@ -66,20 +72,26 @@ public class SchoolAcademics {
     @Column(name = "curriculum")
     private Set<CurriculumEnums> curriculums;
 
+    @ElementCollection
+    @CollectionTable(name = "additional_school_curriculums", joinColumns = @JoinColumn(name = "school_academics_id"))
+    @Column(name = "curriculum")
+    @Builder.Default
+    private Set<String> additionalCurriculums = Set.of();
 
-    
     @Column(name = "has_gifted_programs", nullable = false)
     private boolean hasGiftedPrograms;
 
     @Column(name = "has_special_needs_support", nullable = false)
     private boolean hasSpecialNeedsSupport;
 
-
-
     @ElementCollection
     @CollectionTable(name = "extra_languages_taught", joinColumns = @JoinColumn(name = "school_academics_id"))
     @Column(name = "language")
     private Set<String> extraLanguagesTaught;
 
+    @ElementCollection
+    @CollectionTable(name = "innovative_teaching_methods", joinColumns = @JoinColumn(name = "school_academics_id"))
+    @Builder.Default
+    private Set<InnovativeTeachingMethods> innovativeTeachingMethods = Set.of();
 
 }

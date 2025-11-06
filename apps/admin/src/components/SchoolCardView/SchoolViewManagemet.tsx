@@ -4,14 +4,7 @@ import { Outlet, useParams } from 'react-router-dom';
 import LoadingSpinner from '@/LoadingSpinner';
 
 const SchoolViewManagemet = () => {
-  // const { changePage } = usePageContext();
-
-  // useEffect(() => {
-  //     userRole === ROLES.SUPER_ADMIN && changePage(PAGES.admins_school_view);
-  //     userRole === ROLES.ADMIN && changePage(PAGES.personalSchool);
-  // }, [userRole]);
-
-  const { detailedSchool, fetchDetailedSchool } = useDetailedSchool();
+  const { detailedSchool, fetchDetailedSchool, isLoading } = useDetailedSchool();
   const school = detailedSchool!;
 
   const { schoolId: schoolIdParam } = useParams();
@@ -22,6 +15,10 @@ const SchoolViewManagemet = () => {
       fetchDetailedSchool(schoolIdParam);
     }
   }, [schoolIdParam, fetchDetailedSchool]);
+
+  console.log('school :', school);
+
+  if (isLoading) return <LoadingSpinner />;
 
   if (!school || schoolIdParam !== school.schoolGeneral.id) return <LoadingSpinner />;
 

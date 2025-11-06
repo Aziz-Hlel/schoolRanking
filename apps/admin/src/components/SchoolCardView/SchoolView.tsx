@@ -15,14 +15,16 @@ import {
   UsersRound,
   School,
 } from 'lucide-react';
-import GeneralCardContent from './GeneralCardContent';
-import AcademicCardContent from './AcademicCardContent';
-import FacilitiesCardContent from './FacilitiesCardContent';
-import StaffCardContent from './StaffCardContent';
-import MediaCardContent from './MediaCardContent';
+import GeneralCardContent from './General';
+import AcademicCardContent from './Academics';
+import FacilitiesCardContent from './Facilities';
+import StaffCardContent from './Staff';
+import MediaCardContent from './Media';
 import SectionHeader from './SectionHeader';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import type { SchoolDetailed } from '@/types/School2.type';
+import FeesCardContent from './Fees';
+import StudentsCardContent from './Students';
 type DivClassName = JSX.IntrinsicElements['div']['className'];
 
 interface sectionsProps {
@@ -92,7 +94,7 @@ export const SchoolView = () => {
       icon: CircleDollarSign,
       className: 'bg-yellow-100 text-yellow-800',
       editPath: 'edit/fees',
-      component: <MediaCardContent section={detailedSchool.schoolMedia} />,
+      component: <FeesCardContent section={detailedSchool.schoolFees} />,
       detailedSchoolField: 'schoolFees',
     },
     {
@@ -101,7 +103,7 @@ export const SchoolView = () => {
       icon: UsersRound,
       className: 'bg-yellow-100 text-yellow-800',
       editPath: 'edit/students',
-      component: <MediaCardContent section={detailedSchool.schoolMedia} />,
+      component: <StudentsCardContent section={detailedSchool.schoolStudents} />,
       detailedSchoolField: 'schoolStudents',
     },
   ];

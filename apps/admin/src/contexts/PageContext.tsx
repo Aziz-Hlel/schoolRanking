@@ -5,7 +5,7 @@ import { useAuth } from './AuthContext';
 import { ROLES } from '@/enums/roles';
 import { usePage, usePageStore } from '@/store/usePageStore';
 import useApiQuery from '@/hooks/useApiQuery';
-import apiGateway from '@/service/Api/apiGateway';
+import apiRoutes from '@/service/Api/apiRoutes';
 import { School } from 'lucide-react';
 
 interface PageContextProps {
@@ -33,7 +33,7 @@ export const PageProvider = ({ children }: { children: React.ReactNode }) => {
     refetch,
     isLoading: isLodadingSidebar,
   } = useApiQuery<ApiUserSchoolsRes[]>({
-    url: apiGateway.userSchool.getUserSchools(),
+    url: apiRoutes.userSchool.getUserSchools(),
     queryKey: ['user-schools'],
     options: { fetchOnMount: user?.role === ROLES.ADMIN ? true : false },
   });
