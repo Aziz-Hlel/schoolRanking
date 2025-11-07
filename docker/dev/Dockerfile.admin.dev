@@ -9,7 +9,7 @@ ARG ADMIN_PATH=apps/admin
 WORKDIR /app/$ADMIN_PATH
 
 COPY ./$ADMIN_PATH/package.json .
-COPY ./$ADMIN_PATH/pnpm-lock.yaml .
+# COPY ./$ADMIN_PATH/pnpm-lock.yaml .
 
 RUN pnpm i
 
