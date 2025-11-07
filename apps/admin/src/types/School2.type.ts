@@ -168,7 +168,7 @@ export const schoolMediaSchema = z.object({
 });
 
 export const schoolFeesSchema = z.object({
-  feeItems: z
+  tuitionFees: z
     .array(
       z.object({
         title: z
@@ -181,7 +181,22 @@ export const schoolFeesSchema = z.object({
           .number()
           .int('Sort order must be a number')
           .min(0, 'Sort order must be at least 0'),
-        isAdditionalFee: z.boolean({ required_error: 'Additional fee is required' }).default(false),
+      }),
+    )
+    .default([]),
+  additionalFees: z
+    .array(
+      z.object({
+        title: z
+          .string({ required_error: 'Fee title is required' })
+          .min(1, 'Fee title is required'),
+        price: z.number().positive('Price must be a positive number'),
+        description: z.string().min(10, 'Description must be at least 10 characters'),
+        currency: z.string().min(3, 'Currency must be at least 3 characters'),
+        sortOrder: z
+          .number()
+          .int('Sort order must be a number')
+          .min(0, 'Sort order must be at least 0'),
       }),
     )
     .default([]),

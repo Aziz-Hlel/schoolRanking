@@ -2,15 +2,19 @@ package com.example.TechnoShark.SchoolRanking.SchoolFees.DTO;
 
 import java.util.Set;
 
-import jakarta.validation.constraints.NotNull;
+import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class SchoolFeesRequest {
 
-    @NotNull
-    @Size(max = 50, message = "Fee items must be less than 50")
-    private Set<SchoolFeeItemRequestDto> feeItems;
+    @Nullable
+    @Size(max = 50, message = "Tuition fees must be less than 50")
+    private Set<SchoolFeeItemRequestDto> tuitionFees = Set.of();
+
+    @Nullable
+    @Size(max = 50, message = "Tuition fees must be less than 50")
+    private Set<SchoolFeeItemRequestDto> additionalFees;
 
 }

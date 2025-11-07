@@ -2,3 +2,5 @@
 - fieldName: UseFieldArrayProps<SchoolStudentsNoID>['name'];
 
 - The table from Volto admin in the user page is good and resuable, steal that shit, and make the logic in a use hook
+
+- the hook use-get-array is a reusable hook where you need to use a field in a form of type array, apps/admin/src/components/Forms/DetachedForms/Fees/use-Get-Array.ts

@@ -29,7 +29,4 @@ public class SchoolFeeItem {
     @Column(name = "sort_order", nullable = false)
     private Integer sortOrder;
 
-    @Column(name = "is_additional_fee", nullable = false)
-    private Boolean isAdditionalFee = false; // true = food/transport, false = academic fees
-
 }

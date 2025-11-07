@@ -30,7 +30,4 @@ public class SchoolFeeItemRequestDto {
     @Min(value = 0, message = "Sort order must be greater than or equal to 0")
     private Integer sortOrder;
 
-    @NotNull
-    private Boolean isAdditionalFee = false;
-
 }

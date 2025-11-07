@@ -19,21 +19,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useGetArray } from './use-Get-Array';
 
 interface AdditionalFeesProps {
   form: UseFormReturn<SchoolFeesNoID>;
 }
 const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
-  const {
-    fees,
-    feesLength,
-    otherFeesLength,
-    appendFeeItem,
-    handleDeleteFeeItem,
-    handleMoveFeeItem,
-  } = useGetFees({
+  const { fields, append, handleDelete, handleMove } = useGetArray<SchoolFeesNoID>({
     form,
-    isAdditionalFee: true,
+    fieldName: 'additionalFees',
   });
 
   return (
@@ -48,11 +42,11 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
       </div>
 
       <div className="flex flex-col items-center w-10/12 mx-auto space-y-4 ">
-        {fees.map((feeItem, index) => (
+        {fields.map((feeItem, index) => (
           <FormField
             control={form.control}
             key={feeItem.id}
-            name={`feeItems.${feeItem.index}.title`}
+            name={`additionalFees.${index}.title`}
             render={({ field }) => (
               <Card className="w-full ">
                 <CardContent>
@@ -71,7 +65,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                         <div className="flex  w-full">
                           <FormField
                             control={form.control}
-                            name={`feeItems.${feeItem.index}.price`}
+                            name={`additionalFees.${index}.price`}
                             render={({ field }) => (
                               <FormItem className=" w-8/12 flex flex-col items-start">
                                 <FormControl>
@@ -92,7 +86,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                           />{' '}
                           <FormField
                             control={form.control}
-                            name={`feeItems.${feeItem.index}.currency`}
+                            name={`additionalFees.${index}.currency`}
                             render={({ field }) => (
                               <FormItem className="flex flex-col items-start  ">
                                 <FormControl>
@@ -122,7 +116,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                     </div>
                     <FormField
                       control={form.control}
-                      name={`feeItems.${feeItem.index}.description`}
+                      name={`additionalFees.${index}.description`}
                       render={({ field }) => (
                         <FormItem className="  col-span-3 row-span-1 flex flex-col items-start">
                           <FormLabel>Fee Description</FormLabel>
@@ -148,7 +142,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                     variant="destructive"
                     className="hover:bg-red-500 rounded-full p-0  h-8 w-8"
                     type="button"
-                    onClick={() => handleDeleteFeeItem(feeItem.index)}
+                    onClick={() => handleDelete(index)}
                   >
                     <Trash className=" size-4 mx-4 " />
                   </Button>
@@ -157,8 +151,8 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                     variant="default"
                     className="rounded-full p-0  h-8 w-8"
                     type="button"
-                    disabled={(index === 0 && feesLength === 1) || index === feesLength - 1}
-                    onClick={() => handleMoveFeeItem(feeItem.index, feeItem.index + 1)}
+                    disabled={(index === 0 && fields.length === 1) || index === fields.length - 1}
+                    onClick={() => handleMove(index, index + 1)}
                   >
                     <ArrowUpFromLine className=" size-4 rotate-180  " />
                   </Button>
@@ -168,7 +162,7 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
                     className="rounded-full p-0  h-8 w-8"
                     type="button"
                     disabled={index === 0}
-                    onClick={() => handleMoveFeeItem(feeItem.index, feeItem.index - 1)}
+                    onClick={() => handleMove(index, index - 1)}
                   >
                     <ArrowUpFromLine className=" size-4  " />
                   </Button>
@@ -181,13 +175,12 @@ const AdditionalFees: FC<AdditionalFeesProps> = ({ form }) => {
         <Button
           className=" w-full"
           onClick={() =>
-            appendFeeItem({
+            append({
               title: '',
               price: undefined,
               currency: 'USD',
               description: '',
-              isAdditionalFee: true,
-              sortOrder: fees.length,
+              sortOrder: fields.length,
             })
           }
         >

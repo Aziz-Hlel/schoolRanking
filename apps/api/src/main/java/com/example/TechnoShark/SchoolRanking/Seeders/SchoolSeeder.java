@@ -1,5 +1,6 @@
 package com.example.TechnoShark.SchoolRanking.Seeders;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,10 +29,17 @@ import com.example.TechnoShark.SchoolRanking.SchoolAcademics.Model.SchoolAcademi
 import com.example.TechnoShark.SchoolRanking.SchoolAcademics.Repo.SchoolAcademicsRepo;
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.Model.SchoolFacilities;
 import com.example.TechnoShark.SchoolRanking.SchoolFacilities.Repo.SchoolFacilitiesRepo;
+import com.example.TechnoShark.SchoolRanking.SchoolFees.Model.SchoolFeeItem;
+import com.example.TechnoShark.SchoolRanking.SchoolFees.Model.SchoolFees;
+import com.example.TechnoShark.SchoolRanking.SchoolFees.Repo.SchoolFeesRepo;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.Model.SchoolMedia;
 import com.example.TechnoShark.SchoolRanking.SchoolMedia.Repo.SchoolMediaRepo;
 import com.example.TechnoShark.SchoolRanking.SchoolStaff.Model.SchoolStaff;
 import com.example.TechnoShark.SchoolRanking.SchoolStaff.Repo.SchoolStaffRepo;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.Model.AverageStudentsPerClassroom;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.Model.ExtracurricularActivity;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.Model.SchoolStudents;
+import com.example.TechnoShark.SchoolRanking.SchoolStudents.Repo.SchoolStudentsRepo;
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
 import com.example.TechnoShark.SchoolRanking.Schools.Repo.SchoolRepo;
 import com.example.TechnoShark.SchoolRanking.UserSchool.Model.UserSchool;
@@ -55,6 +63,8 @@ public class SchoolSeeder {
     private final SchoolFacilitiesRepo schoolFacilitiesRepo;
     private final SchoolStaffRepo schoolStaffRepo;
     private final SchoolMediaRepo schoolMediaRepo;
+    private final SchoolFeesRepo schoolFeesRepo;
+    private final SchoolStudentsRepo schoolStudentsRepo;
     private final PasswordEncoder passwordEncoder;
 
     private final int numberOfSeeds = 10;
@@ -186,9 +196,78 @@ public class SchoolSeeder {
         return media;
     }
 
+    private SchoolFeeItem createSchoolFeeItem(int order, String feeTitle) {
+
+        SchoolFeeItem feeItem = new SchoolFeeItem();
+        feeItem.setCurrency("USD");
+        feeItem.setDescription("fee item description");
+        feeItem.setPrice(BigDecimal.valueOf(getRandomNumber(1, 1000)));
+        feeItem.setSortOrder(order);
+        feeItem.setTitle(feeTitle + " " + order);
+
+        return feeItem;
+    }
+
+    private SchoolFees createSchoolFees(int i, School school) {
+
+        SchoolFees fees = new SchoolFees();
+
+        Set<SchoolFeeItem> tuitionFees = new HashSet<>();
+        Set<SchoolFeeItem> additionalFees = new HashSet<>();
+        for (int j = 1; j <= 5; j++) {
+            tuitionFees.add(createSchoolFeeItem(j, "tuition fee " + j));
+            additionalFees.add(createSchoolFeeItem(j, "additional fee " + j));
+        }
+
+        fees.setTuitionFees(tuitionFees);
+        fees.setAdditionalFees(additionalFees);
+        fees.setSchool(school);
+
+        return fees;
+    }
+
+    private ExtracurricularActivity createExtracurricularActivity(int i) {
+        ExtracurricularActivity activity = new ExtracurricularActivity();
+        activity.setName("extracurricular activity " + i);
+        activity.setDescription("extracurricular activity description " + i);
+        return activity;
+    }
+
+    public AverageStudentsPerClassroom createAverageStudentsPerClassroom(int i) {
+        var averageStudentsPerClassroom = new AverageStudentsPerClassroom();
+        averageStudentsPerClassroom.setGrade("grade " + i);
+        averageStudentsPerClassroom.setNumberOfStudents(getRandomNumber(10, 100));
+        return averageStudentsPerClassroom;
+    }
+
+    private SchoolStudents createSchoolStudents(int i, School school) {
+
+        SchoolStudents students = new SchoolStudents();
+        students.setTotalStudents(getRandomNumber(10, 1000));
+
+        students.setNationalities(getRandomEnumSet(CountryEnums.class).stream().map(Enum::name)
+                .collect(java.util.stream.Collectors.toSet()));
+        students.setAverageStudentsPerClassroom(null);
+
+        Set<ExtracurricularActivity> extracurricularActivities = new HashSet<>();
+        Set<AverageStudentsPerClassroom> averageStudentsPerClassroom = new HashSet<>();
+
+        for (int j = 1; j <= 5; j++) {
+            extracurricularActivities.add(createExtracurricularActivity(j));
+            averageStudentsPerClassroom.add(createAverageStudentsPerClassroom(j));
+        }
+
+        students.setExtracurricularActivities(extracurricularActivities);
+        students.setAverageStudentsPerClassroom(averageStudentsPerClassroom);
+
+        students.setSchool(school);
+
+        return students;
+    }
+
     private void createCustomUser() {
 
-        int currentForm = CurrentProgressForm.SCHOOL_GENERAL;// CurrentProgressForm.SCHOOL_MEDIA;
+        int currentForm = CurrentProgressForm.SCHOOL_STUDENTS;// CurrentProgressForm.SCHOOL_MEDIA;
         int i = 5;
 
         School school = null;
@@ -209,6 +288,12 @@ public class SchoolSeeder {
 
         SchoolMedia schoolMediaEntity = creatSchoolMedia(i, school);
         schoolMediaRepo.save(schoolMediaEntity);
+
+        SchoolFees schoolFeesEntity = createSchoolFees(i, school);
+        schoolFeesRepo.save(schoolFeesEntity);
+
+        SchoolStudents schoolStudentsEntity = createSchoolStudents(i, school);
+        schoolStudentsRepo.save(schoolStudentsEntity);
 
         User useEntity = User.builder()
                 .firstName("Admin")
@@ -278,7 +363,7 @@ public class SchoolSeeder {
             // --- 2. Create School ---
             School school = createGeneralSchool(i);
 
-            school.setLastFormStep(CurrentProgressForm.SCHOOL_FEES);
+            school.setLastFormStep(AppConstants.FormsTotalSteps);
 
             // --- 3. Create Academics BEFORE saving school ---
             SchoolAcademics academicsEntity = createAcademics(i, school);
@@ -298,6 +383,12 @@ public class SchoolSeeder {
 
             SchoolStaff staffEntity = createSchoolStaff(i, school);
             school.setSchoolStaff(staffEntity);
+
+            SchoolFees feesEntity = createSchoolFees(i, school);
+            school.setSchoolFees(feesEntity);
+
+            SchoolStudents studentsEntity = createSchoolStudents(i, school);
+            school.setSchoolStudents(studentsEntity);
 
             school = schoolRepo.save(school);
 

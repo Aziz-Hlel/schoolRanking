@@ -35,7 +35,11 @@ public class SchoolFees {
     private School school;
 
     @ElementCollection
-    @CollectionTable(name = "school_fee_items", joinColumns = @JoinColumn(name = "school_fees_id"))
-    private Set<SchoolFeeItem> feeItems;
+    @CollectionTable(name = "tuition_fees", joinColumns = @JoinColumn(name = "school_fees_id"))
+    private Set<SchoolFeeItem> tuitionFees;
+
+    @ElementCollection
+    @CollectionTable(name = "additional_fees", joinColumns = @JoinColumn(name = "school_fees_id"))
+    private Set<SchoolFeeItem> additionalFees;
 
 }
