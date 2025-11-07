@@ -1,5 +1,5 @@
 {
-  "name": "nikomk",
+  "name": "sema-sim",
   "version": "1.0.0",
   "scripts": {
     "prepare": "husky",
@@ -7,17 +7,20 @@
     "dev": "node scripts/docker-up.js dev",
     "stage": "node scripts/docker-up.js stage",
     "prod": "node scripts/docker-up.js prod",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "predev:local": " cd apps/admin && pnpm install",
+    "dev:local": "concurrently "
   },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown"
   },
   "keywords": [],
   "type": "module",
-  "author": "",
+  "author": "Tigana",
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.6",

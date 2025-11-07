@@ -1,12 +1,10 @@
-import { createContext, useState, useEffect, useContext, useMemo, useCallback } from 'react';
-import apiRoutes from '../service/Api/apiRoutes';
+import { createContext, useContext, useMemo, useCallback } from 'react';
 import type { signUpSchema } from '../schemas/signUpSchema';
 import type { sigInSchema } from '../schemas/signInSchema';
 import { jwtTokenManager } from '../service/token/JwtTokenManager.class';
 import type { SigInApiResponse, SignUpApiResponse } from '../types/Apis/auth';
 import type { User } from '../types/user';
 import type { ApiResponse } from '@/service/Api/ApiResponse';
-import { apiService } from '@/service/Api/apiService';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import authService from '@/service/auth.service';
 
