@@ -212,8 +212,9 @@ public class SchoolSeeder {
 
         SchoolFees fees = new SchoolFees();
 
-        Set<SchoolFeeItem> tuitionFees = new HashSet<>();
-        Set<SchoolFeeItem> additionalFees = new HashSet<>();
+        List<SchoolFeeItem> tuitionFees = new ArrayList<>();
+        List<SchoolFeeItem> additionalFees = new ArrayList<>();
+
         for (int j = 1; j <= 5; j++) {
             tuitionFees.add(createSchoolFeeItem(j, "tuition fee " + j));
             additionalFees.add(createSchoolFeeItem(j, "additional fee " + j));
@@ -230,6 +231,7 @@ public class SchoolSeeder {
         ExtracurricularActivity activity = new ExtracurricularActivity();
         activity.setName("extracurricular activity " + i);
         activity.setDescription("extracurricular activity description " + i);
+        activity.setSortOrder(i);
         return activity;
     }
 
@@ -237,6 +239,7 @@ public class SchoolSeeder {
         var averageStudentsPerClassroom = new AverageStudentsPerClassroom();
         averageStudentsPerClassroom.setGrade("grade " + i);
         averageStudentsPerClassroom.setNumberOfStudents(getRandomNumber(10, 100));
+        averageStudentsPerClassroom.setSortOrder(i);
         return averageStudentsPerClassroom;
     }
 

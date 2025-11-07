@@ -1,5 +1,4 @@
-localhost:8443 {
-
+:8080 {
     root * /srv
 
     log {
@@ -8,23 +7,18 @@ localhost:8443 {
         level DEBUG
     }
 
-    @api path /api/*
-    reverse_proxy @api api:8080
-
-    @spa {
-        not path /api/*
-        not file
+    handle /api/* {
+        reverse_proxy api:8080
     }
-    rewrite @spa /index.html
 
-    file_server
 
-    header {
-        Cache-Control "no-store"
+    handle {
+        root * /srv/admin
+        encode gzip
+        file_server
+        try_files {path} /index.html
     }
 
     encode gzip
-
-    tls internal
-	
+    # tls internal
 }

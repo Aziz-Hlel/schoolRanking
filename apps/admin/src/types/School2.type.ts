@@ -221,6 +221,10 @@ export const schoolStudentsSchema = z.object({
         description: z
           .string({ required_error: 'Description is required' })
           .min(10, 'Description must be at least 10 characters'),
+        sortOrder: z
+          .number()
+          .int('Sort order must be a number')
+          .min(0, 'Sort order must be at least 0'), // ! questionable let s hope your logic doesnt generate a negative number,
       }),
     )
     .default([]),
@@ -232,6 +236,10 @@ export const schoolStudentsSchema = z.object({
           .number({ required_error: 'Number of students is required' })
           .int('Number of students must be a whole number')
           .positive('Number of students must be a positive number'),
+        sortOrder: z
+          .number()
+          .int('Sort order must be a number')
+          .min(0, 'Sort order must be at least 0'), // ! questionable let s hope your logic doesnt generate a negative number,
       }),
     )
     .default([]),

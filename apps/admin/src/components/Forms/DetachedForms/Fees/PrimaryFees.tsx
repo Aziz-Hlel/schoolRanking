@@ -1,7 +1,6 @@
 import type { SchoolFeesNoID } from '@/types/School2.type';
 import { type FC } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
-import { useGetFees } from './use-Get-Fees';
 import { ArrowUpFromLine, CirclePlus, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';

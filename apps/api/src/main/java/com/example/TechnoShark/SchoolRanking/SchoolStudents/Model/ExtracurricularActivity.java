@@ -17,4 +17,8 @@ public class ExtracurricularActivity {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(name = "sort_order", nullable = false)
+    private Integer sortOrder;
+
 }

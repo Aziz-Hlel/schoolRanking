@@ -6,16 +6,16 @@ WORKDIR /app
 
 ARG ADMIN_PATH=apps/admin
 
-WORKDIR /app/${ADMIN_PATH}
+WORKDIR /app/$ADMIN_PATH
 
 ARG VITE_NODE_ENV
 ARG VITE_API_URL
 
-COPY ./${ADMIN_PATH}/package.json ./
+COPY ./$ADMIN_PATH/package.json ./
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
-COPY ./${ADMIN_PATH} .
+COPY ./$ADMIN_PATH .
 
 RUN pnpm build
 

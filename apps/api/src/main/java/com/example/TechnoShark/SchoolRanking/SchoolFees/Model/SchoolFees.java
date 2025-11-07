@@ -1,6 +1,6 @@
 package com.example.TechnoShark.SchoolRanking.SchoolFees.Model;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import com.example.TechnoShark.SchoolRanking.Schools.Model.School;
@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,10 +37,12 @@ public class SchoolFees {
 
     @ElementCollection
     @CollectionTable(name = "tuition_fees", joinColumns = @JoinColumn(name = "school_fees_id"))
-    private Set<SchoolFeeItem> tuitionFees;
+    @OrderBy("sortOrder ASC")
+    private List<SchoolFeeItem> tuitionFees;
 
     @ElementCollection
     @CollectionTable(name = "additional_fees", joinColumns = @JoinColumn(name = "school_fees_id"))
-    private Set<SchoolFeeItem> additionalFees;
+    @OrderBy("sortOrder ASC")
+    private List<SchoolFeeItem> additionalFees;
 
 }

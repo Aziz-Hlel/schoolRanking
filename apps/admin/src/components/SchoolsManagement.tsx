@@ -55,7 +55,7 @@ export const SchoolsManagement: React.FC = () => {
     options: { fetchOnMount: true, config: { params: { page, size } } },
   });
 
-  const schools2 = schoolData?.data.content;
+  const schools2 = schoolData && schoolData.success === true ? schoolData?.data.content : [];
 
   const handleEditSchool = (id: string) => {
     console.log('Edit school:', id);

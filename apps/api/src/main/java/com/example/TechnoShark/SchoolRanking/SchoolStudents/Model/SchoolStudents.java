@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,10 +49,12 @@ public class SchoolStudents {
     @ElementCollection
     @CollectionTable(name = "school_extracurricular_activities", joinColumns = @JoinColumn(name = "school_students_id"))
     @Builder.Default
+    @OrderBy("sortOrder ASC")
     private Set<ExtracurricularActivity> extracurricularActivities = new HashSet<>();
 
     @ElementCollection
     @CollectionTable(name = "school_average_students_per_classroom", joinColumns = @JoinColumn(name = "school_students_id"))
     @Builder.Default
+    @OrderBy("sortOrder ASC")
     private Set<AverageStudentsPerClassroom> averageStudentsPerClassroom = new HashSet<>();
 }

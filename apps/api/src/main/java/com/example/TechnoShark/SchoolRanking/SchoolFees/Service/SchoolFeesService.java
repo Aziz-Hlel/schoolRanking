@@ -49,7 +49,6 @@ public class SchoolFeesService {
                 .orElseThrow(() -> new EntityNotFoundException("School Fees not found"));
 
         schoolFeesMapper.updateEntity(schoolFeesRequest, schoolId, schoolFees);
-
         SchoolFees updatedEntity = schoolFeesRepo.save(schoolFees);
 
         SchoolFeesResponse dto = schoolFeesMapper.toResponse(updatedEntity);

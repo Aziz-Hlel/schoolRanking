@@ -10,7 +10,7 @@ interface DetachedFormProps<T> {
   fieldName: UseFieldArrayProps<T>['name'];
 }
 export const useGetArray = <T>({ form, fieldName }: DetachedFormProps<T>) => {
-  const { fields, append, remove, swap } = useFieldArray({
+  const { fields, append, remove, swap, update } = useFieldArray({
     control: form.control,
     name: fieldName,
   });

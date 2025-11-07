@@ -13,6 +13,7 @@ import NavigationButtons from '../NavigationButton/NavigationButtons';
 import DetachdFees from '../../DetachedForms/Fees/DetachdFees';
 import z from 'zod';
 import CONSTS from '@/constants/CONST';
+import { produce } from 'immer';
 
 const FeesUpdateForm = () => {
   const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
@@ -32,7 +33,15 @@ const FeesUpdateForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: SchoolFeesNoID) => {
-    const response = await safeAsyncMutate(mutateAsync, data);
+    const payload = produce(data, (draft) => {
+      draft.tuitionFees.forEach((tuitionFee, index) => {
+        tuitionFee.sortOrder = index;
+      });
+      draft.additionalFees.forEach((additionalFee, index) => {
+        additionalFee.sortOrder = index;
+      });
+    });
+    const response = await safeAsyncMutate(mutateAsync, payload);
 
     if (response.success === false) {
       console.error('Failed to submit general form', response.error);

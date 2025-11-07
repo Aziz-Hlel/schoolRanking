@@ -21,7 +21,7 @@ export const AdminManagement: React.FC = () => {
     options: { fetchOnMount: true, config: { params: { page: 1, size: 20 } } },
   });
 
-  const admins = data?.data.content;
+  const admins = data && data.success === true ? data?.data.content : [];
 
   const handleUpdateAdmin = (adminData: any) => {
     // if (editingAdmin) {

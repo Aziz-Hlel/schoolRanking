@@ -66,7 +66,7 @@ export const PageProvider = ({ children }: { children: React.ReactNode }) => {
     };
   };
   useEffect(() => {
-    if (data) addAminOrdredPages(data.data.map((item) => createPage(item)));
+    if (data && data.success) addAminOrdredPages(data.data.map((item) => createPage(item)));
   }, [data]);
 
   const changePage = (page: Page) => {

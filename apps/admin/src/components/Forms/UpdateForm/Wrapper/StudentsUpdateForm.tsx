@@ -13,6 +13,7 @@ import NavigationButtons from '../NavigationButton/NavigationButtons';
 import CONSTS from '@/constants/CONST';
 import { Form } from '@/components/ui/form';
 import { useNavigate } from 'react-router-dom';
+import { produce } from 'immer';
 
 const StudentsUpdateForm = () => {
   const { detailedSchool, fetchMyDetailedSchool } = useDetailedSchool();
@@ -32,7 +33,15 @@ const StudentsUpdateForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: SchoolStudentsNoID) => {
-    const response = await safeAsyncMutate(mutateAsync, data);
+    const payload = produce(data, (draft) => {
+      draft.averageStudentsPerClassroom.forEach((classroom, index) => {
+        classroom.sortOrder = index;
+      });
+      draft.extracurricularActivities.forEach((activity, index) => {
+        activity.sortOrder = index;
+      });
+    });
+    const response = await safeAsyncMutate(mutateAsync, payload);
 
     if (response.success === false) {
       console.error('Failed to submit general form', response.error);

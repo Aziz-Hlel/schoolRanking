@@ -6,11 +6,11 @@ ARG API_PATH=apps/api
 WORKDIR /build
 
 # Copy Maven configuration and download dependencies (cached if unchanged)
-COPY {API_PATH}/pom.xml .
+COPY $API_PATH/pom.xml .
 RUN mvn dependency:go-offline
 
 # Copy full source and build
-COPY {API_PATH}/src ./src
+COPY $API_PATH/src ./src
 RUN mvn clean package -DskipTests
 
 
@@ -24,7 +24,7 @@ USER spring
 WORKDIR /app
 
 # Copy the built JAR from previous stage
-COPY --from=build /build/{API_PATH}/target/*.jar app.jar
+COPY --from=build /build/$API_PATH/target/*.jar app.jar
 
 # Set JVM and Spring Boot profile for staging
 ENV JAVA_OPTS="-Xmx512m -Xms256m -Dspring.profiles.active=stage"

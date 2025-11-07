@@ -67,7 +67,7 @@ export const Dashboard = () => {
         </div>
 
         {/* Page content */}
-        <main className="flex-1 p-4 lg:p-6 overflow-y-auto h-full ">
+        <main id="main-content" className="flex-1 p-4 lg:p-6 overflow-y-auto h-full ">
           <Outlet />
         </main>
       </div>

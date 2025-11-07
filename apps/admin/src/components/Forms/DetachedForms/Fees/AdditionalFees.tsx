@@ -1,5 +1,4 @@
 import React, { type FC } from 'react';
-import { useGetFees } from './use-Get-Fees';
 import type { UseFormReturn } from 'react-hook-form';
 import type { SchoolFeesNoID } from '@/types/School2.type';
 import { Label } from '@/components/ui/label';

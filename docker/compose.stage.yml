@@ -1,31 +1,33 @@
 services:
-  # Database Service - Production-ready configuration
-  db:
-    image: postgres:15-alpine
-    container_name: schoolranking-db-stage
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - postgres-data-stage:/var/lib/postgresql/data
-      - ./database/init:/docker-entrypoint-initdb.d:ro
-    networks:
-      - app-network
-    # healthcheck:
-    #   test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
-    #   start_period: 30s
-  # Security: Don't expose database port externally
-  # ports are only accessible within the Docker network
+  proxy:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: docker/stage/Dockerfile.caddy.stage
+      args:
+        VITE_API_URL: ${API_URL}
+        VITE_NODE_ENV: ${NODE_ENV}
 
-  # Spring Boot Backend - Staging configuration
+    ports:
+      - ${PROXY_PORT}:${PROXY_PORT}
+    # volumes:
+    # - caddy-data-stage:/data
+    # - caddy-config-stage:/config
+
+    # healthcheck:
+    #   test: ["CMD", "curl", "-fk", "https://localhost:8443/health"]
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
+    #   start_period: 10s
+
+    restart: unless-stopped
+
+    # environment:
+    #   - DOMAIN=${STAGING_DOMAIN}
+
   api:
     build:
-      context: .
+      context: ${PROJECT_ROOT}
       dockerfile: docker/stage/Dockerfile.api.stage
     restart: unless-stopped
     environment:
@@ -41,8 +43,6 @@ services:
     depends_on:
       - db
         # condition: service_healthy
-    networks:
-      - app-network
     # healthcheck:
     #   test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
     #   interval: 30s
@@ -50,42 +50,23 @@ services:
     #   retries: 5
     #   start_period: 60s
 
-  # React Frontend - Built for staging
-  proxy:
-    build:
-      context: .
-      dockerfile: docker/stage/Dockerfile.caddy.stage
-      args:
-        VITE_API_URL: ${API_URL}
-        VITE_NODE_ENV: ${NODE_ENV}
-
-    ports:
-      - 8443:8443
-    volumes:
-      - ./proxy/Caddyfile.stage:/etc/caddy/Caddyfile:ro
-      - caddy-data-stage:/data
-      - caddy-config-stage:/config
-
-    # healthcheck:
-    #   test: ["CMD", "curl", "-fk", "https://localhost:8443/health"]
-    #   interval: 30s
-    #   timeout: 5s
-    #   retries: 3
-    #   start_period: 10s
-
+  db:
+    image: postgres:15-alpine
+    container_name: schoolranking-db-stage
     restart: unless-stopped
-
-    networks:
-      - app-network
-    # environment:
-    #   - DOMAIN=${STAGING_DOMAIN}
-
-networks:
-  app-network:
-    driver: bridge
-# Add network security for staging
-# driver_opts:
-#   com.docker.network.bridge.name: schoolranking-staging
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data-stage:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
+    #   start_period: 30s
 
 volumes:
   postgres-data-stage:

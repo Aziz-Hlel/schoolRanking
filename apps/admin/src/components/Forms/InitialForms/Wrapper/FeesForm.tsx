@@ -21,24 +21,8 @@ const FeesForm = () => {
   const form = useForm<SchoolFeesNoID>({
     resolver: zodResolver(schoolFeesSchema),
     defaultValues: {
-      feeItems: [
-        {
-          title: '',
-          currency: 'USD',
-          price: 0,
-          description: '',
-          isAdditionalFee: false,
-          sortOrder: 0,
-        },
-        {
-          title: '',
-          currency: 'USD',
-          price: 0,
-          description: '',
-          isAdditionalFee: true,
-          sortOrder: 0,
-        },
-      ],
+      tuitionFees: [],
+      additionalFees: [],
     },
   });
 
@@ -53,17 +37,11 @@ const FeesForm = () => {
 
   const onSubmit = async (data: SchoolFeesNoID) => {
     const payload = produce(data, (draft) => {
-      let additionalFeesIndex = 0;
-      let primaryFeesIndex = 0;
-
-      draft.feeItems.forEach((feeItem, index) => {
-        if (feeItem.isAdditionalFee) {
-          draft.feeItems[index].sortOrder = additionalFeesIndex;
-          additionalFeesIndex++;
-        } else {
-          draft.feeItems[index].sortOrder = primaryFeesIndex;
-          primaryFeesIndex++;
-        }
+      draft.tuitionFees.forEach((tuitionFee, index) => {
+        tuitionFee.sortOrder = index;
+      });
+      draft.additionalFees.forEach((additionalFee, index) => {
+        additionalFee.sortOrder = index;
       });
     });
 

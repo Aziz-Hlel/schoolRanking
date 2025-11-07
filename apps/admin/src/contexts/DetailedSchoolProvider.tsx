@@ -24,7 +24,7 @@ export const DetailedSchoolProvider: FC<{ children: ReactNode }> = ({ children }
     options: { fetchOnMount: schoolId !== '' },
   });
 
-  const detailedSchool = data?.data;
+  const detailedSchool = data && data.success === true ? data.data : undefined;
 
   useEffect(() => {
     if (isError) {

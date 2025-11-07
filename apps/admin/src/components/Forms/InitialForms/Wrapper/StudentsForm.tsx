@@ -12,6 +12,7 @@ import { Form } from '@/components/ui/form';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
 import DetachedStudents from '../../DetachedForms/Students/DetachedStudents';
 import CONSTS from '@/constants/CONST';
+import { produce } from 'immer';
 
 type SchoolStudents = z.infer<typeof schoolStudentsSchema>;
 
@@ -29,7 +30,16 @@ const StudentsForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: SchoolStudents) => {
-    const response = await safeAsyncMutate(data);
+    const payload = produce(data, (draft) => {
+      draft.averageStudentsPerClassroom.forEach((classroom, index) => {
+        classroom.sortOrder = index;
+      });
+      draft.extracurricularActivities.forEach((activity, index) => {
+        activity.sortOrder = index;
+      });
+    });
+
+    const response = await safeAsyncMutate(payload);
 
     if (response.success === false) {
       console.error('Failed to submit students form', response.error);
