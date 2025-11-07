@@ -1,4 +1,8 @@
-:8080 {
+localhost:80 {
+    redir https://localhost:443{uri}
+}
+
+localhost:443 {
     root * /srv
 
     log {
@@ -20,5 +24,7 @@
     }
 
     encode gzip
-    # tls internal
+    tls internal
 }
+
+

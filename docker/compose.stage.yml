@@ -8,7 +8,8 @@ services:
         VITE_NODE_ENV: ${NODE_ENV}
 
     ports:
-      - ${PROXY_PORT}:${PROXY_PORT}
+      - 443:443
+      - 80:80
     # volumes:
     # - caddy-data-stage:/data
     # - caddy-config-stage:/config
