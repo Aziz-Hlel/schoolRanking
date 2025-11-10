@@ -45,9 +45,9 @@ export const AdminManagement: React.FC = () => {
 
   return (
     <div className="space-y-4 lg:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[#B8CBD0] text-gray-800 p-5 rounded-xl shadow-md border border-gray-300">
         <div>
-          <h2 className="text-xl lg:text-2xl font-bold">Admins table</h2>
+          <h2 className="text-xl lg:text-2xl font-bold tracking-tight">Admins table</h2>
         </div>
 
         <AddAdminDialog />
