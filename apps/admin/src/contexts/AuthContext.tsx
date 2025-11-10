@@ -31,7 +31,7 @@ const AUTH_QUERY_KEY = ['auth', 'user'] as const;
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
 
-  const { data: authData, isLoading } = useQuery<ApiResponse<User>>({
+  const { data: loginResponsePayload, isLoading } = useQuery<ApiResponse<User>>({
     queryKey: AUTH_QUERY_KEY,
     queryFn: async () => {
       const accessToken = jwtTokenManager.getAccessToken();
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (refreshToken) {
         const refreshResponse = await authService.refresh(refreshToken);
 
-        if (refreshResponse.success) {
+        if (refreshResponse.success === true) {
           jwtTokenManager.setTokens(
             refreshResponse.data.accessToken,
             refreshResponse.data.refreshToken,
@@ -83,27 +83,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (isLoading) {
       return { status: 'loading', user: null };
     }
-    if (authData?.success && authData.data) {
-      return { status: 'authenticated', user: authData.data };
+    if (loginResponsePayload?.success && loginResponsePayload.data) {
+      return { status: 'authenticated', user: loginResponsePayload.data };
     }
     return { status: 'unauthenticated', user: null };
-  }, [isLoading, authData]);
+  }, [isLoading, loginResponsePayload]);
 
   const signUpMutation = useMutation({
     mutationFn: authService.signUp,
     onSuccess: (response) => {
       if (!response.success) return;
       jwtTokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
-      queryClient.setQueryData(AUTH_QUERY_KEY, response);
+
+      queryClient.setQueryData(AUTH_QUERY_KEY, response); // * Wrong (lookup loginMutation below , but we dont need it anyway)
     },
   });
 
   const loginMutation = useMutation({
     mutationFn: authService.login,
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       if (!response.success) return;
       jwtTokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
-      queryClient.setQueryData(AUTH_QUERY_KEY, response);
+      const playload = {
+        ...response,
+        data: response.data.user,
+      };
+      await queryClient.setQueryData(AUTH_QUERY_KEY, playload);
     },
   });
 
@@ -140,7 +145,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     user: authState.user,
     isLoading,
     signup: register,
-    login,
+    login: login,
     logout,
     refreshUser: () => queryClient.refetchQueries({ queryKey: AUTH_QUERY_KEY }),
   };

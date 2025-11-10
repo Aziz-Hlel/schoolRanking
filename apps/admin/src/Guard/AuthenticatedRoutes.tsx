@@ -5,14 +5,14 @@ import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 const AuthenticatedRoutes = () => {
   console.log('ousll protected routes');
 
-  const { user } = useAuth();
-  console.log('user === ', user);
-  // const navigate = useNavigate();
+  const { user, authState } = useAuth();
 
-  if (user === undefined) return <LoadingSpinner />;
+  if (authState.status === 'loading') return <LoadingSpinner />;
+
+  if (authState.status === 'unauthenticated') return <Navigate to="/login" replace />;
 
   if (user === null) return <Navigate to="/login" replace />;
-  //  <div className=' underline hover:cursor-pointer' onClick={() => navigate("/login")}>go Login</div>
+
   return <Outlet />;
 };
 

@@ -38,9 +38,6 @@ services:
       DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SERVER_PORT: ${SERVER_PORT}
       JAVA_OPTS: -Xmx1g -Xms512m
-    volumes:
-      # Only mount logs for monitoring - no source code mounting
-      - ./logs/backend:/app/logs
     depends_on:
       - db
         # condition: service_healthy
@@ -61,7 +58,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres-data-stage:/var/lib/postgresql/data
-      - ./database/init:/docker-entrypoint-initdb.d:ro
     # healthcheck:
     #   test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
     #   interval: 30s
