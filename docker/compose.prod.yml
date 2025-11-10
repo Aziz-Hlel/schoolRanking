@@ -1,0 +1,73 @@
+services:
+  proxy:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: docker/prod/Dockerfile.caddy.prod
+      args:
+        VITE_API_URL: ${API_URL}
+        VITE_NODE_ENV: ${NODE_ENV}
+
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - caddy-data-prod:/data
+      - caddy-config-prod:/config
+
+    # healthcheck:
+    #   test: ["CMD", "curl", "-fk", "https://localhost:8443/health"]
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 3
+    #   start_period: 10s
+
+    restart: unless-stopped
+
+    # environment:
+    #   - DOMAIN=${STAGING_DOMAIN}
+
+  api:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: docker/prod/Dockerfile.api.prod
+    restart: unless-stopped
+    environment:
+      PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      DATASOURCE_USERNAME: ${POSTGRES_USER}
+      DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SERVER_PORT: ${SERVER_PORT}
+      JAVA_OPTS: -Xmx1g -Xms512m
+    depends_on:
+      - db
+        # condition: service_healthy
+    # healthcheck:
+    #   test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+    #   interval: 30s
+    #   timeout: 15s
+    #   retries: 5
+    #   start_period: 60s
+
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data-prod:/var/lib/postgresql/data
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
+    #   start_period: 30s
+
+volumes:
+  postgres-data-prod:
+  # driver: local
+  caddy-data-prod:
+  # driver: local
+  caddy-config-prod:
+    # driver: local

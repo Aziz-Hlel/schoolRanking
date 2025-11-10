@@ -1,0 +1,28 @@
+www.sema-sim.com {
+    redir https://sema-sim.com{uri} permanent
+}
+
+sema-sim.com {
+    root * /srv
+
+    log {
+        output stderr
+        format console
+        level DEBUG
+    }
+
+    handle /api/* {
+        reverse_proxy api:8080
+    }
+
+
+    handle {
+        root * /srv/admin
+        encode gzip
+        file_server
+        try_files {path} /index.html
+    }
+
+    encode gzip
+    tls internal
+}
