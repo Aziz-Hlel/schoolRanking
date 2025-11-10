@@ -259,6 +259,6 @@ CREATE TABLE school_average_students_per_classroom (
 -- ============================================================
 INSERT INTO users (id, first_name, last_name, email, password, role, created_at, updated_at)
 VALUES
-    (gen_random_uuid(), 'Ahmed', 'Jdidi', 'ajedidi@technoshark.org', '$2a$10$yiJ10eTCJi/tWKC7TRWPdOAtw3Llh/YR0MgdNbvceHlIiDZUk5.iK', 'SUPER_ADMIN', NOW(), NOW()),
+    (gen_random_uuid(), 'Ahmed', 'Jdidi', 'ajedidi@technoshark.org', '$2a$10$GJqP8.in4AfrfhL/egTQGeFwBCqmNYnlmUwXyZelkPtzmaN.aYHv6', 'SUPER_ADMIN', NOW(), NOW()),
     (gen_random_uuid(), 'Aziz', 'Hlel', 'm.aziz.hlel@gmail.com', '$2a$10$5rT3DqDUSe3LlJcTFqL4ReDSqWTrC3UE1K.PiyLVWcpyff8HfIaCG', 'SUPER_ADMIN', NOW(), NOW()),
-    (gen_random_uuid(), 'Abdalmuttaleb', 'Admin', 'abdalmuttaleb@technoshark.org', '$2a$10$zJ4PHBRJGdcKvu2k7sMtKe4Jc7qw/3IW/9zDmaok4wfBRbqsCNDby', 'SUPER_ADMIN', NOW(), NOW());
+    (gen_random_uuid(), 'Abdalmuttaleb', 'Admin', 'abdalmuttaleb@technoshark.org', '$2a$10$LKqoRNCDkE0/Rx5BLk2thOjYNJ0NhLZvdSpEmUr8nnowVdwQn47ga', 'SUPER_ADMIN', NOW(), NOW());
