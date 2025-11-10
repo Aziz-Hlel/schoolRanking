@@ -24,5 +24,4 @@ sema-sim.com {
     }
 
     encode gzip
-    tls internal
 }
