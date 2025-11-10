@@ -4,12 +4,21 @@ import { Label } from '../ui/label';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import { AllCountiresRecord } from '@/constants/Countires_Languages_Record';
 import { CircleFlag } from 'react-circle-flags';
+import { ShieldUser } from 'lucide-react';
 
 const StudentsCardContent = ({ section }: { section: SchoolStudentsNoID }) => {
   if (!section) return null;
   return (
     <>
       <div className=" flex flex-col space-y-4">
+        <div className=" flex space-x-4">
+          {section.hasParentsCommittee ? (
+            <ShieldUser className=" text-green-600" />
+          ) : (
+            <ShieldUser className=" text-gray-600" />
+          )}
+          <Label>Parents Committee</Label>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <p className="text-sm text-muted-foreground">Total Students</p>

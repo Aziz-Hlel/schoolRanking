@@ -312,8 +312,8 @@ public class SchoolSeeder {
 
     public void seed() {
 
-        // if (schoolRepo.count() != 0)
-        // return;
+        if (schoolRepo.count() != 0)
+        return;
 
         createCustomUser();
 

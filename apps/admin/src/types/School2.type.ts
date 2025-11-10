@@ -210,6 +210,9 @@ export const schoolStudentsSchema = z.object({
     .max(100000, 'Total students must be less than 100,000')
     .optional()
     .transform((val) => (val === undefined ? undefined : Number(val))),
+  hasParentsCommittee: z
+    .boolean({ required_error: 'Parents committee is required' })
+    .default(false),
   nationalities: z.array(z.string()).default([]),
   extracurricularActivities: z
     .array(

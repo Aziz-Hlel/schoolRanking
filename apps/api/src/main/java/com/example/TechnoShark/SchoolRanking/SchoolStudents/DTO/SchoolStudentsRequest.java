@@ -25,4 +25,7 @@ public class SchoolStudentsRequest {
     @Size(max = 50, message = "You can include up to 50 classroom entries")
     private Set<@NotNull AverageStudentsPerClassroomRequest> averageStudentsPerClassroom;
 
+    @NotNull
+    private Boolean hasParentsCommittee = false;
+
 }

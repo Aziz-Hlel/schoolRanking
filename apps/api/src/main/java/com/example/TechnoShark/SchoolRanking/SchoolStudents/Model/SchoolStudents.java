@@ -57,4 +57,8 @@ public class SchoolStudents {
     @Builder.Default
     @OrderBy("sortOrder ASC")
     private Set<AverageStudentsPerClassroom> averageStudentsPerClassroom = new HashSet<>();
+
+    @Column(nullable = true, name = "has_parents_committee")
+    @Builder.Default
+    private Boolean hasParentsCommittee = false;
 }

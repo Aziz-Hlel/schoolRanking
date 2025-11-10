@@ -18,6 +18,8 @@ import InputNumberForm from '@/Custom/InputNumberForm';
 import { MultiSelect } from '@/components/ui/multi-select';
 import { type Country } from '@/components/ui/countries-dropdown';
 import { countries } from 'country-data-list';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface DetachedFormProps {
   form: UseFormReturn<SchoolStudentsNoID>;
@@ -35,6 +37,29 @@ const DetachedStudents: React.FC<DetachedFormProps> = ({ form }) => {
 
   return (
     <div className="space-y-8">
+      <FormField
+        control={form.control}
+        name="hasParentsCommittee"
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <Label className="p-4 space-x-2 cursor-pointer  flex items-start rounded-lg border has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950">
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  className="cursor-pointer"
+                />
+                <div className="space-y-1 leading-none">
+                  <div className=" cursor-pointer">Parents Commitee</div>
+                  <FormDescription>Does your school have a parents committee?</FormDescription>
+                  <FormMessage />
+                </div>
+              </Label>
+            </FormControl>
+          </FormItem>
+        )}
+      />
+
       <InputNumberForm fieldName="totalStudents" />
 
       <FormField
