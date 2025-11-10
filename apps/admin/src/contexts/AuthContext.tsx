@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUpMutation = useMutation({
     mutationFn: authService.signUp,
     onSuccess: (response) => {
-      if (!response.success) return;
+      if (!response.success) return response;
       jwtTokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
 
       queryClient.setQueryData(AUTH_QUERY_KEY, response); // * Wrong (lookup loginMutation below , but we dont need it anyway)
@@ -128,7 +128,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         return await loginMutation.mutateAsync(data);
       } catch (error) {
-        return error;
+        return {
+          success: false as const,
+          status: 401,
+          error: '',
+        };
       }
     },
     [loginMutation],

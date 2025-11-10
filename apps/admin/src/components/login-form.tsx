@@ -31,7 +31,6 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
 
     setIsSubmitting(true);
     const response = await login({ email, password });
-    console.log(response);
 
     if (response.success) navigate('/dashboard');
 
