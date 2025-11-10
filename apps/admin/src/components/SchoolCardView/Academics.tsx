@@ -11,127 +11,111 @@ const AcademicCardContent = ({ section }: { section?: SchoolAcademics }) => {
   if (!section) return null;
 
   return (
-    <div className="flex flex-col space-y-4">
-      <div className="grid grid-cols-2 md:grid-cols-2">
-        <div>
-          <p className="text-sm text-muted-foreground">Curriculum</p>
-          <div className="font-medium">
-            <div className="flex flex-wrap gap-2">
-              {section.curriculums.map((curriculum, index: number) => (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Badge key={index} variant="secondary" className="text-xs">
-                      {curriculum}
-                    </Badge>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{CurriculumEnums[curriculum as keyof typeof CurriculumEnums]?.label}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div>
-          <p className="text-sm text-muted-foreground">Additional Curriculum</p>
-          <div className="font-medium">
-            <div className="flex flex-wrap gap-2">
-              {section.additionalCurriculums.map((additionalCurriculum, index: number) => (
-                <Badge key={index} variant="secondary" className="text-xs">
-                  {additionalCurriculum}
+    <div className="flex flex-col space-y-6 p-4">
+      {/* Curriculum Section */}
+      <div className="space-y-2">
+        <p className="text-sm font-semibold text-gray-600 uppercase">Curriculum</p>
+        <div className="flex flex-wrap gap-2">
+          {section.curriculums.map((curriculum, index) => (
+            <Tooltip key={index}>
+              <TooltipTrigger asChild>
+                <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700">
+                  {curriculum}
                 </Badge>
-              ))}
-            </div>
-          </div>
+              </TooltipTrigger>
+              <TooltipContent className="bg-white text-gray-800 shadow-lg border border-gray-200 rounded-md p-2">
+                {CurriculumEnums[curriculum as keyof typeof CurriculumEnums]?.label}
+              </TooltipContent>
+            </Tooltip>
+          ))}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Additional Curriculum */}
+      <div className="space-y-2">
+        <p className="text-sm font-semibold text-gray-600 uppercase">Additional Curriculum</p>
+        <div className="flex flex-wrap gap-2">
+          {section.additionalCurriculums.map((item, index) => (
+            <Badge key={index} variant="outline" className="text-xs bg-gray-50 text-gray-700">
+              {item}
+            </Badge>
+          ))}
+        </div>
+      </div>
+
+      {/* Languages & Accreditation */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-b border-gray-200 py-2">
         <div>
-          <p className="text-sm text-muted-foreground">Languages of Instruction</p>
-          {/* <p className="font-medium">8</p> */}
+          <p className="text-sm text-gray-500">Languages of Instruction</p>
           <p className="font-medium">{section.languagesOfInstruction}</p>
         </div>
         <div>
-          <p className="text-sm text-muted-foreground">Accreditation links</p>
-          <p className="font-medium text-xs overflow-hidden">{section.accreditationDocsLinks}</p>
+          <p className="text-sm text-gray-500">Accreditation Links</p>
+          <p className="font-medium text-xs text-blue-600">{section.accreditationDocsLinks}</p>
         </div>
       </div>
 
-      <div className="flex flex-col space-y-2">
-        <p className="text-sm text-muted-foreground ">Grade Range</p>
-
+      {/* Grade Range */}
+      <div>
+        <p className="text-sm font-semibold text-gray-600 uppercase mb-1">Grade Range</p>
         <div className="flex flex-wrap gap-2">
-          {section.levelsOffered.map((level, index: number) => (
-            <Badge key={index} variant="secondary" className="text-xs">
-              {LevelEnums[level as keyof typeof LevelEnums]?.label ?? level + '-'}
+          {section.levelsOffered.map((level, index) => (
+            <Badge key={index} variant="outline" className="text-xs bg-green-50 text-green-700">
+              {LevelEnums[level as keyof typeof LevelEnums]?.label ?? level}
             </Badge>
           ))}
         </div>
       </div>
 
-      <div className=" flex flex-col space-y-2">
-        <p className="text-sm text-muted-foreground">International Accreditations</p>
-        <div className="flex flex-wrap gap-1 mt-1">
-          {/* {section.programs.map((program: string, index: number) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                            {program}
-                        </Badge>
-                    ))} */}
-          {section.internationalAccreditations.map((program: string, index: number) => (
-            <Badge key={index} variant="secondary" className="text-xs">
-              {program}
+      {/* International Accreditations */}
+      <div>
+        <p className="text-sm font-semibold text-gray-600 uppercase mb-1">
+          International Accreditations
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {section.internationalAccreditations.map((acc, index) => (
+            <Badge key={index} variant="outline" className="text-xs bg-purple-50 text-purple-700">
+              {acc}
             </Badge>
           ))}
         </div>
       </div>
 
-      {section.additionalAccreditations && (
+      {section.additionalAccreditations?.length > 0 && (
         <div>
-          <p className="text-sm text-muted-foreground">Additional Accreditations</p>
-          <div className="flex flex-wrap gap-1 mt-1">
-            {/* {section.programs.map((program: string, index: number) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                            {program}
-                        </Badge>
-                    ))} */}
-            {section.additionalAccreditations.map((program: string, index: number) => (
-              <Badge key={index} variant="secondary" className="text-xs">
-                {program}
+          <p className="text-sm font-semibold text-gray-600 uppercase mb-1">
+            Additional Accreditations
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {section.additionalAccreditations.map((acc, index) => (
+              <Badge key={index} variant="outline" className="text-xs bg-yellow-50 text-yellow-700">
+                {acc}
               </Badge>
             ))}
           </div>
         </div>
       )}
-      {/* <div>
-                <p className="text-sm text-muted-foreground">Subjects</p>
-                <div className="flex flex-wrap gap-1 mt-1">
-                    {section.subjects.map((subject: string, index: number) => (
-                        <Badge key={index} variant="outline" className="text-xs">
-                            {subject}
-                        </Badge>
-                    ))}
-                </div>
-            </div> */}
 
-      <div className="flex space-x-2">
-        <CircleCheckBig
-          className={cn(
-            ' w-4 h-4 ',
-            section.hasGiftedPrograms ? 'text-green-700 ' : 'text-muted-foreground',
-          )}
-        />
-        <Label className="">Gifted & Talented Programs</Label>
-      </div>
-
-      <div className="flex space-x-2">
-        <CircleCheckBig
-          className={cn(
-            ' w-4 h-4 ',
-            section.hasSpecialNeedsSupport ? 'text-green-700 ' : 'text-muted-foreground',
-          )}
-        />
-        <Label className="">Special Needs Support</Label>
+      {/* Programs Icons */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="flex items-center gap-2">
+          <CircleCheckBig
+            className={cn(
+              'w-5 h-5',
+              section.hasGiftedPrograms ? 'text-green-700' : 'text-gray-400',
+            )}
+          />
+          <Label className="text-sm font-medium">Gifted & Talented Programs</Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <CircleCheckBig
+            className={cn(
+              'w-5 h-5',
+              section.hasSpecialNeedsSupport ? 'text-green-700' : 'text-gray-400',
+            )}
+          />
+          <Label className="text-sm font-medium">Special Needs Support</Label>
+        </div>
       </div>
     </div>
   );

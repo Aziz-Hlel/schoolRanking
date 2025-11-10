@@ -16,7 +16,7 @@ const SchoolInfoHeader = ({ title, icon, color, editPath, editable }: sectionsPr
   const Icon = icon;
 
   return (
-    <CardHeader className="pb-3">
+    <CardHeader className="pb-3 border-b border-gray-200">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`p-2 rounded-lg ${color}`}>
@@ -26,11 +26,10 @@ const SchoolInfoHeader = ({ title, icon, color, editPath, editable }: sectionsPr
             <CardTitle className="text-base lg:text-lg">{title}</CardTitle>
           </div>
         </div>
-        <Link to={editable ? editPath : null}>
+        <Link to={editable ? editPath : '#'}>
           <Button
             variant="ghost"
             size="sm"
-            // onClick={() => setEditingSection(id)}
             className={'h-8 w-8 p-0 ' + (!editable && ' hover:cursor-not-allowed')}
           >
             <Edit className="w-4 h-4" />

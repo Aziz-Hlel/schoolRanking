@@ -147,12 +147,21 @@ export const EditAdminDialog: React.FC<EditAdminDialogProps> = ({
                 </FormItem>
               )}
             />
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <DialogFooter className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
+                className="text-gray-600 border-gray-300 hover:bg-gray-50"
+              >
                 Cancel
               </Button>
-              <Button type="submit" disabled={isPending}>
-                Update Admin
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold shadow-sm"
+              >
+                {isPending ? 'Updating...' : 'Update Admin'}
               </Button>
             </DialogFooter>
           </form>

@@ -16,15 +16,20 @@ const AbstractUpdateHeader: FC<{ currentStep: number }> = ({ currentStep }) => {
   ];
 
   return (
-    <CardHeader className="">
-      <CardTitle className="text-xl lg:text-2xl font-bold text-primary">
+    <CardHeader className="bg-purple-50 rounded-2xl p-4 md:p-6 shadow-md border border-purple-200">
+      {/* Titre */}
+      <CardTitle className="text-xl lg:text-2xl font-bold text-purple-800">
         {steps[currentStep].title}
       </CardTitle>
-      <CardDescription className="text-sm lg:text-base">
+
+      {/* Description */}
+      <CardDescription className="text-sm lg:text-base text-purple-600 mt-1">
         {steps[currentStep].description}
       </CardDescription>
+
+      {/* Ligne séparatrice */}
       <div className="mt-4">
-        <div className=" w-full border-t-2" />
+        <div className="h-px w-full bg-purple-200" />
       </div>
     </CardHeader>
   );

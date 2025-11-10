@@ -33,38 +33,34 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
   console.log('ordredPages : : ', ordredPages);
 
   return (
-    <div className="w-64 bg-white border-r border-border h-screen flex flex-col">
-      <div className="p-4 lg:p-6 border-b border-border h-28">
-        <h2 className="text-lg lg:text-xl font-bold text-primary">Admin Dashboard</h2>
-        <p className="text-xs lg:text-sm text-muted-foreground mt-1">
+    <div className="w-64 bg-[#FFFFFF] border-r border-gray-300 h-screen flex flex-col text-gray-800">
+      {/* Header */}
+      <div className="p-6 border-b border-gray-300 h-28 bg-[#FFFFFF]/90">
+        <h2 className="text-xl font-semibold text-gray-900">Admin Dashboard</h2>
+        <p className="text-xs text-gray-600 mt-1 tracking-wide">
           {user?.role === ROLES.SUPER_ADMIN ? 'Super Admin' : 'School Admin'}
         </p>
       </div>
 
-      <nav className="flex-1 p-3 lg:p-4 overflow-y-auto">
-        <div className="flex flex-col  space-y-1 lg:space-y-2 ">
+      {/* Navigation */}
+      <nav className="flex-1 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
+        <div className="flex flex-col space-y-1">
           {ordredPages.map((page, index) => {
             if (!page.allowedRoles.includes(userRole)) return null;
-
             const Icon = page.icon;
+            const isActive = currentPage.id === page.id;
+
             return (
               <Link to={page.path} key={index}>
                 <Button
-                  key={page.id}
-                  variant={page === currentPage ? 'default' : 'ghost'}
+                  variant="ghost"
                   className={cn(
-                    'w-full justify-start text-sm lg:text-base h-10 lg:h-11 hover:cursor-pointer  ',
-                    currentPage.id === page.id && 'bg-primary text-primary-foreground',
-                    page.additionalInfo?.formsCompleted === false &&
-                      'bg-yellow-100 hover:bg-yellow-400 ',
-                    currentPage.id === page.id &&
-                      page.additionalInfo?.formsCompleted === false &&
-                      'text-black',
+                    'w-full justify-start h-10 rounded-md font-medium transition-all duration-200 text-gray-800 hover:bg-gray-200 hover:text-gray-900',
+                    isActive && 'bg-gray-300 text-gray-900 border border-gray-400 shadow-sm',
                   )}
-                  // onClick={() => onPageChange(page)}
                   onClick={() => changePage(page)}
                 >
-                  <Icon className="w-4 h-4 mr-2  " />
+                  <Icon className="w-4 h-4 mr-2" />
                   <span className="truncate">{page.sidebarTitle}</span>
                   {page.additionalInfo?.formsCompleted === false && (
                     <>
@@ -81,20 +77,19 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
         </div>
       </nav>
 
-      <div className="p-3 lg:p-4 border-t border-border">
+      {/* Footer */}
+      <div className="p-4 border-t border-gray-300 bg-[#FFFFFF]/90">
         <Link to={PAGES.profile.path}>
           <Button
-            variant={
-              currentPage.sidebarButton === PAGES.profile.sidebarButton ? 'default' : 'ghost'
-            }
+            variant="ghost"
             className={cn(
-              'w-full justify-start mb-2 text-sm lg:text-base h-10 lg:h-11',
+              'w-full justify-start mb-2 h-10 text-gray-800 hover:text-gray-900 hover:bg-gray-200',
               currentPage.sidebarButton === PAGES.profile.sidebarButton &&
-                'bg-primary text-primary-foreground',
+                'bg-gray-300 text-gray-900 border border-gray-400 shadow-sm',
             )}
             onClick={() => changePage(PAGES.profile)}
           >
-            <User className="w-4 h-4 mr-2 " />
+            <User className="w-4 h-4 mr-2" />
             <span className="truncate">Profile</span>
           </Button>
         </Link>
@@ -102,19 +97,19 @@ export const Sidebar: FC<SidebarProps> = ({}) => {
         <Button
           variant="ghost"
           onClick={logout}
-          className="w-full justify-start mb-3 text-sm lg:text-base h-10 lg:h-11 text-destructive hover:text-destructive hover:bg-destructive/10"
+          className="w-full justify-start mb-3 h-10 text-red-600 hover:bg-red-100 hover:text-red-700"
         >
-          <LogOut className="w-4 h-4 mr-2 " />
+          <LogOut className="w-4 h-4 mr-2" />
           <span className="truncate">Sign Out</span>
         </Button>
 
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center ">
-            <User className="w-4 h-4 text-primary-foreground" />
+        <div className="flex items-center space-x-3 mt-2">
+          <div className="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center shadow">
+            <User className="w-4 h-4 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">{user?.username}</p>
-            <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+            <p className="text-sm font-medium truncate text-gray-900">{user?.username}</p>
+            <p className="text-xs text-gray-600 truncate">{user?.email}</p>
           </div>
         </div>
       </div>

@@ -1,168 +1,133 @@
-import { FacilityEnums } from '@/enums/FacilityEnums';
 import { Badge } from '../ui/badge';
 import type { SchoolFacilities } from '@/types/School2.type';
+import { FacilityEnums } from '@/enums/FacilityEnums';
+import { AccessibilityEnums } from '@/enums/AccessibilityEnums';
+import { SustainabilityEnums } from '@/enums/SustainabilityEnums';
 import {
   ShieldCheck,
-  Stethoscope,
   ShieldMinus,
+  Stethoscope,
   Speech,
   HandPlatter,
   ChefHat,
   Bus,
+  Bot,
+  BotOff,
 } from 'lucide-react';
-
-import { Bot } from 'lucide-react';
-import { BotOff } from 'lucide-react';
-import { AccessibilityEnums } from '@/enums/AccessibilityEnums';
-import { SustainabilityEnums } from '@/enums/SustainabilityEnums';
+import { cn } from '@/lib/utils';
 
 const FacilitiesCardContent = ({ section }: { section?: SchoolFacilities }) => {
   if (!section) return null;
 
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col space-y-6 p-4">
+      {/* Facilities */}
       <div>
-        <p className="text-sm text-muted-foreground">Facilities</p>
-        <div className="flex flex-wrap gap-1 mt-1">
-          {section.facilities.map((facility: string, index: number) => (
-            <Badge key={index} variant="secondary" className="text-xs">
-              {FacilityEnums[facility as keyof typeof FacilityEnums]?.label ?? facility}
-            </Badge>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Accessibility Features</p>
-        <div className="flex flex-wrap gap-1 mt-1">
-          {section.accessibilityFeatures.map((accessibility: string, index: number) => (
-            <Badge key={index} variant="secondary" className="text-xs">
-              {AccessibilityEnums[accessibility as keyof typeof AccessibilityEnums]?.label ??
-                accessibility}
+        <p className="text-sm font-semibold text-gray-600 uppercase mb-1">Facilities</p>
+        <div className="flex flex-wrap gap-2">
+          {section.facilities.map((f, i) => (
+            <Badge key={i} variant="outline" className="text-xs bg-blue-50 text-blue-700">
+              {FacilityEnums[f as keyof typeof FacilityEnums]?.label ?? f}
             </Badge>
           ))}
         </div>
       </div>
 
+      {/* Accessibility Features */}
       <div>
-        <p className="text-sm text-muted-foreground">Sustainability Practices</p>
-        <div className="flex flex-wrap gap-1 mt-1">
-          {section.sustainabilityPractices.map((facility: string, index: number) => (
-            <Badge key={index} variant="secondary" className="text-xs">
-              {SustainabilityEnums[facility as keyof typeof SustainabilityEnums]?.label ?? facility}
+        <p className="text-sm font-semibold text-gray-600 uppercase mb-1">Accessibility Features</p>
+        <div className="flex flex-wrap gap-2">
+          {section.accessibilityFeatures.map((a, i) => (
+            <Badge key={i} variant="outline" className="text-xs bg-green-50 text-green-700">
+              {AccessibilityEnums[a as keyof typeof AccessibilityEnums]?.label ?? a}
             </Badge>
           ))}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className=" flex gap-2 ">
-          <p className="text-sm">Safety compliance</p>
-          <span>
-            {section.safetyCompliance ? (
-              <ShieldCheck className="text-green-700" />
-            ) : (
-              <ShieldMinus className="" />
-            )}
-          </span>
-        </div>
-
-        <div className=" flex gap-2 ">
-          <p className="text-sm">AI itegration</p>
-          <span>
-            {section.aiIntegration ? <Bot className="text-green-700" /> : <BotOff className="" />}
-          </span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className=" flex gap-2 ">
-          <p className="text-sm">Nurse presence</p>
-          <span>
-            {section.hasNurse ? (
-              <Stethoscope className="text-green-700" />
-            ) : (
-              <Stethoscope className=" text-muted-foreground" />
-            )}
-          </span>
-        </div>
-
-        <div className=" flex gap-2 ">
-          <p className="text-sm">Psychologist presence</p>
-          <span>
-            {section.hasPsychologist ? (
-              <Speech className="text-green-700" />
-            ) : (
-              <Speech className="text-muted-foreground" />
-            )}
-          </span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className=" flex gap-2 ">
-          <p className="text-sm">Food service</p>
-          <span>
-            {section.hasFoodService ? (
-              <HandPlatter className="text-green-700" />
-            ) : (
-              <HandPlatter className=" text-muted-foreground" />
-            )}
-          </span>
-        </div>
-
-        <div className=" flex gap-2 ">
-          <p className="text-sm">Nutritionist</p>
-          <span>
-            {section.hasNutritionist ? (
-              <ChefHat className="text-green-700" />
-            ) : (
-              <ChefHat className="text-muted-foreground" />
-            )}
-          </span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className=" flex gap-2 ">
-          <p className="text-sm">Transportation services</p>
-          <span>
-            {section.hasTransportationServices ? (
-              <Bus className="text-green-700" />
-            ) : (
-              <Bus className=" text-muted-foreground" />
-            )}
-          </span>
-        </div>
-      </div>
-      {/* <div className=' flex gap-2 '>
-                <p className="text-sm">Technology readiness</p>
-                <Badge variant="outline" className="text-xs bg-green-700 text-white">
-                    {section.technologyReadiness}
-                </Badge>
-            </div> */}
-
+      {/* Sustainability Practices */}
       <div>
-        <p className="text-sm text-muted-foreground">Industry partnerships</p>
-        <div className="flex flex-wrap gap-1 mt-1">
-          {section.industryPartnerships.map((partner: string, index: number) => (
-            <Badge key={index} variant="secondary" className="text-xs">
-              {partner}
+        <p className="text-sm font-semibold text-gray-600 uppercase mb-1">
+          Sustainability Practices
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {section.sustainabilityPractices.map((s, i) => (
+            <Badge key={i} variant="outline" className="text-xs bg-purple-50 text-purple-700">
+              {SustainabilityEnums[s as keyof typeof SustainabilityEnums]?.label ?? s}
             </Badge>
           ))}
         </div>
       </div>
 
-      {/* "basic" | "intermediate" | "advanced" | "expert" */}
-      {/* <div>
-                <p className="text-sm text-muted-foreground">Resources</p>
-                <div className="flex flex-wrap gap-1 mt-1">
-                    {section.resources.map((resource: string, index: number) => (
-                        <Badge key={index} variant="outline" className="text-xs">
-                            {resource}
-                        </Badge>
-                    ))}
-                </div>
-            </div> */}
+      {/* Key Services with icons */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex gap-2 items-center">
+          <ShieldCheck
+            className={cn('w-5 h-5', section.safetyCompliance ? 'text-green-700' : 'text-gray-400')}
+          />
+          <span className="text-sm font-medium">Safety Compliance</span>
+        </div>
+        <div className="flex gap-2 items-center">
+          {section.aiIntegration ? (
+            <Bot className="w-5 h-5 text-green-700" />
+          ) : (
+            <BotOff className="w-5 h-5 text-gray-400" />
+          )}
+          <span className="text-sm font-medium">AI Integration</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex gap-2 items-center">
+          <Stethoscope
+            className={cn('w-5 h-5', section.hasNurse ? 'text-green-700' : 'text-gray-400')}
+          />
+          <span className="text-sm font-medium">Nurse Presence</span>
+        </div>
+        <div className="flex gap-2 items-center">
+          <Speech
+            className={cn('w-5 h-5', section.hasPsychologist ? 'text-green-700' : 'text-gray-400')}
+          />
+          <span className="text-sm font-medium">Psychologist Presence</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex gap-2 items-center">
+          <HandPlatter
+            className={cn('w-5 h-5', section.hasFoodService ? 'text-green-700' : 'text-gray-400')}
+          />
+          <span className="text-sm font-medium">Food Service</span>
+        </div>
+        <div className="flex gap-2 items-center">
+          <ChefHat
+            className={cn('w-5 h-5', section.hasNutritionist ? 'text-green-700' : 'text-gray-400')}
+          />
+          <span className="text-sm font-medium">Nutritionist</span>
+        </div>
+      </div>
+
+      <div className="flex gap-2 items-center">
+        <Bus
+          className={cn(
+            'w-5 h-5',
+            section.hasTransportationServices ? 'text-green-700' : 'text-gray-400',
+          )}
+        />
+        <span className="text-sm font-medium">Transportation Services</span>
+      </div>
+
+      {/* Industry Partnerships */}
+      <div>
+        <p className="text-sm font-semibold text-gray-600 uppercase mb-1">Industry Partnerships</p>
+        <div className="flex flex-wrap gap-2">
+          {section.industryPartnerships.map((p, i) => (
+            <Badge key={i} variant="outline" className="text-xs bg-yellow-50 text-yellow-700">
+              {p}
+            </Badge>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -57,68 +57,84 @@ export const AdminDataTable: React.FC<AdminDataTableProps> = ({ data, onEdit, on
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center space-x-2">
+    <div className="space-y-6 animate-fade-in">
+      {/* Barre de recherche */}
+      <div className="flex items-center justify-between">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
           <Input
-            placeholder="Search admins..."
+            placeholder="Search administrators..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-8"
+            className="pl-10 pr-4 py-2.5 rounded-xl border border-gray-300 shadow-sm focus:ring-2 focus:ring-primary focus:border-primary text-sm"
           />
         </div>
       </div>
 
-      <div className="border rounded-lg overflow-hidden">
+      {/* Tableau */}
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-md overflow-hidden">
         <div className="overflow-x-auto">
-          <Table>
+          <Table className="w-full text-sm text-gray-700">
             <TableHeader>
-              <TableRow>
+              <TableRow className="bg-gradient-to-r from-emerald-300 to-green-200 text-white text-sm">
                 <TableHead
-                  className="min-w-[150px] cursor-pointer hover:bg-muted/50"
+                  className="min-w-[150px] px-6 py-3 font-semibold cursor-pointer  transition"
                   onClick={() => handleSort('username')}
                 >
                   Full Name {sortBy === 'username' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableHead>
                 <TableHead
-                  className="min-w-[200px] cursor-pointer hover:bg-muted/50"
+                  className="min-w-[200px] px-6 py-3 font-semibold cursor-pointer  transition"
                   onClick={() => handleSort('email')}
                 >
                   Email {sortBy === 'email' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableHead>
-                <TableHead className="hidden lg:table-cell cursor-pointer">Created</TableHead>
-                <TableHead className="w-[70px]">Actions</TableHead>
+                <TableHead className="hidden lg:table-cell px-6 py-3 font-semibold">
+                  Created
+                </TableHead>
+                <TableHead className="w-[70px] px-6 py-3 font-semibold text-center">
+                  Actions
+                </TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
               {sortedData.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                    No admins found
+                  <TableCell colSpan={6} className="text-center py-10 text-gray-400 italic">
+                    No administrators found.
                   </TableCell>
                 </TableRow>
               ) : (
                 sortedData.map((admin) => (
-                  <TableRow key={admin.id} className=" hover:cursor-default">
-                    <TableCell className="font-medium">{admin.username}</TableCell>
-                    <TableCell className="text-sm">{admin.email}</TableCell>
-                    <TableCell className="hidden lg:table-cell text-sm">
+                  <TableRow
+                    key={admin.id}
+                    className="hover:bg-gray-50 transition-all duration-200 cursor-default border-b border-gray-100"
+                  >
+                    <TableCell className="px-6 py-4 font-medium">{admin.username}</TableCell>
+                    <TableCell className="px-6 py-4">{admin.email}</TableCell>
+                    <TableCell className="hidden lg:table-cell px-6 py-4 text-gray-500">
                       {new Date(admin.createdAt).toLocaleDateString()}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="px-6 py-4 text-center">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-8 w-8 p-0">
+                          <Button
+                            variant="ghost"
+                            className="h-8 w-8 p-0 text-gray-600 hover:text-primary"
+                          >
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-white">
+                        <DropdownMenuContent
+                          align="end"
+                          className="bg-white shadow-lg rounded-md border"
+                        >
                           <DropdownMenuItem
                             onClick={() => onEdit(admin)}
                             className="flex items-center gap-2 hover:bg-gray-100"
                           >
-                            <Edit className="h-4 w-4" />
+                            <Edit className="h-4 w-4 text-primary" />
                             Edit
                           </DropdownMenuItem>
                           <DropdownMenuItem

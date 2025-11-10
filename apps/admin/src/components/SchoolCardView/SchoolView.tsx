@@ -109,19 +109,21 @@ export const SchoolView = () => {
   ];
 
   return (
-    <div className="space-y-4 lg:space-y-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-6">
         {sections.map((section) => {
           const Icon = section.icon;
           return (
-            <Card key={section.id} className="h-fit">
+            <Card
+              key={section.id}
+              className="w-full rounded-2xl border border-gray-200 shadow-md hover:shadow-xl transition-transform hover:-translate-y-1"
+            >
               <SectionHeader
-                key={section.id}
                 color={section.className}
                 title={section.title}
                 icon={Icon}
                 editPath={section.editPath}
-                editable={detailedSchool[section.detailedSchoolField] ? true : false}
+                editable={!!detailedSchool[section.detailedSchoolField]}
               />
               <CardContent className="pt-0">{section.component}</CardContent>
             </Card>

@@ -80,93 +80,92 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({ data, onEdit, 
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center space-x-2">
+    <div className="space-y-6">
+      {/* Barre de recherche */}
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
           <Input
             placeholder="Search schools..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-8"
+            className="pl-10 rounded-lg border-gray-300 focus:ring-2 focus:ring-[#212E53] focus:border-[#212E53] shadow-sm"
           />
         </div>
       </div>
 
-      <div className="border rounded-lg overflow-hidden">
+      {/* Tableau */}
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-md overflow-hidden">
         <div className="overflow-x-auto">
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead
-                  className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('name')}
-                >
+            <TableHeader className="bg-[#212E53] text-white">
+              <TableRow className="bg-gradient-to-r from-emerald-300 to-green-200 text-white text-sm">
+                <TableHead className=" bg-transparent" onClick={() => handleSort('name')}>
                   School {sortBy === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableHead>
 
-                <TableHead
-                  className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('adminUsername')}
-                >
+                <TableHead className=" bg-transparent" onClick={() => handleSort('adminUsername')}>
                   Admin {sortBy === 'adminUsername' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableHead>
 
-                <TableHead
-                  className="cursor-pointer hover:bg-muted/50"
-                  onClick={() => handleSort('studentCount')}
-                >
+                <TableHead className=" bg-transparent" onClick={() => handleSort('studentCount')}>
                   Email {sortBy === 'studentCount' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableHead>
 
                 <TableHead>Phone</TableHead>
-
                 <TableHead>Status</TableHead>
-
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
               {sortedData.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                  <TableCell colSpan={6} className="text-center py-8 text-gray-500 italic">
                     No schools found
                   </TableCell>
                 </TableRow>
               ) : (
                 sortedData.map((school) => (
-                  <TableRow key={school.id}>
+                  <TableRow
+                    key={school.id}
+                    className="hover:bg-gray-50 transition-colors duration-200"
+                  >
                     <TableCell>
                       <div>
-                        <div className="font-medium">{school.name}</div>
-                        <div className="text-sm text-muted-foreground">{`${school.country}-${school.city} ${school.address}`}</div>
+                        <div className="font-semibold text-gray-900">{school.name}</div>
+                        <div className="text-sm text-gray-500">
+                          {`${school.country} - ${school.city}, ${school.address}`}
+                        </div>
                       </div>
                     </TableCell>
-                    <TableCell>{school.adminUsername}</TableCell>
-                    <TableCell>{school.email}</TableCell>
-                    <TableCell>{school.phoneNumber}</TableCell>
+
+                    <TableCell className="text-gray-700">{school.adminUsername}</TableCell>
+                    <TableCell className="text-gray-700">{school.email}</TableCell>
+                    <TableCell className="text-gray-700">{school.phoneNumber}</TableCell>
+
                     <TableCell>
                       <Badge
-                        variant={'default'}
-                        className={!school.isComplete && 'text-white bg-amber-400 '}
+                        variant="default"
+                        className={`${
+                          school.isComplete ? 'bg-green-600 text-white' : 'bg-yellow-500 text-white'
+                        } px-3 py-1 rounded-full text-xs font-medium`}
                       >
                         {school.isComplete ? 'Complete' : 'Incomplete'}
                       </Badge>
                     </TableCell>
+
                     <TableCell className="text-right">
                       <div className="flex justify-end space-x-2">
                         <Link to={`./${school.id}`}>
-                          <Button variant="outline" size="sm" className=" cursor-pointer">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="cursor-pointer border-gray-300 hover:bg-[#212E53] hover:text-white transition-colors"
+                          >
                             <Eye className="w-4 h-4" />
                           </Button>
                         </Link>
-                        {/* <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onDelete(school.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button> */}
                       </div>
                     </TableCell>
                   </TableRow>
