@@ -58,18 +58,17 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres-data-stage:/var/lib/postgresql/data
-    # healthcheck:
-    #   test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
-    #   start_period: 30s
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
   db-backup:
-    image: postgres:alpine
-
-    container_name: db-backup
-
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile: docker/dev/Dockerfile.dbBackup.dev
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -77,13 +76,10 @@ services:
       DB_CONTAINER_NAME: db
 
     volumes:
-      - ${PROJECT_ROOT}/scripts/backup.sh:/backup.sh
-      - ${PROJECT_ROOT}/scripts/restore.sh:/restore.sh
       - ${PROJECT_ROOT}/backup:/backup
-
-    entrypoint: /bin/bash
-    command: -c "while true; chmod +x /backup.sh;chmod +x /restore.sh; do /backup.sh; sleep 86400; done"
-
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:

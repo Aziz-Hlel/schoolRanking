@@ -46,7 +46,7 @@ fi
 
 # Look for .dump files (custom format) first, fall back to .sql.gz
 # Using ls -t for Alpine/BusyBox compatibility
-BACKUP_FILE=$(ls -t "$BACKUP_DIR"/backup_*.dump "$BACKUP_DIR"/backup_*.sql.gz 2>/dev/null | head -n1)
+BACKUP_FILE=$(ls -t "$BACKUP_DIR"/backup_*.dump 2>/dev/null | head -n1)
 
 if [ -z "$BACKUP_FILE" ]; then
     log_error "No backup files found in $BACKUP_DIR"
