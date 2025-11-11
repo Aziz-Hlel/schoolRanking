@@ -49,7 +49,7 @@ services:
     #   start_period: 60s
 
   db:
-    image: postgres:15-alpine
+    image: postgres:15
     container_name: schoolranking-db-stage
     restart: unless-stopped
     environment:
@@ -66,6 +66,7 @@ services:
       start_period: 30s
 
   db-backup:
+    container_name: db-backup
     build:
       context: ${PROJECT_ROOT}
       dockerfile: docker/dev/Dockerfile.dbBackup.dev

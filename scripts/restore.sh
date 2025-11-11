@@ -27,6 +27,24 @@ log_warning() {
     echo -e "${YELLOW}[WARNING]${NC} $1"
 }
 
+
+
+AUTO_YES=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -y|--yes)
+      AUTO_YES=true
+      shift
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
 # --- Validate environment variables ---
 if [ -z "${POSTGRES_USER:-}" ] || [ -z "${POSTGRES_DB:-}" ] || [ -z "${POSTGRES_PASSWORD:-}" ]; then
     log_error "Missing required environment variables: POSTGRES_USER, POSTGRES_DB, or POSTGRES_PASSWORD"
@@ -91,12 +109,17 @@ echo "  Format:   $([ "$BACKUP_EXT" = "dump" ] && echo "Custom (pg_restore)" || 
 echo "  Size:     $BACKUP_SIZE"
 echo "  Created:  $BACKUP_DATE"
 echo ""
-read -p "Type 'yes' to continue: " confirm
-
-if [ "$confirm" != "yes" ]; then
+# Ask for confirmation only if -y wasn't provided
+if [ "$AUTO_YES" = false ]; then
+    read -r -p "Type 'yes' to continue: " confirm
+  if [ "$confirm" != "yes" ]; then
     log_info "Restore cancelled by user"
     exit 0
+  fi
+else
+  log_info "Auto-confirm mode enabled (-y). Proceeding without prompt."
 fi
+
 
 # --- Export password ---
 export PGPASSWORD="$POSTGRES_PASSWORD"
