@@ -37,6 +37,8 @@ const DetachedGeneral: FC<DetachedFormProps> = ({ form }) => {
     return Object.prototype.hasOwnProperty.call(CountryEnums, country.alpha2);
   });
 
+  console.log('country options : ', countryOptions);
+
   const countries2 = countries.all.map((country: Country) => {
     return {
       label: country.name,

@@ -95,7 +95,7 @@ const CountryDropdownComponent = (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger ref={ref} className={triggerClasses} disabled={disabled} {...props}>
         {selectedCountry ? (
-          <div className="flex items-center w-0 gap-2 overflow-hidden">
+          <div className="flex grow items-center w-0 gap-2 overflow-hidden">
             <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
               <CircleFlag countryCode={selectedCountry.alpha2.toLowerCase()} height={20} />
             </div>
@@ -132,7 +132,7 @@ const CountryDropdownComponent = (
                     key={key}
                     onSelect={() => handleSelect(option)}
                   >
-                    <div className="flex w-0 space-x-2 overflow-hidden">
+                    <div className="flex grow w-0 space-x-2 overflow-hidden">
                       <div className="inline-flex items-center justify-center w-5 h-5 shrink-0 overflow-hidden rounded-full">
                         <CircleFlag countryCode={option.alpha2.toLowerCase()} height={20} />
                       </div>
