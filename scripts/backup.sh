@@ -1,84 +1,96 @@
 #!/bin/bash
+set -euo pipefail
 
-# TODO : in your host shell type : crontab -e
-# TODO : add the line : 0 2 * * * /bin/bash /home/ubuntu/ProjectFolderName/scripts/backup.sh >> /home/ubuntu/ProjectFolderName/scripts/backup.log 2>&1
+# --- Configuration ---
+RETENTION_DAYS=7
+BACKUP_DIR="./backup"
+DB_HOST="${DB_CONTAINER_NAME:-db}"
+DB_USER="${POSTGRES_USER}"
+DB_PASS="${POSTGRES_PASSWORD}"
+DB_NAME="${POSTGRES_DB}"
 
+# --- Validation ---
+: "${DB_HOST:?ERROR: Missing DB_HOST}"
+: "${DB_USER:?ERROR: Missing DB_USER}"
+: "${DB_NAME:?ERROR: Missing DB_NAME}"
+: "${DB_PASS:?ERROR: Missing DB_PASS}"
 
-
-# This helps when reading logs later.
-echo "$(date '+%Y-%m-%d %H:%M:%S') - Starting backup..."
-
-
-# Resolve directory of the script, no matter where it's called from
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Assume .env is in the parent of the script directory
-ENV_PATH="$SCRIPT_DIR/../.env"
-
-# If .env exists, load it
-if [ -f "$ENV_PATH" ]; then
-  echo "📦 Loading environment from $ENV_PATH"
-  set -a
-  source "$ENV_PATH"
-  set +a
-else
-  echo "❌ .env file not found at $ENV_PATH"
-  exit 1
-fi
-
-
-# Parse values from .env 
-POSTGRES_CONTAINER_NAME="schoolranking-db"  #  ? Change if dynamic
-POSTGRES_USER="${PROD__POSTGRES_USER}"
-POSTGRES_PASSWORD="${PROD__POSTGRES_PASSWORD}"
-POSTGRES_DB="${PROD__POSTGRES_DB}"
-POSTGRES_PORT="${PROD__POSTGRES_PORT}"
-BACKUP_DIR="./backups"
-DATE=$(date +%Y%m%d)
-BACKUP_FILE="backup_${DATE}.sql.gz"
-
-#  Validation
-: "${POSTGRES_USER:?Missing POSTGRES_USER}"
-: "${POSTGRES_DB:?Missing POSTGRES_DB}"
-: "${POSTGRES_PORT:?Missing POSTGRES_PORT}"
-
-# Create backup directory if it doesn't exist
+# --- Setup ---
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+# Use .dump extension for custom format (more reliable than .sql.gz)
+BACKUP_FILE="$BACKUP_DIR/backup_${TIMESTAMP}.dump"
 mkdir -p "$BACKUP_DIR"
 
+log_with_timestamp() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
 
-echo "📦 Starting backup for database: $POSTGRES_DB on port $POSTGRES_PORT..."
-# Backup using docker exec and gzip compression
-docker exec -e PGPASSWORD="$POSTGRES_PASSWORD" "$POSTGRES_CONTAINER_NAME" pg_dump \
-  -h "$POSTGRES_CONTAINER_NAME" \
-  -p "$POSTGRES_PORT" \
-  -U "$POSTGRES_USER" \
-  -d "$POSTGRES_DB" \
-  --clean --if-exists --create \
-  | gzip > "$BACKUP_DIR/$BACKUP_FILE"
+log_with_timestamp "🚀 Starting database backup for: $DB_NAME"
 
+# --- Export password for pg_dump ---
+export PGPASSWORD="$DB_PASS"
 
+# --- Create backup using CUSTOM format (industry standard) ---
+# Why custom format?
+# - Binary format = smaller, faster
+# - Includes metadata for proper restoration
+# - Allows parallel restore with pg_restore
+# - More resilient to version differences
+# - Can selectively restore tables/schemas
 
+if pg_dump \
+    -h "$DB_HOST" \
+    -U "$DB_USER" \
+    -d "$DB_NAME" \
+    --format=custom \
+    --compress=6 \
+    --verbose \
+    --no-owner \
+    --no-acl \
+    --file="$BACKUP_FILE" 2>&1; then
 
-
-
-# Validate backup file and clean up old backups
-if [ -f "$BACKUP_DIR/$BACKUP_FILE" ] && [ -s "$BACKUP_DIR/$BACKUP_FILE" ]; then
-    echo "✅ Backup created successfully: $BACKUP_FILE"
-
-    # Cleanup old backups
-    find "$BACKUP_DIR" -name "backup_*.sql.gz" -type f -mtime +7 -delete
-    echo "🧹 Old backups cleaned up."
-
-    # List current backups
-    echo "📁 Current backups:"
-    ls -lah "$BACKUP_DIR"/backup_*.sql.gz
+    # Verify the backup file was created and has content
+    if [ -s "$BACKUP_FILE" ]; then
+        SIZE=$(du -h "$BACKUP_FILE" | cut -f1)
+        log_with_timestamp "✅ Backup completed: $BACKUP_FILE"
+        log_with_timestamp "📦 Backup size: $SIZE"
+        
+        # Verify backup integrity using pg_restore
+        if pg_restore --list "$BACKUP_FILE" > /dev/null 2>&1; then
+            log_with_timestamp "✅ Backup integrity verified"
+            
+            # Count objects in backup for logging
+            OBJECT_COUNT=$(pg_restore --list "$BACKUP_FILE" 2>/dev/null | grep -c "^[0-9]" || echo "unknown")
+            log_with_timestamp "📊 Database objects backed up: $OBJECT_COUNT"
+        else
+            log_with_timestamp "⚠️  WARNING: Backup file may be corrupted!"
+            exit 1
+        fi
+    else
+        log_with_timestamp "❌ ERROR: Backup file is empty!"
+        exit 1
+    fi
 else
-    echo "❌ Backup failed!"
+    log_with_timestamp "❌ ERROR: Backup failed!"
     exit 1
 fi
 
+# --- Cleanup old backups ---
+log_with_timestamp "🧹 Cleaning up backups older than $RETENTION_DAYS days..."
+DELETED_COUNT=$(find "$BACKUP_DIR" -name "backup_*.dump" -type f -mtime +$RETENTION_DAYS -print -delete 2>/dev/null | wc -l)
 
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+if [ "$DELETED_COUNT" -gt 0 ]; then
+    log_with_timestamp "🗑️  Deleted $DELETED_COUNT old backup(s)"
+else
+    log_with_timestamp "ℹ️  No old backups to delete"
+fi
 
-echo -e "${GREEN}✅ Backup completed successfully.${NC}"
+# --- List current backups ---
+BACKUP_COUNT=$(find "$BACKUP_DIR" -name "backup_*.dump" -type f 2>/dev/null | wc -l)
+TOTAL_SIZE=$(du -sh "$BACKUP_DIR" 2>/dev/null | cut -f1)
+log_with_timestamp "📊 Total backups: $BACKUP_COUNT (Total size: $TOTAL_SIZE)"
+
+log_with_timestamp "✨ Backup process completed successfully!"
+
+# Cleanup password from environment
+unset PGPASSWORD
