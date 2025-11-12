@@ -3,6 +3,7 @@ package com.example.TechnoShark.SchoolRanking.SchoolStudents.DTO;
 import java.util.Set;
 
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,12 +13,13 @@ import lombok.Data;
 @Data
 public class SchoolStudentsRequest {
 
-    @Min(value = 0, message = "Total students must be a positive number")
     @Nullable
+    @Min(value = 0, message = "Total students must be a positive number")
+    @Max(value = 1000000, message = "Total students must be less than 1,000,000")
     private Integer totalStudents;
 
     @Size(max = 50, message = "You can include up to 50 nationalities")
-    private Set<@NotBlank String> nationalities;
+    private Set<@NotBlank(message = "Nationality cannot be blank") @Size(max = 50, message = "Nationality must be at most 50 characters") String> nationalities;
 
     @Size(max = 50, message = "You can include up to 50 extracurricular activities")
     private Set<@NotNull ExtracurricularActivityRequest> extracurricularActivities;

@@ -23,7 +23,7 @@ interface NumberStudentsPerClassProps {
 }
 
 const NumberStudentsPerClass: FC<NumberStudentsPerClassProps> = ({ form }) => {
-  const { fields, feesLength, otherFeesLength, append, handleDelete, handleMove } = useGetArray({
+  const { fields, append, handleDelete, handleMove } = useGetArray({
     form,
     fieldName: 'averageStudentsPerClassroom',
   });
@@ -100,7 +100,7 @@ const NumberStudentsPerClass: FC<NumberStudentsPerClassProps> = ({ form }) => {
                     variant="default"
                     className="rounded-full p-0  h-8 w-8"
                     type="button"
-                    disabled={(index === 0 && feesLength === 1) || index === feesLength - 1}
+                    disabled={(index === 0 && fields.length === 1) || index === fields.length - 1}
                     onClick={() => handleMove(index, index + 1)}
                   >
                     <ArrowUpFromLine className=" size-4 rotate-180  " />
@@ -127,6 +127,7 @@ const NumberStudentsPerClass: FC<NumberStudentsPerClassProps> = ({ form }) => {
             append({
               grade: '',
               numberOfStudents: 0,
+              sortOrder: fields.length,
             })
           }
         >

@@ -47,7 +47,8 @@ public class SchoolAcademics {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "school_accreditations", joinColumns = @JoinColumn(name = "school_id"))
     @Column(name = "accreditation")
-    private Set<AccreditationEnums> internationalAccreditations;
+    @Builder.Default
+    private Set<AccreditationEnums> internationalAccreditations = Set.of();
 
     @ElementCollection
     @CollectionTable(name = "additional_school_accreditations", joinColumns = @JoinColumn(name = "school_academics_id"))
@@ -64,13 +65,15 @@ public class SchoolAcademics {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "school_levels", joinColumns = @JoinColumn(name = "school_id"))
     @Column(name = "level")
-    private Set<LevelEnums> levelsOffered;
+    @Builder.Default
+    private Set<LevelEnums> levelsOffered = Set.of();
 
     @ElementCollection(targetClass = CurriculumEnums.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "school_curriculums", joinColumns = @JoinColumn(name = "school_id"))
     @Column(name = "curriculum")
-    private Set<CurriculumEnums> curriculums;
+    @Builder.Default
+    private Set<CurriculumEnums> curriculums = Set.of();
 
     @ElementCollection
     @CollectionTable(name = "additional_school_curriculums", joinColumns = @JoinColumn(name = "school_academics_id"))
@@ -87,7 +90,8 @@ public class SchoolAcademics {
     @ElementCollection
     @CollectionTable(name = "extra_languages_taught", joinColumns = @JoinColumn(name = "school_academics_id"))
     @Column(name = "language")
-    private Set<String> extraLanguagesTaught;
+    @Builder.Default
+    private Set<String> extraLanguagesTaught = Set.of();
 
     @ElementCollection
     @CollectionTable(name = "innovative_teaching_methods", joinColumns = @JoinColumn(name = "school_academics_id"))

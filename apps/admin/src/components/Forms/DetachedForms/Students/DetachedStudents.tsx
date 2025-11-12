@@ -6,12 +6,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import type { SchoolStudentsNoID, schoolStudentsSchema } from '@/types/School2.type';
 import React from 'react';
-import { useFormContext, type UseFormReturn } from 'react-hook-form';
+import { type UseFormReturn } from 'react-hook-form';
 import type z from 'zod';
-import { useGetArray } from './use-Get-Array';
 import NumberStudentsPerClass from './NumberStudentsPerClass';
 import ExtracurricularActivities from './ExtracurricularActivities';
 import InputNumberForm from '@/Custom/InputNumberForm';
@@ -34,6 +32,8 @@ const DetachedStudents: React.FC<DetachedFormProps> = ({ form }) => {
       value: country.alpha2,
     };
   });
+
+  console.log('errors: ', form.formState.errors);
 
   return (
     <div className="space-y-8">

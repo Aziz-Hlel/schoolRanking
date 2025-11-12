@@ -45,31 +45,36 @@ public class SchoolFacilities {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "facilities", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "facility")
-    private Set<FacilityEnums> facilities;
+    @Builder.Default
+    private Set<FacilityEnums> facilities = Set.of();
 
     @ElementCollection(targetClass = AccessibilityEnums.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "accessibility_features", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "accessibility_feature")
-    private Set<AccessibilityEnums> accessibilityFeatures;
+    @Builder.Default
+    private Set<AccessibilityEnums> accessibilityFeatures = Set.of();
 
     @ElementCollection(targetClass = SustainabilityEnums.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "sustainability_practices", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "sustainability_practice")
-    private Set<SustainabilityEnums> sustainabilityPractices;
+    @Builder.Default
+    private Set<SustainabilityEnums> sustainabilityPractices = Set.of();
 
     @ElementCollection
     @CollectionTable(name = "university_destinations", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "university_destination")
-    private Set<String> universityDestinations;
+    @Builder.Default
+    private Set<String> universityDestinations = Set.of();
 
     private String csrActivities;
 
     @ElementCollection
     @CollectionTable(name = "industry_partnerships", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "industry_partnership")
-    private Set<String> industryPartnerships;
+    @Builder.Default
+    private Set<String> industryPartnerships = Set.of();
 
     @Column(nullable = false)
     private Boolean safetyCompliance;

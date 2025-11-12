@@ -8,42 +8,48 @@ import com.example.TechnoShark.SchoolRanking.Enums.LanguageEnums;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class SchoolStaffRequestDTO {
 
-    @NotBlank
+    @Nullable
+    @Pattern(regexp = "^\\s*\\S.*$", message = "Leadership team must not be blank")
+    @Size(max = 255, message = "Leadership team must be at most 255 characters")
     private String leadershipTeam;
 
-    @NotBlank
+    @Nullable
+    @Pattern(regexp = "^\\s*\\S.*$", message = "Leadership team must not be blank")
+    @Size(max = 255, message = "Leadership profile link must be at most 255 characters")
     private String leadershipProfileLink;
 
     @Min(value = 1, message = "Staff size estimate must be at least 1")
+    @Max(value = 1000, message = "Staff size estimate must be at most 1000")
     private int staffSizeEstimate;
 
-    @NotBlank
+    @Nullable
+    @Pattern(regexp = "^\\s*\\S.*$", message = "Leadership team must not be blank")
+    @Size(max = 255, message = "Leadership profile link must be at most 255 characters")
     private String teacherQualifications;
 
     @NotNull(message = "Teacher nationalities must not be null")
-    @Size(min = 1, message = "At least one teacher nationality must be provided") // Use @Size(min = 1) instead of
-                                                                                  // @NotNull when you're checking for
-                                                                                  // “must not be empty”
-
-    private Set<String> teacherNationalities = new HashSet<>(); // Initialize List, Set, or Map fields when
-                                                                      // they’re
-                                                                      // required or iterated over later
+    @Size(min = 1, message = "At least one teacher nationality must be provided")
+    private Set<@NotBlank @Size(max = 50, message = "Teacher nationality must be at most 50 characters") String> teacherNationalities = new HashSet<>();
 
     @NotNull(message = "Teacher languages must not be null")
     @Size(min = 1, message = "At least one teacher language must be provided")
-    private Set<LanguageEnums> teacherLanguages = new HashSet<>();
+    private Set<@NotNull LanguageEnums> teacherLanguages = new HashSet<>();
 
     @Nullable
+    @Pattern(regexp = "^\\s*\\S.*$", message = "Professional development must not be blank")
+    @Size(max = 255, message = "Professional development must be at most 255 characters")
     private String professionalDevelopment;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

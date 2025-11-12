@@ -11,32 +11,33 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class SchoolFacilitiesRequest {
 
-    @NotNull
-    private List<FacilityEnums> facilities;
+    @Size(max = 50, message = "You can include up to 50 facilities")
+    private List<@NotNull FacilityEnums> facilities = List.of();
 
-    @NotNull
-    private List<AccessibilityEnums> accessibilityFeatures;
+    @Size(max = 50, message = "You can include up to 50 accessibility features")
+    private List<@NotNull AccessibilityEnums> accessibilityFeatures = List.of();
 
-    @NotNull
-    private List<SustainabilityEnums> sustainabilityPractices;
+    @Size(max = 50, message = "You can include up to 50 sustainability practices")
+    private List<@NotNull SustainabilityEnums> sustainabilityPractices = List.of();
 
-    @NotNull
-    private List<String> universityDestinations;
+    @Size(min = 1, message = "You must include at least 1 university destination")
+    @Size(max = 50, message = "You can include up to 50 university destinations")
+    private List<@NotBlank(message = "University destination cannot be blank") @Size(max = 50, message = "University destination must be at most 50 characters") String> universityDestinations = List
+            .of();
 
-    @NotBlank
+    @NotBlank(message = "CSR activities cannot be blank")
+    @Size(max = 1000, message = "CSR activities must be less than 1000 characters")
     private String csrActivities;
 
-    @NotNull
+    @NotNull(message = "Safety compliance cannot be null")
     private Boolean safetyCompliance;
 
-    @NotNull
+    @NotNull(message = "AI integration cannot be null")
     private Boolean aiIntegration;
 
     @Size(max = 1000, message = "Description must be less than 1000 characters")
@@ -47,8 +48,12 @@ public class SchoolFacilitiesRequest {
     private RatingLevelEnums technologyReadiness;
 
     @NotNull
-    private List<String> industryPartnerships;
 
+    private List<@NotBlank(message = "Industry partnership cannot be blank") @Size(max = 50, message = "Industry partnership must be at most 50 characters") String> industryPartnerships = List
+            .of();
+
+    @Size(max = 255, message = "Description must be less than 255 characters")
+    @Nullable
     private String awardsAndRecognitions;
 
     @NotNull
@@ -68,6 +73,7 @@ public class SchoolFacilitiesRequest {
     @NotNull
     private Boolean hasTransportationServices;
 
+    @Nullable
     @Size(max = 1000, message = "Description must be less than 1000 characters")
     private String transportationPolicies;
 

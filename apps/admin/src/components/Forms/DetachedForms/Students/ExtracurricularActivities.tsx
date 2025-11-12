@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import { type FC } from 'react';
 import { useGetArray } from './use-Get-Array';
 import type { UseFormReturn } from 'react-hook-form';
 import type { SchoolStudentsNoID } from '@/types/School2.type';
@@ -23,7 +23,7 @@ interface ExtracurricularActivitiesProps {
 }
 
 const ExtracurricularActivities: FC<ExtracurricularActivitiesProps> = ({ form }) => {
-  const { fields, feesLength, otherFeesLength, append, handleDelete, handleMove } = useGetArray({
+  const { fields, append, handleDelete, handleMove } = useGetArray<SchoolStudentsNoID>({
     form,
     fieldName: 'extracurricularActivities',
   });
@@ -90,7 +90,7 @@ const ExtracurricularActivities: FC<ExtracurricularActivitiesProps> = ({ form })
                     variant="default"
                     className="rounded-full p-0  h-8 w-8"
                     type="button"
-                    disabled={(index === 0 && feesLength === 1) || index === feesLength - 1}
+                    disabled={(index === 0 && fields.length === 1) || index === fields.length - 1}
                     onClick={() => handleMove(index, index + 1)}
                   >
                     <ArrowUpFromLine className=" size-4 rotate-180  " />
@@ -117,6 +117,7 @@ const ExtracurricularActivities: FC<ExtracurricularActivitiesProps> = ({ form })
             append({
               grade: '',
               numberOfStudents: 0,
+              sortOrder: fields.length,
             })
           }
         >

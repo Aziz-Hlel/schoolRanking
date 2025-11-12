@@ -10,9 +10,12 @@ import lombok.Data;
 public class ExtracurricularActivityRequest {
 
     @NotBlank
+    @Size(max = 100, message = "Name must be at most 100 characters")
     private String name;
 
+    @NotBlank
     @Size(max = 1000, message = "Description must be less than 1000 characters")
+    @Size(min = 10, message = "Description must be at least 10 characters")
     private String description;
 
     @NotNull

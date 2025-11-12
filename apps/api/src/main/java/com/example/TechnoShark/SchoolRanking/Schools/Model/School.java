@@ -23,7 +23,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated; 
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -50,7 +50,7 @@ public class School {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -83,7 +83,7 @@ public class School {
     @ElementCollection
     @CollectionTable(name = "school_campus_countries", joinColumns = @JoinColumn(name = "school_id"))
     @Column(name = "country", nullable = true)
-    private Set<String> campusCountries;
+    private Set<String> campusCountries = Set.of();
 
     @Transient // ? <-- Not stored in the DB
     public boolean getFormsCompleted() {
