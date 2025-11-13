@@ -15,7 +15,7 @@ import React, { type FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowUpFromLine, CirclePlus, Trash } from 'lucide-react';
 import { useGetArray } from './use-Get-Array';
-import type { UseFormReturn } from 'react-hook-form';
+import { useFieldArray, type UseFieldArrayProps, type UseFormReturn } from 'react-hook-form';
 import type { SchoolStudentsNoID } from '@/types/School2.type';
 
 interface NumberStudentsPerClassProps {
@@ -37,7 +37,6 @@ const NumberStudentsPerClass: FC<NumberStudentsPerClassProps> = ({ form }) => {
           class size for each grade level.
         </p>
       </div>
-
       <div className="flex flex-col items-center w-10/12 mx-auto space-y-4 ">
         {fields.map((field, index) => (
           <FormField

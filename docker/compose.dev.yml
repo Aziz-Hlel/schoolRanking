@@ -86,7 +86,7 @@ services:
       start_period: 30s
 
   db-backup:
-    container_name: db-backup
+    # container_name: db-backup
     build:
       context: ${PROJECT_ROOT}
       dockerfile: docker/dev/Dockerfile.dbBackup.dev
