@@ -6,6 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node scripts/docker-up.js dev",
     "stage": "node scripts/docker-up.js stage",
+    "stage:multi": "node scripts/docker-up.js prodmulti",
     "prod": "node scripts/docker-up.js prod",
     "format:fix": "prettier --write .",
     "predev:local": " cd apps/admin && pnpm install",

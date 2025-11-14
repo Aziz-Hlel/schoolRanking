@@ -10,7 +10,7 @@ const NC = '\x1b[0m';
 
 // Get env argument: dev / stage / prod
 const envArg = process.argv[2] || 'dev'; // default to dev
-if (!['dev', 'stage', 'prod'].includes(envArg)) {
+if (!['dev', 'stage', 'prod', 'stagemulti', 'prodmulti'].includes(envArg)) {
   console.error(`Invalid environment: ${envArg}`);
   process.exit(1);
 }
@@ -25,11 +25,16 @@ const ENV_MAP = {
   dev: join(ROOT, 'config', '.env.dev'),
   stage: join(ROOT, 'config', '.env.stage'),
   prod: join(ROOT, 'config', '.env.prod'),
+  stagemulti: join(ROOT, 'config', '.env.stage'),
+  prodmulti: join(ROOT, 'config', '.env.prod'),
 };
+
 const DOCKER_COMPOSE_MAP = {
   dev: join(DOCKER_ROOT, 'compose.dev.yml'),
   stage: join(DOCKER_ROOT, 'compose.stage.yml'),
   prod: join(DOCKER_ROOT, 'compose.prod.yml'),
+  stagemulti: join(DOCKER_ROOT, 'compose.multi.stage.yml'),
+  prodmulti: join(DOCKER_ROOT, 'compose.multi.prod.yml'),
 };
 
 // Ensure env files exist

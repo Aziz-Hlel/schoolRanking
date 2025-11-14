@@ -1,0 +1,62 @@
+:8000 {
+    root * /srv
+
+    log {
+        output stderr
+        format console
+        level DEBUG
+    }
+
+    handle /api/* {
+        reverse_proxy api:8080
+    }
+
+    handle {
+        root * /srv/admin
+        encode gzip
+        
+        # Vite-generated hashed assets (JS, CSS, images from /src)
+        @hashed_assets {
+            path /assets/*
+        }
+        header @hashed_assets Cache-Control "public, max-age=31536000, immutable"
+        
+        # Static images from /public folder
+        @static_images {
+            path *.png *.jpg *.jpeg *.gif *.svg *.webp
+            not path /assets/*
+        }
+        header @static_images Cache-Control "public, max-age=3600, must-revalidate"
+        
+        # Favicon can be cached longer
+        @favicon {
+            path /favicon.ico
+        }
+        header @favicon Cache-Control "public, max-age=86400, must-revalidate"
+        
+        # Fonts - usually don't change
+        @fonts {
+            path *.woff* *.ttf *.eot
+        }
+        header @fonts Cache-Control "public, max-age=31536000, immutable"
+        
+        # HTML - never cache
+        @html {
+            path *.html
+        }
+        header @html Cache-Control "no-cache, no-store, must-revalidate"
+        header @html Pragma "no-cache"
+        header @html Expires "0"
+        
+        # Manifest and robots - short cache
+        @meta {
+            path /robots.txt /manifest.json /site.webmanifest
+        }
+        header @meta Cache-Control "public, max-age=3600"
+        
+        file_server
+        try_files {path} /index.html
+    }
+
+    encode gzip
+}
