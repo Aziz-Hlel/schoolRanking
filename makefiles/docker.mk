@@ -48,6 +48,12 @@ docker-up : ## Start production environment
 
 
 
+.ONESHELL:
+docker-multi-up : ## Start production environment
+	@echo "🚀 Starting production environment..."
+	@docker compose -f compose.multi.prod.yml up --build
+	@echo "✅ Production environment started"
+
 
 # Maintenance operations
 .PHONY: docker-clean docker-prune docker-system-prune
