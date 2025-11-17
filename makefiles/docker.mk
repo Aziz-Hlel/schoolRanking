@@ -33,26 +33,12 @@ docker-dev-up: ## Start development environment
 	@echo "${GREEN}✅ "
 
 
-.ONESHELL:
-docker-stage-up : ## Start staging environment
-	@echo "🚀 Starting staging environment..."
-	@docker compose -f compose.stage.yml up --build
-	@echo "✅ Staging environment started"
-
-
-.ONESHELL:
-docker-up : ## Start production environment
-	@echo "🚀 Starting production environment..."
-	@docker compose up --build
-	@echo "✅ Production environment started"
-
-
 
 .ONESHELL:
 docker-multi-up : ## Start production environment
 	@echo "🚀 Starting production environment..."
-	@docker compose -f compose.multi.prod.yml up --build
-	@echo "✅ Production environment started"
+	@docker compose -f $(DOCKER_ROOT)/compose.multi.prod.yml up --build
+	@echo "✅ Multi Domain Production environment started"
 
 
 # Maintenance operations
