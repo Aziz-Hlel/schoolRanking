@@ -12,8 +12,8 @@ services:
       - 8000
 
     volumes:
-      - schoolranking-caddy-data-prod:/data
-      - schoolranking-caddy-config-prod:/config
+      - schoolranking-caddy-data:/data
+      - schoolranking-caddy-config:/config
 
     restart: unless-stopped
 
@@ -46,7 +46,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - schoolranking-postgres-data-prod:/var/lib/postgresql/data
+      - schoolranking-postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
       interval: 30s
@@ -58,7 +58,7 @@ services:
       - default
 
   db-backup:
-    container_name: db-backup
+    container_name: schoolranking-db-backup
     build:
       context: ${PROJECT_ROOT}
       dockerfile: docker/dev/Dockerfile.dbBackup.dev
@@ -79,9 +79,9 @@ services:
       - default
 
 volumes:
-  schoolranking-postgres-data-prod:
-  schoolranking-caddy-data-prod:
-  schoolranking-caddy-config-prod:
+  schoolranking-postgres-data:
+  schoolranking-caddy-data:
+  schoolranking-caddy-config:
 
 networks:
   default:

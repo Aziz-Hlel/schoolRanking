@@ -12,4 +12,5 @@ COPY scripts/restore.sh /restore.sh
 RUN chmod +x /backup.sh /restore.sh
 
 ENTRYPOINT ["/bin/bash"]
+
 CMD ["-c", "while true; do /backup.sh; sleep 86400; done"]
