@@ -38,7 +38,7 @@ docker-dev-up: ## Start development environment
 docker-multi-up : ## Start production environment
 	@echo "🚀 Starting production environment..."
 	@cd $(ROOT) 
-	@touch $(ENV_LOCAL) $(ENV_ROOT)
+	@touch $(ENV_PROD) $(ENV_LOCAL) $(ENV_ROOT)
 	@set -a && . $(ENV_PROD) && . $(ENV_LOCAL) && . $(ENV_ROOT) && set +a;
 	@export PROJECT_ROOT=$(ROOT)
 	@docker compose -f $(DOCKER_ROOT)/compose.multi.prod.yml up --build
