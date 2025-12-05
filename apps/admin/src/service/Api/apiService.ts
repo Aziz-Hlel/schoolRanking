@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import ENV from '../../utils/env.variables';
 import { jwtTokenManager } from '../token/JwtTokenManager.class';
 import type { ApiResponse } from './ApiResponse';
+import authService from '../auth.service';
+import apiRoutes from './apiRoutes';
 // import { AlertInfo } from "@/hooks/useToast2";
 
 const creatAxiosInstance = (): AxiosInstance => {
@@ -46,10 +48,16 @@ class ApiService {
     // Response interceptor - handle token refresh
     this.api.interceptors.response.use(
       (response) => response,
-      async (error) => {
+      async (error: AxiosError & { config: { _retry?: boolean } }) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (
+          error.response?.status === 401 &&
+          !originalRequest._retry &&
+          ![apiRoutes.auth.login, apiRoutes.auth.signUp, apiRoutes.auth.refresh].includes(
+            originalRequest.url,
+          )
+        ) {
           if (this.isRefreshing) {
             return new Promise((resolve, reject) => {
               this.failedQueue.push({
@@ -112,10 +120,10 @@ class ApiService {
       throw new Error('No refresh token available');
     }
 
-    const response = await axios.post(`${this.api.defaults.baseURL}/user/refresh`, {
-      refreshToken,
-    });
-
+    const response = await authService.refresh(refreshToken);
+    if (response.success === false) {
+      throw new Error('Failed to refresh token');
+    }
     jwtTokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
     return response.data.accessToken;
   }

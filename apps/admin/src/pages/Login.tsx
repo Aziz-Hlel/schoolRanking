@@ -9,7 +9,7 @@ const Login = () => {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const navigate = useNavigate();
 
-  const { login } = useAuth();
+  const { signin: login } = useAuth();
 
   const validate = () => {
     const newErrors: typeof errors = {};

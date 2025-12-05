@@ -18,7 +18,6 @@ const InputNumberForm = <T,>({ fieldName }: InputNumberFormProps<T>) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    console.log('t5l rabk');
     if (/^[0-9]*$/.test(value)) {
       setValue(fieldName as any, value === '' ? undefined : Number(value));
     }

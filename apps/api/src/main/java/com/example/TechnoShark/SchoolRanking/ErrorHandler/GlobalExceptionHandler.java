@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.TechnoShark.SchoolRanking.ErrorHandler.Exceptions.InvalidTokenException;
 import com.example.TechnoShark.SchoolRanking.ErrorHandler.Exceptions.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
@@ -207,6 +208,21 @@ public class GlobalExceptionHandler {
                                 .build();
 
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
+
+        @ExceptionHandler(InvalidTokenException.class)
+        public ResponseEntity<Object> handleJwtInvalidToken(InvalidTokenException ex,
+                        HttpServletRequest request) {
+
+                ErrorResponse errorResponse = ErrorResponse.builder()
+                                .message(ex.getMessage())
+                                .path(request.getRequestURI())
+                                .method(request.getMethod())
+                                .status(HttpStatus.UNAUTHORIZED.value())
+                                .timestamp(LocalDateTime.now())
+                                .build();
+
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
 
         @ExceptionHandler(Exception.class)

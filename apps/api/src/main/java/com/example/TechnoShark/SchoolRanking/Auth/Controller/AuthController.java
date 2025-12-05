@@ -64,7 +64,7 @@ public class AuthController {
             String accessToken = jwtService.generateAccessToken(userDetails);
             String refreshToken = jwtService.generateRefreshToken(userDetails);
             JwtUserResponse user = userDetails.getUser();
-
+            System.err.println("sorm om l expiration " + jwtProperties.getAccessTokenExpiration());
             AuthResponse response = AuthResponse.builder()
                     .accessToken(accessToken)
                     .refreshToken(refreshToken)

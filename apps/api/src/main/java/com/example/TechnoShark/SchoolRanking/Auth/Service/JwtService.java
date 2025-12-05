@@ -40,11 +40,11 @@ public class JwtService {
     }
 
     public String generateAccessToken(CustomUserDetails userDetails) {
-        return generateToken(userDetails, jwtProperties.getAccessTokenExpiration());
+        return generateToken(userDetails, 1000 * 10);
     }
 
     public String generateRefreshToken(CustomUserDetails userDetails) {
-        String refreshToken = generateToken(userDetails, jwtProperties.getRefreshTokenExpiration());
+        String refreshToken = generateToken(userDetails, 1000 * 30);
         // Store refresh token in Redis with expiration
         // String redisKey = "refresh_token:" + userDetails.getUsername();
         // redisTemplate.opsForValue().set(redisKey, refreshToken,
