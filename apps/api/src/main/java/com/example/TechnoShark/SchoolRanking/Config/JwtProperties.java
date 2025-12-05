@@ -20,6 +20,6 @@ public class JwtProperties {
     @NotNull(message = "JWT secret must not be null")
     private String secret;
 
-    private long accessTokenExpiration = 10 * 1000;// 15 * oneMintue; // 15 minutes
-    private long refreshTokenExpiration = 20 * 1000;// 7 * oneDay; // 7 days
+    private long accessTokenExpiration = 15 * oneMintue; // 15 minutes
+    private long refreshTokenExpiration = 7 * oneDay; // 7 days
 }
