@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY package*.json .
 
-RUN npm ci
+RUN pnpm i
 
 COPY . . 
    
-CMD ["npm", "run", "dev", "--", "--host=0.0.0.0"]
+CMD ["pnpm", "run", "dev", "--", "--host=0.0.0.0"]
