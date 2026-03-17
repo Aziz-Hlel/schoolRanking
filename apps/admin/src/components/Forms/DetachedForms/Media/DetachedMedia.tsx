@@ -9,7 +9,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { type UseFormReturn } from 'react-hook-form';
 import z from 'zod';
-import { schoolMediaSchema } from '@/types/School2.type';
+import { schoolMediaSchema } from '@/types/School.type';
 
 type SchoolMedia = z.infer<typeof schoolMediaSchema>;
 

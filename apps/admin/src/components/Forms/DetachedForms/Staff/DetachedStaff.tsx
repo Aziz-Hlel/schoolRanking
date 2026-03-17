@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { type UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import { LanguageEnums } from '@/enums/LanguagesEnums';
-import { schoolStaffSchema } from '@/types/School2.type';
+import { schoolStaffSchema } from '@/types/School.type';
 import { type FC } from 'react';
 import { type Country } from '@/components/ui/countries-dropdown';
 import { MultiSelect } from '@/components/ui/multi-select';

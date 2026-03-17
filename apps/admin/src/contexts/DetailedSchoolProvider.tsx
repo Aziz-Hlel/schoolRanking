@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type FC, type ReactNode } from 'react';
 import apiRoutes from '@/service/Api/apiRoutes';
 import useApiQuery from '@/hooks/useApiQuery';
-import type { SchoolDetailed } from '@/types/School2.type';
+import type { SchoolDetailed } from '@/types/School.type';
 import { useNavigate } from 'react-router-dom';
 
 interface DetailedSchoolContextProps {

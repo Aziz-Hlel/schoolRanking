@@ -1,4 +1,4 @@
-import type { SchoolFeesNoID } from '@/types/School2.type';
+import type { SchoolFeesNoID } from '@/types/School.type';
 import { type FC } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 import { ArrowUpFromLine, CirclePlus, Trash } from 'lucide-react';

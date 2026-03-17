@@ -19,7 +19,7 @@ import {
 import { PhoneInput } from '@/components/ui/phone-input';
 import { CountryEnums } from '@/enums/CountryEnums';
 import { SchoolTypeEnums } from '@/enums/SchoolTypeEnums';
-import { schoolGeneralSchema } from '@/types/School2.type';
+import { schoolGeneralSchema } from '@/types/School.type';
 import type { FC } from 'react';
 import { CountryDropdown, type Country } from '@/components/ui/country-dropdown';
 import { countries } from 'country-data-list';

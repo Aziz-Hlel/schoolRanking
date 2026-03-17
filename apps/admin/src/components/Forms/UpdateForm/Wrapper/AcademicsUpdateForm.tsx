@@ -1,7 +1,7 @@
 import { Form } from '@/components/ui/form';
 import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
-import { schoolAcademicsSchema } from '@/types/School2.type';
+import { schoolAcademicsSchema } from '@/types/School.type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';

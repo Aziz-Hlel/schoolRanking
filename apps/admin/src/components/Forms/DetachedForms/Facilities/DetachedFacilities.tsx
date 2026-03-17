@@ -15,7 +15,7 @@ import { TagInput } from '@/components/ui/TagInput';
 import { FacilityEnums } from '@/enums/FacilityEnums';
 import { AccessibilityEnums } from '@/enums/AccessibilityEnums';
 import { SustainabilityEnums } from '@/enums/SustainabilityEnums';
-import { schoolFacilitiesSchema } from '@/types/School2.type';
+import { schoolFacilitiesSchema } from '@/types/School.type';
 import { type FC } from 'react';
 import {
   Select,

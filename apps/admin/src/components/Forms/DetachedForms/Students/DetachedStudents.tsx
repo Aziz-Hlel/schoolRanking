@@ -6,7 +6,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import type { SchoolStudentsNoID, schoolStudentsSchema } from '@/types/School2.type';
+import type { SchoolStudentsNoID, schoolStudentsSchema } from '@/types/School.type';
 import React from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 import type z from 'zod';

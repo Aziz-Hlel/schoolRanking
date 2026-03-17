@@ -1,7 +1,7 @@
 import useApiMutation from '@/hooks/useApiMutation';
 import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
-import { schoolFeesSchema, type SchoolFeesNoID } from '@/types/School2.type';
+import { schoolFeesSchema, type SchoolFeesNoID } from '@/types/School.type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { produce } from 'immer';
 import React from 'react';

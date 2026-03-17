@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 import { useGetArray } from './use-Get-Array';
 import type { UseFormReturn } from 'react-hook-form';
-import type { SchoolStudentsNoID } from '@/types/School2.type';
+import type { SchoolStudentsNoID } from '@/types/School.type';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import {
   FormControl,

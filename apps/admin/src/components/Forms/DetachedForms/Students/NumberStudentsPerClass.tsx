@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowUpFromLine, CirclePlus, Trash } from 'lucide-react';
 import { useGetArray } from './use-Get-Array';
 import { useFieldArray, type UseFieldArrayProps, type UseFormReturn } from 'react-hook-form';
-import type { SchoolStudentsNoID } from '@/types/School2.type';
+import type { SchoolStudentsNoID } from '@/types/School.type';
 
 interface NumberStudentsPerClassProps {
   form: UseFormReturn<SchoolStudentsNoID>;

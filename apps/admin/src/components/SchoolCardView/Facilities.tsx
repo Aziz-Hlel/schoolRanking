@@ -1,5 +1,5 @@
 import { Badge } from '../ui/badge';
-import type { SchoolFacilities } from '@/types/School2.type';
+import type { SchoolFacilities } from '@/types/School.type';
 import { FacilityEnums } from '@/enums/FacilityEnums';
 import { AccessibilityEnums } from '@/enums/AccessibilityEnums';
 import { SustainabilityEnums } from '@/enums/SustainabilityEnums';

@@ -13,7 +13,7 @@ import { AccreditationEnums } from '@/enums/AccreditationEnums';
 import { LevelEnums } from '@/enums/LevelEnums';
 import { CurriculumEnums } from '@/enums/CurriculumEnums';
 import { Checkbox } from '@/components/ui/checkbox';
-import { schoolAcademicsSchema, type SchoolAcademicsNoID } from '@/types/School2.type';
+import { schoolAcademicsSchema, type SchoolAcademicsNoID } from '@/types/School.type';
 import type { FC } from 'react';
 import type z from 'zod';
 import { Label } from '@/components/ui/label';

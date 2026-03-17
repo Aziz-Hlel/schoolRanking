@@ -1,4 +1,4 @@
-import type { SchoolFees } from '@/types/School2.type';
+import type { SchoolFees } from '@/types/School.type';
 import { Badge } from '../ui/badge';
 
 const FeesCardContent = ({ section }: { section?: SchoolFees }) => {

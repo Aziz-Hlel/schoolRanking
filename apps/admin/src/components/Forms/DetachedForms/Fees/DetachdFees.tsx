@@ -1,4 +1,4 @@
-import type { SchoolFeesNoID } from '@/types/School2.type';
+import type { SchoolFeesNoID } from '@/types/School.type';
 import { type FC } from 'react';
 import PrimaryFees from './PrimaryFees';
 import AdditionalFees from './AdditionalFees';

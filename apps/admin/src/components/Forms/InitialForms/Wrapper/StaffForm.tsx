@@ -2,7 +2,7 @@ import AbstractWrapper from './AbstractWrapper';
 import { useNavigate } from 'react-router-dom';
 import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
-import { schoolStaffSchema } from '@/types/School2.type';
+import { schoolStaffSchema } from '@/types/School.type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type FieldErrors } from 'react-hook-form';
 import DetachedStaff from '../../DetachedForms/Staff/DetachedStaff';

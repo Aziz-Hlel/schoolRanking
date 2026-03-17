@@ -244,7 +244,7 @@ export const schoolStaffSchema = z.object({
 
   teacherNationalities: z
     .array(z.string(), { required_error: 'At least one teacher nationality is required' })
-    .min(1, 'At least one teacher nationality is required'),
+    .default([]),
 
   teacherLanguages: z
     .array(
@@ -253,7 +253,7 @@ export const schoolStaffSchema = z.object({
       ),
       { required_error: 'At least one teacher language is required' },
     )
-    .min(1, 'At least one teacher language is required'),
+    .default([]),
 
   professionalDevelopment: z
     .string()

@@ -1,7 +1,7 @@
 import { Form } from '@/components/ui/form';
 import AbstractWrapper from './AbstractWrapper';
 import DetachedMedia from '../../DetachedForms/Media/DetachedMedia';
-import { schoolMediaSchema } from '@/types/School2.type';
+import { schoolMediaSchema } from '@/types/School.type';
 import type z from 'zod';
 import { useForm } from 'react-hook-form';
 import apiRoutes from '@/service/Api/apiRoutes';

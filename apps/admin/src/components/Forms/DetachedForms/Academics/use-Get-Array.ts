@@ -1,4 +1,4 @@
-import type { SchoolStudentsNoID } from '@/types/School2.type';
+import type { SchoolStudentsNoID } from '@/types/School.type';
 import {
   useFieldArray,
   type UseFieldArrayProps,

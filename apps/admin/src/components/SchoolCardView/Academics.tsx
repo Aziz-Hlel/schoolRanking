@@ -1,5 +1,5 @@
 import { Badge } from '../ui/badge';
-import type { SchoolAcademics } from '@/types/School2.type';
+import type { SchoolAcademics } from '@/types/School.type';
 import { LevelEnums } from '@/enums/LevelEnums';
 import { CurriculumEnums } from '@/enums/CurriculumEnums';
 import { CircleCheckBig } from 'lucide-react';

@@ -1,4 +1,4 @@
-import type { SchoolMedia } from '@/types/School2.type';
+import type { SchoolMedia } from '@/types/School.type';
 import { Badge } from '../ui/badge';
 import { ExternalLink } from 'lucide-react';
 

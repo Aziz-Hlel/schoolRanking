@@ -2,7 +2,7 @@ import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
 import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
-import { schoolStudentsSchema } from '@/types/School2.type';
+import { schoolStudentsSchema } from '@/types/School.type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';

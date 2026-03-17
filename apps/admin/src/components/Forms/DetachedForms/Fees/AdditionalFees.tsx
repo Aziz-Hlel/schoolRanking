@@ -1,6 +1,6 @@
 import React, { type FC } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
-import type { SchoolFeesNoID } from '@/types/School2.type';
+import type { SchoolFeesNoID } from '@/types/School.type';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';

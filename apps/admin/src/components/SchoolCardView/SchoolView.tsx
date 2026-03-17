@@ -22,7 +22,7 @@ import StaffCardContent from './Staff';
 import MediaCardContent from './Media';
 import SectionHeader from './SectionHeader';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
-import type { SchoolDetailed } from '@/types/School2.type';
+import type { SchoolDetailed } from '@/types/School.type';
 import FeesCardContent from './Fees';
 import StudentsCardContent from './Students';
 type DivClassName = JSX.IntrinsicElements['div']['className'];

@@ -1,4 +1,4 @@
-import type { SchoolStudentsNoID } from '@/types/School2.type';
+import type { SchoolStudentsNoID } from '@/types/School.type';
 import React from 'react';
 import { Label } from '../ui/label';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';

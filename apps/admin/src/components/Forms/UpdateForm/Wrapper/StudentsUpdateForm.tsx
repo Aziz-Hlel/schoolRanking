@@ -1,7 +1,7 @@
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import apiRoutes from '@/service/Api/apiRoutes';
 import { apiService } from '@/service/Api/apiService';
-import { schoolStudentsSchema, type SchoolStudentsNoID } from '@/types/School2.type';
+import { schoolStudentsSchema, type SchoolStudentsNoID } from '@/types/School.type';
 import safeAsyncMutate from '@/utils/safeAsyncMutate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';

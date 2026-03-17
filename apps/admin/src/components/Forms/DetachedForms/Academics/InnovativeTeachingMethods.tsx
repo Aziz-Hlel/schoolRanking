@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowUpFromLine, CirclePlus, Trash } from 'lucide-react';
 import { useGetArray } from './use-Get-Array';
 import type { UseFormReturn } from 'react-hook-form';
-import type { SchoolAcademicsNoID } from '@/types/School2.type';
+import type { SchoolAcademicsNoID } from '@/types/School.type';
 import { Textarea } from '@/components/ui/textarea';
 
 interface InnovativeTeachingMethodsProps {

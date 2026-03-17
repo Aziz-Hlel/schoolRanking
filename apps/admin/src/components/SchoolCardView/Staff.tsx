@@ -1,4 +1,4 @@
-import type { SchoolStaff } from '@/types/School2.type';
+import type { SchoolStaff } from '@/types/School.type';
 import { CalendarCheck, CalendarX, Users, UserCheck, UserX } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import { Label } from '../ui/label';

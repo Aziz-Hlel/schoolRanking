@@ -1,5 +1,5 @@
 import { CountryEnums } from '@/enums/CountryEnums';
-import type { SchoolGeneral } from '@/types/School2.type';
+import type { SchoolGeneral } from '@/types/School.type';
 import { Globe, MapPin } from 'lucide-react';
 import { CircleFlag, countries } from 'react-circle-flags';
 import { Label } from '../ui/label';
