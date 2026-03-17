@@ -196,7 +196,9 @@ export const schoolFacilitiesSchema = z.object({
     ])
     .optional()
     .transform((val) => (val?.trim() === '' ? undefined : val)),
-  technologyReadiness: z.enum(Object.keys(RatingLevelEnums) as [string, ...string[]]),
+  technologyReadiness: z
+    .enum(Object.keys(RatingLevelEnums) as [string, ...string[]])
+    .default(RatingLevelEnums.HIGH.value),
 
   industryPartnerships: z
     .array(
