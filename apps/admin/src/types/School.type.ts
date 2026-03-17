@@ -9,6 +9,7 @@ import { AccreditationEnums } from '@/enums/AccreditationEnums';
 import { LevelEnums } from '@/enums/LevelEnums';
 import z from 'zod';
 import { RatingLevelEnums } from '@/enums/RatingLevelEnums';
+import { optionalString, optionalUrl } from './customZod';
 
 // Schemas
 
@@ -70,7 +71,7 @@ export const schoolAcademicsSchema = z.object({
 
   internationalAccreditations: z
     .array(z.enum(Object.keys(AccreditationEnums) as [string, ...string[]]))
-    .min(1, 'At least one accreditation is required'),
+    .default([]),
 
   additionalAccreditations: z
     .array(
@@ -89,13 +90,9 @@ export const schoolAcademicsSchema = z.object({
     .optional()
     .transform((val) => (val?.trim() === '' ? undefined : val)),
 
-  levelsOffered: z
-    .array(z.enum(Object.keys(LevelEnums) as [string, ...string[]]))
-    .min(1, 'At least one level is required'),
+  levelsOffered: z.array(z.enum(Object.keys(LevelEnums) as [string, ...string[]])).default([]),
 
-  curriculums: z
-    .array(z.enum(Object.keys(CurriculumEnums) as [string, ...string[]]))
-    .min(1, 'At least one curriculum is required'),
+  curriculums: z.array(z.enum(Object.keys(CurriculumEnums) as [string, ...string[]])).default([]),
 
   additionalCurriculums: z
     .array(
@@ -159,15 +156,15 @@ export const schoolFacilitiesSchema = z.object({
         .max(50, 'University name must be at most 50 characters')
         .trim(),
     )
-    .min(1, 'At least one university destination is required')
     .max(50, 'Maximum 50 university destinations allowed')
     .default([]),
 
-  csrActivities: z
-    .string()
-    .min(10, 'CSR activities description must be at least 10 characters')
-    .max(1000, 'Description must be at most 1000 characters')
-    .trim(),
+  csrActivities: optionalString({
+    string: {
+      message: 'CSR activities description is required',
+      max: 255,
+    },
+  }),
 
   hasNurse: z.boolean({ required_error: 'Nurse is required' }).default(false),
 
@@ -218,29 +215,26 @@ export const schoolFacilitiesSchema = z.object({
 export const schoolStaffSchema = z.object({
   leadershipTeam: z
     .string()
-    .min(10, 'Leadership team description must be at least 10 characters')
-    .max(255, 'Description must be at most 255 characters')
     .trim()
     .optional()
     .transform((val) => (val?.trim() === '' ? undefined : val)),
 
-  leadershipProfileLink: z
-    .string()
-    .url('Please enter a valid URL for leadership profile')
-    .max(255, 'URL must be at most 255 characters')
-    .trim()
-    .optional()
-    .transform((val) => (val?.trim() === '' ? undefined : val)),
+  leadershipProfileLink: optionalUrl({
+    url: { message: 'Please enter a valid URL for leadership profile', max: 255 },
+  }),
 
   staffSizeEstimate: z
     .number({ required_error: 'Staff size is required' })
     .int('Staff size must be a whole number')
     .min(1, 'Staff size must be at least 1')
-    .max(1000, 'Staff size must be at most 1000'),
+    .max(1000, 'Staff size must be at most 1000')
+    .optional(),
 
   teacherQualifications: z
     .string({ required_error: 'Teacher qualifications are required' })
-    .min(10, 'Teacher qualifications must be at least 10 characters'),
+    .trim()
+    .optional()
+    .transform((val) => (val?.trim() === '' ? undefined : val)),
 
   teacherNationalities: z
     .array(z.string(), { required_error: 'At least one teacher nationality is required' })
@@ -271,34 +265,18 @@ export const schoolStaffSchema = z.object({
 });
 
 export const schoolMediaSchema = z.object({
-  bqaReportLink: z
-    .string()
-    .url('Please enter a valid URL')
-    .max(255, 'URL must be at most 255 characters')
-    .trim()
-    .optional()
-    .transform((val) => (val?.trim() === '' ? undefined : val)),
-  brochureLink: z
-    .string()
-    .url('Please enter a valid URL')
-    .max(255, 'URL must be at most 255 characters')
-    .trim()
-    .optional()
-    .transform((val) => (val?.trim() === '' ? undefined : val)),
-  galleryLink: z
-    .string()
-    .url('Please enter a valid URL')
-    .max(255, 'URL must be at most 255 characters')
-    .trim()
-    .optional()
-    .transform((val) => (val?.trim() === '' ? undefined : val)),
-  videoTourLink: z
-    .string()
-    .url('Please enter a valid URL')
-    .max(255, 'URL must be at most 255 characters')
-    .trim()
-    .optional()
-    .transform((val) => (val?.trim() === '' ? undefined : val)),
+  bqaReportLink: optionalUrl({
+    url: { message: 'Please enter a valid URL for BQA report', max: 255 },
+  }),
+  brochureLink: optionalUrl({
+    url: { message: 'Please enter a valid URL for brochure', max: 255 },
+  }),
+  galleryLink: optionalUrl({
+    url: { message: 'Please enter a valid URL for gallery', max: 255 },
+  }),
+  videoTourLink: optionalUrl({
+    url: { message: 'Please enter a valid URL for video tour', max: 255 },
+  }),
 });
 
 export const schoolFeesSchema = z.object({

@@ -16,6 +16,7 @@ import { type Country } from '@/components/ui/countries-dropdown';
 import { MultiSelect } from '@/components/ui/multi-select';
 // import { CountryEnums } from '@/enums/CountryEnums';
 import { countries as countriesss } from 'country-data-list';
+import InputNumberForm from '@/components/ui2/InputNumberForm/InputNumberForm';
 
 interface DetachedStaffProps {
   form: UseFormReturn<SchoolStaff>;
@@ -77,12 +78,13 @@ const DetachedStaff: FC<DetachedStaffProps> = ({ form }) => {
             <FormLabel>Staff Size Estimate *</FormLabel>
             <FormDescription>Total number of staff members</FormDescription>
             <FormControl>
-              <Input
+              {/* <Input
                 type="number"
                 placeholder="50"
                 {...field}
                 onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-              />
+              /> */}
+              <InputNumberForm field={field} />
             </FormControl>
             <FormMessage />
           </FormItem>

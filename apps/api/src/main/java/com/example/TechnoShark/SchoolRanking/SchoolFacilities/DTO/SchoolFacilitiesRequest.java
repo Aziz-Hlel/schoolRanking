@@ -25,12 +25,10 @@ public class SchoolFacilitiesRequest {
     @Size(max = 50, message = "You can include up to 50 sustainability practices")
     private List<@NotNull SustainabilityEnums> sustainabilityPractices = List.of();
 
-    @Size(min = 1, message = "You must include at least 1 university destination")
     @Size(max = 50, message = "You can include up to 50 university destinations")
     private List<@NotBlank(message = "University destination cannot be blank") @Size(max = 50, message = "University destination must be at most 50 characters") String> universityDestinations = List
             .of();
 
-    @NotBlank(message = "CSR activities cannot be blank")
     @Size(max = 1000, message = "CSR activities must be less than 1000 characters")
     private String csrActivities;
 

@@ -88,6 +88,7 @@ public class SchoolFacilities {
     @Enumerated(EnumType.STRING)
     private RatingLevelEnums technologyReadiness;
 
+    @Column(nullable = true)
     private String awardsAndRecognitions;
 
     @Column(nullable = false, name = "has_nurse")

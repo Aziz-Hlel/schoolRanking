@@ -41,11 +41,11 @@ public class SchoolStaffRequestDTO {
     private String teacherQualifications;
 
     @Nullable
-    @Size(min = 1, message = "At least one teacher nationality must be provided")
+    @Size(message = "At least one teacher nationality must be provided")
     private Set<@NotBlank @Size(max = 50, message = "Teacher nationality must be at most 50 characters") String> teacherNationalities = new HashSet<>();
 
     @Nullable
-    @Size(min = 1, message = "At least one teacher language must be provided")
+    @Size(message = "At least one teacher language must be provided")
     private Set<@NotNull LanguageEnums> teacherLanguages = new HashSet<>();
 
     @Nullable
