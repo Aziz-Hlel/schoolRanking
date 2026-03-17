@@ -262,9 +262,12 @@ export const schoolStaffSchema = z.object({
 
   lastInspectionDate: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in yyyy-MM-dd format')
-    .refine((date) => new Date(date) <= new Date(), 'Inspection date must be in the past')
-    .optional(),
+    .optional()
+    .refine((date) => {
+      if (!date) return true; // skip if undefined
+      const parsed = new Date(date);
+      return !isNaN(parsed.getTime()) && parsed <= new Date();
+    }, 'Inspection date must be a valid date in the past'),
 });
 
 export const schoolMediaSchema = z.object({
@@ -388,6 +391,12 @@ export const schoolStudentsSchema = z.object({
 type Id = {
   id: string;
 };
+
+export type SchoolGeneralData = z.infer<typeof schoolGeneralSchema>;
+export type SchoolAcademicsData = z.infer<typeof schoolAcademicsSchema>;
+export type SchoolFacilitiesData = z.infer<typeof schoolFacilitiesSchema>;
+export type SchoolStaffData = z.infer<typeof schoolStaffSchema>;
+export type SchoolMediaData = z.infer<typeof schoolMediaSchema>;
 
 type SchoolGeneralNoID = z.infer<typeof schoolGeneralSchema>;
 
