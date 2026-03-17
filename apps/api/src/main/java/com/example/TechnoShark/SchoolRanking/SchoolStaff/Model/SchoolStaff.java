@@ -1,6 +1,7 @@
 package com.example.TechnoShark.SchoolRanking.SchoolStaff.Model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -43,8 +44,8 @@ public class SchoolStaff {
     @Column(nullable = true)
     private String leadershipProfileLink;
 
-    @Column(nullable = false)
-    private int staffSizeEstimate;
+    @Column(nullable = true)
+    private Integer staffSizeEstimate;
 
     @Column(nullable = true)
     private String teacherQualifications;
@@ -55,13 +56,13 @@ public class SchoolStaff {
     @ElementCollection
     @CollectionTable(name = "school_staff_nationalities", joinColumns = @JoinColumn(name = "school_staff_id"))
     @Column(name = "country")
-    private Set<String> teacherNationalities;
+    private Set<String> teacherNationalities = new HashSet<>();
 
     @ElementCollection(targetClass = LanguageEnums.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "school_staff_languages", joinColumns = @JoinColumn(name = "school_staff_id"))
     @Column(name = "language")
-    private Set<LanguageEnums> teacherLanguages;
+    private Set<LanguageEnums> teacherLanguages = new HashSet<>();
 
     @Column(nullable = true)
     private LocalDate lastInspectionDate;

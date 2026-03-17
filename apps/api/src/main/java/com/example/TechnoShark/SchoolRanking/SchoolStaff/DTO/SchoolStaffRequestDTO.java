@@ -30,20 +30,21 @@ public class SchoolStaffRequestDTO {
     @Size(max = 255, message = "Leadership profile link must be at most 255 characters")
     private String leadershipProfileLink;
 
+    @Nullable
     @Min(value = 1, message = "Staff size estimate must be at least 1")
     @Max(value = 1000, message = "Staff size estimate must be at most 1000")
-    private int staffSizeEstimate;
+    private Integer staffSizeEstimate;
 
     @Nullable
     @Pattern(regexp = "^\\s*\\S.*$", message = "Leadership team must not be blank")
     @Size(max = 255, message = "Leadership profile link must be at most 255 characters")
     private String teacherQualifications;
 
-    @NotNull(message = "Teacher nationalities must not be null")
+    @Nullable
     @Size(min = 1, message = "At least one teacher nationality must be provided")
     private Set<@NotBlank @Size(max = 50, message = "Teacher nationality must be at most 50 characters") String> teacherNationalities = new HashSet<>();
 
-    @NotNull(message = "Teacher languages must not be null")
+    @Nullable
     @Size(min = 1, message = "At least one teacher language must be provided")
     private Set<@NotNull LanguageEnums> teacherLanguages = new HashSet<>();
 
