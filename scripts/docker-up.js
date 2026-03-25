@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { execSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import { existsSync, writeFileSync, readFileSync } from 'fs';
 import { join } from 'path';
 
