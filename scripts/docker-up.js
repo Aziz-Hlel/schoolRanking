@@ -56,10 +56,20 @@ env.PROJECT_ROOT = ROOT;
 console.log(`${YELLOW}🚀 Starting Docker in ${envArg.toUpperCase()} Env...${NC}`);
 
 // Run Docker Compose
-execSync(`docker compose -f ${DOCKER_COMPOSE_MAP[envArg]} up --build`, {
-  stdio: 'inherit',
-  env,
-});
+const isV2 = (() => {
+  try {
+    execSync('docker compose version', { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+})();
+
+const command = isV2 ? 'docker' : 'docker-compose';
+
+const args = [...(isV2 ? ['compose'] : []), '-f', DOCKER_COMPOSE_MAP[envArg], 'up', '--build'];
+
+spawnSync(command, args, { stdio: 'inherit', env });
 
 console.log(`${GREEN}✅ Done!${NC}`);
 

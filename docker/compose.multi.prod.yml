@@ -10,7 +10,8 @@ services:
 
     expose:
       - 8000
-
+    ports:
+      - 3020:8000
     volumes:
       - schoolranking-caddy-data:/data
       - schoolranking-caddy-config:/config
