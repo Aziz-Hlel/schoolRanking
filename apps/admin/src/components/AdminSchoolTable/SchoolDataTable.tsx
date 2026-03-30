@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -7,34 +6,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import React, { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Edit, Trash2, Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import type { SchoolPage } from '@/types/SchoolPage';
-import { Eye } from 'lucide-react';
+import { Eye, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-interface School {
-  id: string;
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
-  principalName: string;
-  studentCount: number;
-  status: 'active' | 'inactive';
-  createdAt: string;
-}
 
 interface SchoolDataTableProps {
   data: SchoolPage[];
-  onEdit: (schoolId: string) => void;
-  onDelete: (schoolId: string) => void;
+  onDelete: (school: SchoolPage) => void;
 }
 
-export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({ data, onEdit, onDelete }) => {
+export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({ data, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
   // Define the keys you want to sort by, matching SchoolPage properties
   type SortableColumn = 'name' | 'adminUsername' | 'email' | 'studentCount';
@@ -82,7 +67,7 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({ data, onEdit, 
   return (
     <div className="space-y-6">
       {/* Barre de recherche */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      {/* <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
           <Input
@@ -92,14 +77,14 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({ data, onEdit, 
             className="pl-10 rounded-lg border-gray-300 focus:ring-2 focus:ring-[#212E53] focus:border-[#212E53] shadow-sm"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* Tableau */}
       <div className="bg-white border border-gray-200 rounded-2xl shadow-md overflow-hidden">
         <div className="overflow-x-auto">
           <Table>
             <TableHeader className="bg-[#212E53] text-white">
-              <TableRow className="bg-gradient-to-r from-emerald-300 to-green-200 text-white text-sm">
+              <TableRow className="bg-linear-to-r from-emerald-300 to-green-200 text-white text-sm">
                 <TableHead className=" bg-transparent" onClick={() => handleSort('name')}>
                   School {sortBy === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </TableHead>
@@ -161,11 +146,19 @@ export const SchoolDataTable: React.FC<SchoolDataTableProps> = ({ data, onEdit, 
                           <Button
                             variant="outline"
                             size="sm"
-                            className="cursor-pointer border-gray-300 hover:bg-[#212E53] hover:text-white transition-colors"
+                            className="cursor-pointer border-gray-300 hover:bg-blue-500 hover:text-white transition-colors"
                           >
                             <Eye className="w-4 h-4" />
                           </Button>
                         </Link>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="cursor-pointer border-gray-300 hover:bg-red-500 hover:text-white transition-colors"
+                          onClick={() => onDelete(school)}
+                        >
+                          <Trash2 className="w-4 h-4 " />
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>

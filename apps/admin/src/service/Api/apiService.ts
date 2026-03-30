@@ -345,7 +345,7 @@ class ApiService {
 
       if (status !== 200) this.throwErrorAlert(status, apiErrorMessage);
 
-      return { error: apiErrorMessage, status, success: false };
+      throw { error: apiErrorMessage, status, success: false };
     }
   }
 }

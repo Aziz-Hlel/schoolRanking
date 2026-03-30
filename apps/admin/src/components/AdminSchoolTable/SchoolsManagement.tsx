@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SchoolDataTable } from './SchoolDataTable';
 import useApiQuery from '@/hooks/useApiQuery';
 import apiRoutes from '@/service/Api/apiRoutes';
-import type { PageSchool } from '@/types/SchoolPage';
+import type { PageSchool, SchoolPage } from '@/types/SchoolPage';
 import { DataTablePagination } from './pagination/Pagination';
 import { initialPageResponse, type PageableApiResponse } from '@/types/ApiPageResponse';
+import DeleteDialog from './delete/DeleteDialog';
 
 export const SchoolsManagement: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -23,6 +24,8 @@ export const SchoolsManagement: React.FC = () => {
   const pageable: PageableApiResponse =
     schoolData?.success === true ? schoolData.data : initialPageResponse;
 
+  const [schoolToDelete, setSchoolToDelete] = useState<SchoolPage | null>(null);
+
   const onPreviousPage = () => {
     setPage((prevPage) => prevPage - 1);
   };
@@ -31,13 +34,8 @@ export const SchoolsManagement: React.FC = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const handleEditSchool = (id: string) => {
-    console.log('Edit school:', id);
-  };
-
-  const handleDeleteSchool = (id: string) => {
-    console.log('Delete school:', id);
-    // setSchools(schools.filter((school) => school.id !== id));
+  const handleDeleteSchool = (school: SchoolPage) => {
+    setSchoolToDelete(school);
   };
 
   const handlePageChange = (newPage: number) => {
@@ -47,6 +45,7 @@ export const SchoolsManagement: React.FC = () => {
   const handlePageSizeChange = (newPageSize: number) => {
     setSize(newPageSize);
   };
+  console.log('sctool to dlelete :', schoolToDelete);
 
   return (
     <div className="space-y-6">
@@ -67,7 +66,8 @@ export const SchoolsManagement: React.FC = () => {
           <CardTitle>Schools</CardTitle>
         </CardHeader>
         <CardContent>
-          <SchoolDataTable data={schools} onEdit={handleEditSchool} onDelete={handleDeleteSchool} />
+          <SchoolDataTable data={schools} onDelete={handleDeleteSchool} />
+
           <div className="mt-4 border p-2 shadow-md rounded-md">
             <DataTablePagination
               pageable={pageable}
@@ -78,8 +78,13 @@ export const SchoolsManagement: React.FC = () => {
               className="mt-auto w-full"
             />
           </div>
+          <DeleteDialog
+            schoolToDelete={schoolToDelete}
+            handleCancel={() => setSchoolToDelete(null)}
+          />
         </CardContent>
       </Card>
+      <DeleteDialog schoolToDelete={schoolToDelete} handleCancel={() => setSchoolToDelete(null)} />
     </div>
   );
 };
