@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,6 +74,23 @@ public class SchoolController {
 
         return ApiResult.of(school)
                 .withMessage("School updated successfully")
+                .withStatus(HttpStatus.OK).toResponse();
+    }
+
+    @DeleteMapping({ "/{schoolId}" })
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<ApiResponse<Object>> deleteSchool(@PathVariable UUID schoolId) {
+
+        UUID userId = UserContext.getCurrentUserId();
+
+        if (!schoolAuthService.canUserAccessSchool(userId, schoolId)
+                && UserContext.getRole() != RoleEnums.SUPER_ADMIN)
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not authorized to delete this school");
+
+        schoolService.delete(schoolId);
+
+        return ApiResult.of(null)
+                .withMessage("School deleted successfully")
                 .withStatus(HttpStatus.OK).toResponse();
     }
 

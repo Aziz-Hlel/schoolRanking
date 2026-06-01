@@ -6,7 +6,6 @@ import AuthenticatedRoutes from './Guard/AuthenticatedRoutes';
 import { Dashboard } from './components/Dashboard';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { AdminManagement } from './components/AdminManagement';
-import { SchoolsManagement } from './components/SchoolsManagement';
 import { ProfileInformation } from './components/Profile/ProfileInformation';
 import { SchoolView } from './components/SchoolCardView/SchoolView';
 import ChangePassword from './components/Profile/ChangePassword';
@@ -35,6 +34,7 @@ import FeesForm from './components/Forms/InitialForms/Wrapper/FeesForm';
 import StudentsForm from './components/Forms/InitialForms/Wrapper/StudentsForm';
 import StudentsUpdateForm from './components/Forms/UpdateForm/Wrapper/StudentsUpdateForm';
 import ScrollToTop from './utils/ScrollToTop';
+import { SchoolsManagement } from './components/AdminSchoolTable/SchoolsManagement';
 
 const queryClient = new QueryClient();
 

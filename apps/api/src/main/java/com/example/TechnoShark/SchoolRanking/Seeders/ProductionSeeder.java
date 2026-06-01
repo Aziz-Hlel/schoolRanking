@@ -21,6 +21,7 @@ public class ProductionSeeder implements CommandLineRunner {
         adminSeeder.createSuperAdmin("Ahmed", "Jdidi", "ajedidi@technoshark.org", "ajedidi");
         adminSeeder.createSuperAdmin("Aziz", "Hlel", "m.aziz.hlel@gmail.com", "XxXx9900");
         adminSeeder.createSuperAdmin("Abdalmuttaleb", "    ", "abdalmuttaleb@technoshark.org", "12345678");
+        adminSeeder.createSuperAdmin("Aziz", "Hlel", "tigana137@gmail.com", "XxXx9900");
 
     }
 

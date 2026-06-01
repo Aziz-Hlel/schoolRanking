@@ -41,7 +41,7 @@ const GeneralCardContent = ({ section }: { section?: SchoolGeneral }) => {
             WebkitLineClamp: 2,
           }}
         >
-          {section.description && section.description === ''
+          {section.description && section.description !== ''
             ? section.description
             : 'No Description Provided'}
         </p>

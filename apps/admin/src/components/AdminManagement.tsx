@@ -14,11 +14,12 @@ export const AdminManagement: React.FC = () => {
 
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
   const [deletingAdmin, setDeletingAdmin] = useState<Admin | null>(null);
+  const queryParams = { page: 1, size: 50 };
   const { data } = useApiQuery<AdminPage>({
     url: apiRoutes.user.getPageUser,
-    queryParams: { page: 1, size: 20 },
-    queryKey: ['admins'],
-    options: { fetchOnMount: true, config: { params: { page: 1, size: 20 } } },
+    queryParams,
+    queryKey: ['admins', JSON.stringify(queryParams)],
+    options: { fetchOnMount: true, config: { params: queryParams } },
   });
 
   const admins = data && data.success === true ? data?.data.content : [];

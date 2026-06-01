@@ -70,6 +70,13 @@ public class SchoolService {
         return schoolMapper.toDto(saved);
     }
 
+    public void delete(UUID schoolId) {
+        School existingSchool = schoolRepo.findById(schoolId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "School not found"));
+
+        schoolRepo.delete(existingSchool);
+    }
+
     public SchoolResponse get(UUID schoolId) {
         // ! add condition to check if user is the school's owner or he ADMIN
         School school = schoolRepo.findById(schoolId)
