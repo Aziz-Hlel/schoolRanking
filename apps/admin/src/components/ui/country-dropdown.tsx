@@ -101,7 +101,7 @@ const CountryDropdownComponent = (
             </div>
             {slim === false && (
               <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                {selectedCountry.name}
+                {selectedCountry.alpha2 === 'PS' ? 'Palestine' : selectedCountry.name}
               </span>
             )}
           </div>
@@ -137,7 +137,7 @@ const CountryDropdownComponent = (
                         <CircleFlag countryCode={option.alpha2.toLowerCase()} height={20} />
                       </div>
                       <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                        {option.name}
+                        {option.alpha2 === 'PS' ? 'Palestine' : option.name}
                       </span>
                     </div>
                     <CheckIcon

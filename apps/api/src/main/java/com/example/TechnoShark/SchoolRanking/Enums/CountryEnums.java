@@ -1,11 +1,26 @@
 package com.example.TechnoShark.SchoolRanking.Enums;
 
 public enum CountryEnums {
+    DZ,
     BH,
+    KM,
+    DJ,
+    EG,
+    IQ,
+    JO,
     KW,
+    LB,
+    LY,
+    MR,
+    MA,
     OM,
+    PS,
     QA,
     SA,
+    SO,
+    SD,
+    SY,
+    TN,
     AE,
-    TN
+    YE,
 }
