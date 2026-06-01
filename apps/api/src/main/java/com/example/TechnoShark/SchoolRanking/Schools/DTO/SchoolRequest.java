@@ -24,6 +24,11 @@ public class SchoolRequest {
     private CountryEnums country;
 
     @NotBlank
+    @Size(max = 100, message = "Governorate must be less than 100 characters")
+    private String governorate;
+
+    @NotBlank
+    @Size(max = 100, message = "City must be less than 100 characters")
     private String city;
 
     @NotBlank

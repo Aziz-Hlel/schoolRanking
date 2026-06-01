@@ -54,7 +54,7 @@ const GeneralCardContent = ({ section }: { section?: SchoolGeneral }) => {
           ]?.value.toLowerCase()}
           className="w-4 h-4 text-muted-foreground "
         />
-        <p className="text-sm">{`${CountryEnums[section.country as keyof typeof CountryEnums]?.label ?? section.country}, ${section.city}, ${section.address}`}</p>
+        <p className="text-sm">{`${CountryEnums[section.country as keyof typeof CountryEnums]?.label ?? section.country}, ${section.governorate ?? ''}, ${section.city}, ${section.address}`}</p>
       </div>
       <div className="flex items-start gap-2">
         <Globe className="w-4 h-4 text-muted-foreground" />

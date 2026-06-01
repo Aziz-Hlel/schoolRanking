@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -57,7 +58,7 @@ public class SchoolService {
 
     }
 
-    public SchoolResponse update(SchoolRequest schoolRequest, UUID schoolId) {
+    public SchoolResponse update(SchoolRequest schoolRequest, @NonNull UUID schoolId) {
 
         School existingSchool = schoolRepo.findById(schoolId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "School not found"));

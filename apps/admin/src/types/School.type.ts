@@ -27,6 +27,11 @@ export const schoolGeneralSchema = z.object({
   country: z.enum(
     Object.values(CountryEnums).map((country) => country.value) as [string, ...string[]],
   ),
+  governorate: z
+    .string()
+    .min(2, 'Governorate must be at least 2 characters')
+    .max(50, 'Governorate must be at most 50 characters')
+    .trim(),
   city: z
     .string()
     .min(2, 'City must be at least 2 characters')

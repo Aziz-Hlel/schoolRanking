@@ -5,16 +5,16 @@ import java.util.UUID;
 import com.example.TechnoShark.SchoolRanking.Enums.CountryEnums;
 
 public record SchoolPageResponse(
-        UUID id,
-        String name,
-        CountryEnums country,
-        String city,
-        String address,
-        String phoneNumber,
-        String email,
-        String adminUsername,
-        String website,
-        boolean isComplete
-) {
+                UUID id,
+                String name,
+                CountryEnums country,
+                String governorate,
+                String city,
+                String address,
+                String phoneNumber,
+                String email,
+                String adminUsername,
+                String website,
+                boolean isComplete) {
 
 }

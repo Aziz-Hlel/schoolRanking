@@ -15,6 +15,7 @@ public class SchoolResponse {
     private UUID id;
     private String name;
     private String description;
+    private String governorate;
     private String city;
     private String address;
     private String phoneNumber;

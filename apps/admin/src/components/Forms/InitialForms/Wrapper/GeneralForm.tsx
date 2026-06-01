@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import type z from 'zod';
 import AbstractWrapper from './AbstractWrapper';
 import NavigationButtons from '../NavigationButton/NavigationButtons';
-import { useChangePageById, useOrdredPages } from '@/store/usePageStore';
+import { useChangePageById } from '@/store/usePageStore';
 import { useDetailedSchool } from '@/contexts/DetailedSchoolProvider';
 import useApiMutation from '@/hooks/useApiMutation';
 import DetachedGeneral from '../../DetachedForms/General/DetachedGeneral';
@@ -20,7 +20,6 @@ const GeneralForm = () => {
   const form = useForm<SchoolGeneral>({ resolver: zodResolver(schoolGeneralSchema) });
 
   const changePageById = useChangePageById();
-  const ordredPages = useOrdredPages();
   const { fetchDetailedSchool } = useDetailedSchool();
 
   const mutationFn = (formData: SchoolGeneral) =>
@@ -31,7 +30,6 @@ const GeneralForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: SchoolGeneral) => {
-    console.log('ordredPages b4 : ', ordredPages);
     const response = await safeAsyncMutate(data);
 
     if (response.success === false) {
@@ -41,8 +39,6 @@ const GeneralForm = () => {
 
     const schoolId = response.data;
     fetchDetailedSchool(schoolId);
-    console.log('fcking school id : ', schoolId);
-    console.log('ordredPages rn : ', ordredPages);
     changePageById(schoolId);
     navigate(`/dashboard/add-school/${schoolId}/form/academics`);
   };

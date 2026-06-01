@@ -58,6 +58,9 @@ public class School {
     private CountryEnums country;
 
     @Column(nullable = false)
+    private String governorate = "";
+
+    @Column(nullable = false)
     private String city;
 
     @Column(nullable = false)

@@ -1,0 +1,2 @@
+ALTER TABLE schools
+ADD COLUMN governorate VARCHAR(255) DEFAULT '';

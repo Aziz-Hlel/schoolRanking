@@ -28,6 +28,11 @@ const AE = {
   label: 'United Arab Emirates',
 };
 
+const TN = {
+  value: 'TN' as const,
+  label: 'Tunisia',
+};
+
 export const CountryEnums = {
   BH,
   KW,
@@ -35,6 +40,7 @@ export const CountryEnums = {
   QA,
   SA,
   AE,
+  TN,
 };
 
 export type CountryEnums = (typeof CountryEnums)[keyof typeof CountryEnums]['value'];

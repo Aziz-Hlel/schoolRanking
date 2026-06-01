@@ -107,6 +107,20 @@ const DetachedGeneral: FC<DetachedFormProps> = ({ form }) => {
 
       <FormField
         control={form.control}
+        name="governorate"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Governorate</FormLabel>
+            <FormControl>
+              <Input placeholder="Enter governorate" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
         name="city"
         render={({ field }) => (
           <FormItem>
